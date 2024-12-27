@@ -25,7 +25,8 @@ router.post("/", (req, res) => {
           databaseFields: {
             email: email,
             user_name: username,
-            password: hash
+            password: hash,
+            role:"Admin"
           },
         };
         connection.query(

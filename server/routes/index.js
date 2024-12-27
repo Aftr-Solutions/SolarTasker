@@ -20,7 +20,11 @@ const updateworkers=require("../Apis/Workers/Update");
 const deleteworkers=require("../Apis/Workers/Delete");
 const selectworkers=require("../Apis/Workers/Select");
 
+// Public route (no userAuth)
 router.use("/login", authentication);
+
+// Protected routes (with userAuth)
+router.use(userAuth);
 router.use("/createUser",createUser);
 
 router.use("/createarea_region",createarea_region);
