@@ -18,6 +18,12 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(helmet());
 
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 15 minutes
+  limit: 50, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  message: "you have exceed the number of request",
+});
+
 app.get("/", (req, res) => {
     res.send("Success");
   });

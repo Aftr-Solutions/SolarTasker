@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const tableNames = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
+const sendUserCredentials = require("../../middleware/sendMail");
 
 router.post("/", (req, res) => {
   let email = req.body.email;
@@ -51,6 +52,7 @@ router.post("/", (req, res) => {
                   .send(RESPONSE(false, "User creation failed", err));
               }
             } else {
+              sendUserCredentials(email, username, password, req, res);
               return res.send(RESPONSE(true, "Succesfully Created", result));
             }
           }
