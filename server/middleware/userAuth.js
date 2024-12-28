@@ -15,19 +15,19 @@ module.exports = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
 
     // Verify the token
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token,"pksectret");
     if (!decodedToken) {
       return res.status(401).json({ message: "Invalid token" });
     }
 
-    // Database validation of the user
+    // Validate user in the database
     pool.getConnection((err, connection) => {
       if (err) {
         return res.status(500).json(RESPONSE("Database connection error", {}));
       }
 
       connection.query(
-        `SELECT * FROM ${tableNames.users} WHERE id = ?`,
+        `SELECT * FROM ${tableNames.owners} WHERE id = ?`,
         [decodedToken.id],
         (err, result) => {
           connection.release(); // Always release the connection
@@ -37,8 +37,9 @@ module.exports = async (req, res, next) => {
           }
 
           if (result.length > 0) {
-            // Attach user ID to the request for later use
+            // Attach user information to the request
             req.userId = decodedToken.id;
+            req.userRole = result[0].role; // Example: Attach role if needed
             next(); // Proceed to the next middleware or route
           } else {
             return res.status(401).json({ message: "User Not Authenticated" });

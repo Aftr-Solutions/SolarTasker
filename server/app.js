@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const http = require("http");
 const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 const cron = require("node-cron");
 const appRouter = require("./routes");
 
