@@ -3,7 +3,11 @@ const router = express.Router();
 
 const userAuth = require("../middleware/userAuth.js");
 const authentication = require("../Apis/Users/login");
+
 const createUser = require("../Apis/Users/Create");
+const deleteUser=require("../Apis/Users/Delete.js");
+const selectUser=require("../Apis/Users/Select.js");
+const passwordReset=require("../Apis/Users/PasswordReset.js");
 
 const createclients=require("../Apis/Clinets/Create");
 const updateclients=require("../Apis/Clinets/Update");
@@ -26,6 +30,9 @@ router.use("/login", authentication);
 // Protected routes (with userAuth)
 router.use(userAuth);
 router.use("/createUser",createUser);
+router.use("/deleteUser",deleteUser);
+router.use("/selectUser",selectUser);
+router.use("passwordReset",passwordReset);
 
 router.use("/createarea_region",createarea_region);
 router.use("/updatearea_region",updatearea_region);
