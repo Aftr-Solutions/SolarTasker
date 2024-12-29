@@ -1,7 +1,6 @@
 const pool = require("../Utils/db");
 const response = require("../GlobalResponse/RESPONSE");
-// this function is for create global 
-//
+// this function is for create global
 
 const GlobalInsert = (payload, res) => {
   try {

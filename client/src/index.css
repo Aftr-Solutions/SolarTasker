@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  font-family: "Plus Jakarta Sans", serif;
+}
+.css-1b2xsvz-MuiTypography-root{
+  font-family: "Plus Jakarta Sans", serif !important;
+}
+.css-hwb603-MuiListSubheader-root{
+  font-family: "Plus Jakarta Sans", serif !important;
+}
+.css-2ulfj5-MuiTypography-root{
+  font-family: "Plus Jakarta Sans", serif !important;
+}
+.css-ol7wxs-MuiTypography-root{
+  font-family: "Plus Jakarta Sans", serif !important;
+}
+
+
+
+/* Target the scrollbar track and thumb */
+.my-scrollable-element::-webkit-scrollbar {
+  width: 0px; /* Set scrollbar width */
+}
+
+
+.css-jhg68t{
+  transition: width 0.3s ease !important; /* Smooth animation for width */
+
+}
+.css-2ld9pa{
+  transition: width 0.3s ease !important; /* Smooth animation for width */
+
+}
+.side-bar {
+  overflow: auto;
+}
+
+
+/* Profile  */
+.css-whu3bg{
+  padding: 8px !important;
+}
+
+
+.large-screens{
+  display: block;
+}
+
+
+.small-screens{
+  display: none;
+}
+
+
+@media (max-width: 1165px) {
+  .large-screens {
+    display: none;
+  }
+
+  .small-screens {
+    display: block;
+  }
+}
