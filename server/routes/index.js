@@ -24,6 +24,11 @@ const updateworkers=require("../Apis/Workers/Update");
 const deleteworkers=require("../Apis/Workers/Delete");
 const selectworkers=require("../Apis/Workers/Select");
 
+const createteams=require("../Apis/Teams/Create.js");
+const updateteams=require("../Apis/Teams/Update.js");
+const deleteteams=require("../Apis/Teams/Delete.js");
+const selectteams=require("../Apis/Teams/Select.js");
+
 // Public route (no userAuth)
 router.use("/login", authentication);
 
@@ -48,5 +53,10 @@ router.use("/createworkers",createworkers);
 router.use("/updateworkers",updateworkers);
 router.use("/deleteworkers",deleteworkers);
 router.use("/selectworkers",selectworkers);
+
+router.use("/createteams",createteams);
+router.use("/updateteams",updateteams);
+router.use("/deleteteams",deleteteams);
+router.use("/selectteams",selectteams);
 
 module.exports = router;
