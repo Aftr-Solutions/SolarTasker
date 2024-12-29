@@ -10,6 +10,7 @@ import LowPriorityOutlinedIcon from "@mui/icons-material/LowPriorityOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import { Link, useLocation } from "react-router";
+import UserProfile from "./components/UserProfile";
 
 const AppSidebar = ({open}) => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const AppSidebar = ({open}) => {
           userName="Hamza"
           designation="Developer"
           mode="light"
-          showProfile={!open}
+          showProfile={false}
         >
           <div className="w-full sticky top-0 bg-white z-10">
             {!isCollapse ? (
@@ -197,6 +198,7 @@ const AppSidebar = ({open}) => {
               </MenuItem>
             </Link>
           </Menu>
+          <UserProfile userName="Hamza" userimg="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg" designation="Developer" isCollapse={isCollapse}  />
         </Sidebar>
       </div>
       {!open? (
