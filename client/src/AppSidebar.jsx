@@ -11,7 +11,7 @@ import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import { Link, useLocation } from "react-router";
 
-const AppSidebar = () => {
+const AppSidebar = ({open}) => {
   const location = useLocation();
   const [isCollapse, setIsCollapse] = useState(false);
 
@@ -28,7 +28,7 @@ const AppSidebar = () => {
           userName="Hamza"
           designation="Developer"
           mode="light"
-          showProfile={!isCollapse}
+          showProfile={!open}
         >
           <div className="w-full sticky top-0 bg-white z-10">
             {!isCollapse ? (
@@ -199,10 +199,15 @@ const AppSidebar = () => {
           </Menu>
         </Sidebar>
       </div>
-      <MenuOutlinedIcon
-        className=" p-1 cursor-pointer mx-5 mt-5 hover:  hover:bg-hoverbgGray rounded-full text-gray-700  hover:text-primary"
-        onClick={handleSidebar}
-      />
+      {!open? (
+  <MenuOutlinedIcon
+  className=" p-1 cursor-pointer mx-5 mt-5 hover:  hover:bg-hoverbgGray rounded-full text-gray-700  hover:text-primary"
+  onClick={handleSidebar}
+/>
+      ):(
+  ""
+      )}
+     
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Drawer from '@mui/material/Drawer';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AppSidebar from './AppSidebar';
 
-export default function TemporaryDrawer() {
+export default function ResponsiveSidebar() {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -12,8 +12,8 @@ export default function TemporaryDrawer() {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-    <AppSidebar />
+    <Box sx={{ width: 260 }} role="presentation" onClick={toggleDrawer(false)}>
+    <AppSidebar open={open}  />
     </Box>
   );
 

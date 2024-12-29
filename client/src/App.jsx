@@ -9,8 +9,7 @@ import UpcomingTasks from "./pages/upcoming-tasks/UpcomingTasks";
 import Tasks from "./pages/tasks/Tasks";
 import Team from "./pages/team/Team";
 import Users from "./pages/users/Users";
-import ResposniveSidebar from "./ResposniveSidebar";
-import TemporaryDrawer from "./ResposniveSidebar";
+import ResposniveSidebar from "./ResponsiveSidebar";
 
 function App() {
   return (
@@ -20,8 +19,7 @@ function App() {
         <AppSidebar />
        </div>
        <div className="small-screens">
-        {/* <ResposniveSidebar /> */}
-        <TemporaryDrawer />
+        <ResposniveSidebar />
        </div>
 
         <div className="mx-3 mt-5 text-lightBlackText font-jakarta">
