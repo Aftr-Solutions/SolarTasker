@@ -65,21 +65,3 @@ body{
     display: block;
   }
 }
-
-
-.css-0{
-  position: sticky !important;
-  bottom: 10px;
-  z-index: 1;
-  background: white !important;
-}
-/* .css-2ulfj5-MuiTypography-root{
-  background: #49beff20;
-}
-.css-ol7wxs-MuiTypography-root{
-  background: #49beff20;
-} */
-.css-1wlk0hk-MuiAvatar-root > img  > div {
-  background: #49beff20 !important;
-
-}
