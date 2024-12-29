@@ -26,9 +26,6 @@ const AppSidebar = ({open}) => {
         <Sidebar
           isCollapse={isCollapse}
           width={isCollapse ? "80px" : "260px"}
-          userName="Hamza"
-          designation="Developer"
-          mode="light"
           showProfile={false}
         >
           <div className="w-full sticky top-0 bg-white z-10">

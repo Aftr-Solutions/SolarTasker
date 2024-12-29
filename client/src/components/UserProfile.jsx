@@ -2,8 +2,6 @@ import { Avatar, Tooltip} from '@mui/material'
 import React from 'react'
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
-
-
 const UserProfile = ({ userName,
     designation ,
     userimg ,
