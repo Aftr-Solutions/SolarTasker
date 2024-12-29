@@ -10,9 +10,10 @@ import Tasks from "./pages/tasks/Tasks";
 import Team from "./pages/team/Team";
 import Users from "./pages/users/Users";
 import ResposniveSidebar from "./ResponsiveSidebar";
+import Navbar from "./components/AppBar";
 
 function App() {
-  return (
+  return ( 
     <>
       <div className="flex">
        <div className="large-screens">
@@ -22,7 +23,8 @@ function App() {
         <ResposniveSidebar />
        </div>
 
-        <div className="mx-3 mt-5 text-lightBlackText font-jakarta">
+        <div className=" w-full  text-lightBlackText font-jakarta">
+          <Navbar />
           <Routes>
             <Route path="/" element={<Clients />} />
             <Route path="/region" element={<Region />} />
