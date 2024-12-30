@@ -9,6 +9,7 @@ const rateLimit = require("express-rate-limit");
 const cron = require("node-cron");
 const appRouter = require("./routes");
 const { mytask } = require("./middleware/taskmaker");
+const { assignteam } = require("./middleware/teamassign");
 
 
 
@@ -39,7 +40,8 @@ cron.schedule("0 0 * * *", () => {
   mytask();
 });
 
-mytask();
+//mytask();
+assignteam();
 
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
