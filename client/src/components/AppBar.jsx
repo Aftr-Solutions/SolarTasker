@@ -1,10 +1,45 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Badge, Avatar } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Badge, Avatar, Menu, Typography, Tooltip } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LanguageIcon from "@mui/icons-material/Language";
+import { MenuItem } from "react-mui-sidebar";
+import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import PersonPinRoundedIcon from '@mui/icons-material/PersonPinRounded';
 
 const Navbar = () => {
+
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const settings = [
+  {
+    id: 1,
+    icon: <PersonPinRoundedIcon fontSize="small" />,
+    name: "Profile"
+  },
+
+  {
+    id: 2,
+    icon: <AccountCircleRoundedIcon fontSize="small" />,
+    name: "Account"
+  },
+  {
+    id: 3,
+    icon: <ExitToAppRoundedIcon fontSize="small" />,
+    name: "Logout"
+  },
+
+
+  ];
+
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   return (
     <AppBar
       position="static"
@@ -16,12 +51,12 @@ const Navbar = () => {
         {/* Left Section */}
         <div className="flex items-center space-x-6">
           {/* Links */}
-          <div className="hidden md:flex space-x-4 text-gray-700">
+          {/* <div className="hidden md:flex space-x-4 text-gray-700">
             <a href="#apps" className="hover:text-blue-500">Apps</a>
             <a href="#chat" className="hover:text-blue-500">Chat</a>
             <a href="#calendar" className="hover:text-blue-500">Calendar</a>
             <a href="#email" className="hover:text-blue-500">Email</a>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Section */}
@@ -46,11 +81,34 @@ const Navbar = () => {
           </IconButton>
 
           {/* Avatar */}
-          <Avatar
-            src="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg"
-            alt="Profile"
-            className="bg-blue-500"
-          />
+         
+           <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem icon={setting.icon}  key={setting.id} onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>{setting.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
         </div>
       </Toolbar>
     </AppBar>
