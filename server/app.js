@@ -8,6 +8,8 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cron = require("node-cron");
 const appRouter = require("./routes");
+const { mytask } = require("./middleware/taskmaker");
+
 
 
 const app = express();
@@ -30,6 +32,14 @@ app.get("/", (req, res) => {
   });
   
 app.use("/", appRouter);
+
+// Schedule the cron job to run daily at midnight
+cron.schedule("0 0 * * *", () => {
+  console.log("Running cron job for task creation...");
+  mytask();
+});
+
+mytask();
 
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
