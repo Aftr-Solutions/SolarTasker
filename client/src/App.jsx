@@ -26,7 +26,7 @@ function App() {
         <div className=" w-full  text-lightBlackText font-jakarta">
           <Navbar />
           <Routes>
-            <Route path="/" element={<Clients />} />
+            <Route path="/" element={<Clients />} /> 
             <Route path="/region" element={<Region />} />
             <Route path="/workers" element={<Workers />} />
             <Route path="/team" element={<Team />} />
