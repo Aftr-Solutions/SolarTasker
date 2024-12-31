@@ -22,7 +22,7 @@ function App() {
        <div className="small-screens">
         <ResposniveSidebar />
        </div>
-
+ 
         <div className=" w-full  text-lightBlackText font-jakarta">
           <Navbar />
           <Routes>
