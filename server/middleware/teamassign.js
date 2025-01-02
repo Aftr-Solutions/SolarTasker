@@ -3,7 +3,7 @@ const tableName = require("../Utils/allTableNames");/*
 
 const assignteam = async () => {
   try {
-    const query = `
+    const query = ` 
       SELECT id 
       FROM ${tableName.tasks} 
       WHERE isactive = 0 AND team_id IS NULL;

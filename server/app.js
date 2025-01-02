@@ -57,7 +57,7 @@ cron.schedule("50 23 * * *", () => {
   processTasks();
 });
 //mytask();
-assignteam();
+//assignteam();
 //rescheduling();
 //processTasks();
 

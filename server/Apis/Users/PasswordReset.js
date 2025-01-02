@@ -7,21 +7,18 @@ const pool = require("../../Utils/db");
 const sendUserCredentials = require("../../middleware/sendMail"); // Assuming you have this function for sending emails
 
 router.post("/", (req, res) => {
-  const userId = req.body.userId;
-  const newPassword = req.body.newPass;
-
+  const user_id = req.body.id;
+  const newPassword = req.body.password;
+  console.log(user_id,newPassword);
   // Hash the new password
   bcrypt.hash(newPassword, 14, function (err, hash) {
     if (err) {
-      return res.json({
-        message: "Error while hashing",
-        error: err,
-      });
+      res.status(409).send(RESPONSE(false, "Error while hashing", err));
     } else {
       // Query to update the password
-      const updateQuery = `UPDATE ${tableNames.owners} SET password='${hash}' WHERE id=${userId}`;
+      const updateQuery = `UPDATE ${tableNames.owners} SET password='${hash}' WHERE id=${user_id}`;
       // Query to get the user's email and username
-      const selectQuery = `SELECT email, user_name FROM ${tableNames.owners} WHERE id=${userId}`;
+      const selectQuery = `SELECT email,user_name FROM ${tableNames.owners} WHERE id=${user_id}`;
 
       try {
         pool.getConnection((err, connection) => {
