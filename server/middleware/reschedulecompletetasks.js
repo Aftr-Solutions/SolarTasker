@@ -25,11 +25,13 @@ function calculateNextScheduledDay(date, regionDay, servicePlanDuration = 0) {
 
 const processTasks = async () => {
   try {
+    const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
+    console.log("today==>",todayDate);
     const query = `
-      SELECT t.id AS task_id, t.service_date, t.client_id, c.service_plan_duration, c.area_region_id
+      SELECT t.id AS task_id, t.service_date, t.client_id, c.service_plan_duration, c.region_preference
       FROM ${tableName.tasks} AS t
       JOIN ${tableName.clients} AS c ON t.client_id = c.id
-      WHERE t.isactive = 1 AND t.task_status = 3 AND t.response = 2;
+      WHERE t.isactive = 0 AND t.task_status = 3 AND t.response = 1 AND t.service_date=?;
     `;
 
     pool.getConnection((err, connection) => {
@@ -38,7 +40,7 @@ const processTasks = async () => {
         return;
       }
 
-      connection.query(query, (fetchErr, results) => {
+      connection.query(query, [todayDate],(fetchErr, results) => {
         if (fetchErr) {
           console.error("Error fetching data from tasks and clients tables:", fetchErr);
           connection.release();
@@ -49,9 +51,9 @@ const processTasks = async () => {
           console.log(`Processing ${results.length} tasks for rescheduling...`);
 
           results.forEach((task) => {
-            const { task_id, service_date, service_plan_duration, area_region_id, client_id } = task;
+            const { task_id, service_date, service_plan_duration, region_preference, client_id } = task;
 
-            const nextServiceDate = calculateNextScheduledDay(service_date, REGION_DAY_MAPPING[area_region_id], service_plan_duration);
+            const nextServiceDate = calculateNextScheduledDay(service_date, REGION_DAY_MAPPING[region_preference], service_plan_duration);
 
             const updateClientQuery = `
               UPDATE ${tableName.clients}
@@ -61,7 +63,7 @@ const processTasks = async () => {
 
             const updateTaskQuery = `
               UPDATE ${tableName.tasks}
-              SET isactive = 0
+              SET isactive = 1
               WHERE id = ${task_id};
             `;
 

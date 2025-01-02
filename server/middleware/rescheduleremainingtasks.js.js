@@ -9,9 +9,9 @@ const rescheduling = async () => {
     const query = `
       SELECT * 
       FROM ${tableName.tasks} 
-      WHERE (team_id IS NULL OR Response = 2) 
-        AND Plan = 0 
-        AND SERVICE_DATE = ?;
+      WHERE Response = 2
+        AND SERVICE_DATE = ?
+        AND isactive = 0;
     `;
 
     pool.getConnection((err, connection) => {
@@ -42,7 +42,7 @@ const rescheduling = async () => {
 
             const updateTaskQuery = `
               UPDATE ${tableName.tasks}
-              SET isactive = 0
+              SET isactive = 1
               WHERE id = ${task_id};
             `;
 

@@ -11,6 +11,7 @@ const appRouter = require("./routes");
 const { mytask } = require("./middleware/taskmaker");
 const { assignteam } = require("./middleware/teamassign");
 const { rescheduling } = require("./middleware/rescheduleremainingtasks.js");
+const { processTasks } =require("./middleware/reschedulecompletetasks.js");
 
 const app = express();
 
@@ -56,7 +57,7 @@ cron.schedule("50 23 * * *", () => {
   processTasks();
 });
 //mytask();
-//assignteam();
+assignteam();
 //rescheduling();
 //processTasks();
 
