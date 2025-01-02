@@ -2,59 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
+body {
   font-family: "Plus Jakarta Sans", serif;
 }
-.css-1b2xsvz-MuiTypography-root{
+.css-1b2xsvz-MuiTypography-root {
   font-family: "Plus Jakarta Sans", serif !important;
 }
-.css-hwb603-MuiListSubheader-root{
+.css-hwb603-MuiListSubheader-root {
   font-family: "Plus Jakarta Sans", serif !important;
 }
-.css-2ulfj5-MuiTypography-root{
+.css-2ulfj5-MuiTypography-root {
   font-family: "Plus Jakarta Sans", serif !important;
 }
-.css-ol7wxs-MuiTypography-root{
+.css-ol7wxs-MuiTypography-root {
   font-family: "Plus Jakarta Sans", serif !important;
 }
-
-
 
 /* Target the scrollbar track and thumb */
 .my-scrollable-element::-webkit-scrollbar {
   width: 0px; /* Set scrollbar width */
 }
 
-
-.css-jhg68t{
+.css-jhg68t {
   transition: width 0.3s ease !important; /* Smooth animation for width */
-
 }
-.css-2ld9pa{
+.css-2ld9pa {
   transition: width 0.3s ease !important; /* Smooth animation for width */
-
 }
 .side-bar {
   overflow: auto;
 }
 
-
 /* Profile  */
-.css-whu3bg{
+.css-whu3bg {
   padding: 8px !important;
 }
 
-
-.large-screens{
+.large-screens {
   display: block;
 }
 
-
-.small-screens{
+.small-screens {
   display: none;
 }
 
+/* dialog  */
+.MuiDialog-paper {
+  border-radius: 20px !important;
+}
+/* input field  */
+.MuiOutlinedInput-notchedOutline {
+  border-radius: 10px !important;
+}
+.MuiInputBase-input {
+  padding: 12px 14px !important;
+}
+.Mui-focused > input {
+  color: #1976d2 !important;
+}
 
 @media (max-width: 1165px) {
   .large-screens {
