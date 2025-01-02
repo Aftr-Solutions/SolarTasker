@@ -3,61 +3,54 @@ const tableName = require("../Utils/allTableNames");
 
 const mytask = async () => {
   try {
-    // SQL query to fetch clients with upcoming service dates within the next 2 days
     const query = `
       SELECT id, upcoming_service_date, plan 
       FROM ${tableName.clients} 
-      WHERE DATEDIFF(upcoming_service_date, CURDATE()) <= 2
+      WHERE DATEDIFF(upcoming_service_date, CURDATE()) = 2
     `;
 
-    // Get a connection from the pool
-    pool.getConnection((err, connection) => {
+    // Use pool.query for automatic connection handling
+    pool.query(query, (err, results) => {
       if (err) {
-        console.error("Error getting database connection:", err);
+        console.error("Error fetching data from clients table:", err);
         return;
       }
 
-      // Fetch the clients
-      connection.query(query, (err, results) => {
-        if (err) {
-          console.error("Error fetching data from clients table:", err);
-          connection.release(); // Ensure connection is released
-          return;
-        }
+      if (results.length > 0) {
+        console.log(`Found ${results.length} clients with upcoming services.`);
 
-        if (results.length > 0) {
-          console.log(`Found ${results.length} clients with upcoming services.`);
+        const tasks = results.map((item) => ({
+          client_id: item.id,
+          service_date: item.upcoming_service_date,
+          plan: item.plan,
+        }));
 
-          // Process each client and insert into tasks
-          results.forEach((item) => {
-            const taskData = {
-              client_id: item.id,
-              service_date: item.upcoming_service_date,
-              plan: item.plan,
-            };
+        // Insert tasks into the database
+        const insertQuery = `INSERT INTO ${tableName.tasks} (client_id, service_date, plan) VALUES ?`;
 
-            const insertQuery = `INSERT INTO ${tableName.tasks} SET ?`;
+        const values = tasks.map((task) => [
+          task.client_id,
+          task.service_date,
+          task.plan,
+        ]);
 
-            // Insert the task into the tasks table
-            connection.query(insertQuery, taskData, (insertErr, insertResults) => {
-              if (insertErr) {
-                console.error("Error inserting task record:", insertErr);
-                return;
-              }
+        pool.query(insertQuery, [values], (insertErr, insertResults) => {
+          if (insertErr) {
+            console.error("Error inserting task records:", insertErr);
+            return;
+          }
 
-              console.log("Task created successfully:", taskData);
-            });
-          });
-        } else {
-          console.log("No clients with upcoming services within 2 days.");
-        }
-
-        connection.release(); // Release the connection after processing
-      });
+          console.log(
+            `Successfully created ${insertResults.affectedRows} tasks.`
+          );
+        });
+      } else {
+        console.log("No clients with upcoming services within 2 days.");
+      }
     });
   } catch (error) {
     console.error("Error in mytask cron job:", error.message);
   }
 };
 
-module.exports = {mytask};
+module.exports = { mytask };
