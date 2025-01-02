@@ -28,12 +28,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Clients />} />  
             <Route path="/region" element={<Region />} />
-            <Route path="/workers" element={<Workers />} />
+            <Route path="/worker" element={<Workers />} />
             <Route path="/team" element={<Team />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/upcoming-tasks" element={<UpcomingTasks />} />
             <Route path="/missed-tasks" element={<MissedTasks />} />
-            <Route path="/users" element={<Users />} />
+            <Route path="/user" element={<Users />} />
           </Routes>
         </div>
       </div>

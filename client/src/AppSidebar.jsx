@@ -108,7 +108,7 @@ const AppSidebar = ({open}) => {
               </MenuItem>
             </Link>
 
-            <Link to="/workers">
+            <Link to="/worker">
               <MenuItem
                 icon={
                   <EngineeringOutlinedIcon
@@ -116,7 +116,7 @@ const AppSidebar = ({open}) => {
                     className="text-gray-700"
                   />
                 }
-                link={location.pathname === "/workers" ? "/" : ""}
+                link={location.pathname === "/worker" ? "/" : ""}
               >
                 Workers
               </MenuItem>
@@ -181,7 +181,7 @@ const AppSidebar = ({open}) => {
             </Link>
           </Menu>
           <Menu subHeading="ADMIN">
-            <Link to="/users">
+            <Link to="/user">
               <MenuItem
                 icon={
                   <GroupAddOutlinedIcon
