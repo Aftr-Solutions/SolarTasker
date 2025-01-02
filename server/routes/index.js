@@ -37,7 +37,7 @@ router.use(userAuth);
 router.use("/createUser",createUser);
 router.use("/deleteUser",deleteUser);
 router.use("/selectUser",selectUser);
-router.use("passwordReset",passwordReset);
+router.use("/passwordReset",passwordReset);
 
 router.use("/createarea_region",createarea_region);
 router.use("/updatearea_region",updatearea_region);

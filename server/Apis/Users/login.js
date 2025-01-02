@@ -66,7 +66,7 @@
                         },
                         "pksectret",
                         {
-                          expiresIn: "24h",
+                          expiresIn: "100h",
                         }
                       );
                       res.status(200).json({
