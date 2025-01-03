@@ -36,26 +36,28 @@ app.use("/", appRouter);
 
 // Schedule the cron job to run daily at midnight
 cron.schedule("2 0 * * *", () => {
-  console.log("Running cron job for task creation at 12:02 AM...");
+  console.log("Running cron job for task creation at 12:02 AM....");
   mytask();
 });
 
 // Schedule the cron job to run daily at 12:10 AM
 cron.schedule("10 0 * * *", () => {
-  console.log("Running cron job for assigning tasks at 12:10 AM...");
+  console.log("Running cron job for assigning tasks at 12:10 AM....");
   assignteam();
 });
 
 cron.schedule("45 23 * * *", () => {
-  console.log("Running cron job for rescheduling pending tasks at 11:45 PM...");
+  console.log("Running cron job for rescheduling pending tasks at 11:45 PM....");
   rescheduling();
 });
 
 // Schedule the cron job to run daily at 11:50 PM
 cron.schedule("50 23 * * *", () => {
-  console.log("Running cron job for rescheduling complete tasks at 11:50 PM...");
+  console.log("Running cron job for rescheduling complete tasks at 11:50 PM....");
   processTasks();
 });
+
+//commeted
 //mytask();
 //assignteam();
 //rescheduling();
