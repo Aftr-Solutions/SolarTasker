@@ -9,7 +9,7 @@ const sendUserCredentials = require("../../middleware/sendMail"); // Assuming yo
 router.post("/", (req, res) => {
   const user_id = req.body.id;
   const newPassword = req.body.password;
-  console.log(user_id,newPassword);
+  //console.log(user_id,newPassword);
   // Hash the new password
   bcrypt.hash(newPassword, 14, function (err, hash) {
     if (err) {
