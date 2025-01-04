@@ -8,6 +8,7 @@ import {
   Menu,
   Typography,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -24,9 +25,10 @@ import CreateDialog from "./createDialog/CreateDialog";
 import Routing from "../Routing";
 
 const Navbar = ({isCollapse, setIsCollapse}) => {
+  const isMobile = useMediaQuery("(max-width:500px)");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [btnName, setBtnName] = React.useState(null);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(null);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const settings = [
     {
@@ -109,8 +111,8 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
                   location.pathname === "/clients" ? "Client" : btnName
                 }`}
                 type="primary"
-                size="large"
-                icon={<AddCircleIcon />}
+                size={isMobile ? "medium" : "large"}
+                icon={<AddCircleIcon sx={{ fontSize: isMobile ? 18 : 22 }} />}
                 styling={"linearGradient"}
                 onClick={() => setIsDialogOpen(true)}
               />
@@ -125,18 +127,22 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
               />
             </>
           )}
-          {/* Language Icon */}
-          <IconButton>
-            <LanguageIcon className="text-gray-700" />
-          </IconButton>
+          {/* hide below section on mobile (500px) */}
+          {!isMobile && (
+            <>
+              {/* Language Icon */}
+              <IconButton>
+                <LanguageIcon className="text-gray-700" />
+              </IconButton>
 
-          {/* Cart Icon */}
-          <IconButton>
-            <Badge badgeContent={0} color="error">
-              <ShoppingCartIcon className="text-gray-700" />
-            </Badge>
-          </IconButton>
-
+              {/* Cart Icon */}
+              <IconButton>
+                <Badge badgeContent={0} color="error">
+                  <ShoppingCartIcon className="text-gray-700" />
+                </Badge>
+              </IconButton>
+            </>
+          )}
           {/* Notifications */}
           <IconButton>
             <Badge variant="dot" color="primary">
@@ -144,44 +150,48 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
             </Badge>
           </IconButton>
 
-          {/* Avatar */}
-
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg"
-              />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting) => (
-              <MenuItem
-                icon={setting.icon}
-                key={setting.id}
-                onClick={handleCloseUserMenu}
+          {/* hide below section on mobile (500px) */}
+          {!isMobile && (
+            <>
+              {/* Avatar */}
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                <Typography sx={{ textAlign: "center" }}>
-                  {setting.name}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Menu>
+                {settings.map((setting) => (
+                  <MenuItem
+                    icon={setting.icon}
+                    key={setting.id}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {setting.name}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          )}
         </div>
       </Toolbar>
     </AppBar>

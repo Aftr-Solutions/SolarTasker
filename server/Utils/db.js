@@ -1,15 +1,15 @@
-const mysql = require("mysql2");
+const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
-  // NEW HOSTING
-  host: "s13.hosterpk.com", // Shared IP from cPanel
-  user: "digita87_muddassir", // Your database username
-  password: "Developers000$$$", // Your database password
-  database: "digita87_SolarTasker"
+  host:"148.163.69.162"|| process.env.DB_HOST,//"s13.hosterpk.com", // Shared IP from cPanel
+  user: "solarcle_shahroz"||process.env.DB_UDER,//"digita87_muddassir", // Your database username
+  password:"Shahroz$$$000"||process.env.DB_PASSWORD, //"Developers000$$$", // Your database password
+  database:"solarcle_SolarTasker"||process.env.DB_NAME,//"digita87_SolarTasker",
+  connectionLimit: 10,        // Maximum number of connections in the pool
+  //connectTimeout: 10000,      // Connection timeout in milliseconds
+  waitForConnections: true,   // Wait for available connections in the pool
+  queueLimit: 0,              // No limit on the number of queued requests
+  //idleTimeout: 60000, // 60 seconds (adjust as needed)
 });
 
-
 module.exports = pool;
-
-
-

@@ -1,15 +1,13 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import RegionForm from "../createForm/RegionForm";
-import { Slide } from "@mui/material";
+import { Grow, Slide } from "@mui/material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -20,61 +18,64 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
-
 export default function CreateDialog({
   title,
   isDialogOpen,
   handleDialogClose,
   path,
 }) {
+  const [close, setClose] = React.useState();
+
+  const handleClose = () => {
+    handleDialogClose();
+    setClose(!close);
+  };
+
   return (
     <React.Fragment>
-      <BootstrapDialog
-        onClose={handleDialogClose}
-        TransitionComponent={Transition}
-        keepMounted
-        open={isDialogOpen}
+      <Grow
+        in={isDialogOpen}
+        style={{ transformOrigin: "0 30 70" }}
+        {...(isDialogOpen ? { timeout: 1000 } : {})}
       >
-        <DialogTitle
-          sx={{
-            m: 0,
-            p: 2,
-            background: "linear-gradient(135deg, #6253e1, #04befe)",
-            border:'3px solid',
-            borderTopRightRadius:'20px',
-            borderTopLeftRadius:'20px',
-            color: "white",
-          }}
-        >
-          {title}
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleDialogClose}
-          sx={(theme) => ({
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: "red",
-          })}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers>
-          {path === "/region" ? (
-            <RegionForm />
-          ) : (
-            <Typography gutterBottom>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros.
-            </Typography>
-          )}
-        </DialogContent>
-      </BootstrapDialog>
+        <BootstrapDialog onClose={handleClose} keepMounted open={isDialogOpen}>
+          <DialogTitle
+            sx={{
+              padding: "10px 16px",
+              backgroundColor: "#5d87ff",
+              border: "3px solid",
+              borderTopRightRadius: "15px",
+              borderTopLeftRadius: "15px",
+              color: "white",
+            }}
+          >
+            {title}
+          </DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={(theme) => ({
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: "red",
+            })}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent dividers>
+            {path === "/region" ? (
+              <RegionForm close={close} />
+            ) : (
+              <Typography gutterBottom>
+                Cras mattis consectetur purus sit amet fermentum. Cras justo
+                odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
+                risus, porta ac consectetur ac, vestibulum at eros.
+              </Typography>
+            )}
+          </DialogContent>
+        </BootstrapDialog>
+      </Grow>
     </React.Fragment>
   );
 }

@@ -1,12 +1,17 @@
 import React from 'react'
-import Header from '../../components/Header/Header'
 
 const Region = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  )
-}
+  const dispatch = useDispatch();
 
-export default Region
+  const { regions } = useSelector((state) => state.region);
+
+  console.log(regions);
+
+  useEffect(() => {
+    dispatch(fetchRegions());
+  }, [dispatch]);
+
+  return <div>Region</div>;
+};
+
+export default Region;
