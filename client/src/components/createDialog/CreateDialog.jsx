@@ -24,6 +24,13 @@ export default function CreateDialog({
   handleDialogClose,
   path,
 }) {
+  const [close, setClose] = React.useState();
+
+  const handleClose = () => {
+    handleDialogClose();
+    setClose(!close);
+  };
+
   return (
     <React.Fragment>
       <Grow
@@ -31,11 +38,7 @@ export default function CreateDialog({
         style={{ transformOrigin: "0 30 70" }}
         {...(isDialogOpen ? { timeout: 1000 } : {})}
       >
-        <BootstrapDialog
-          onClose={handleDialogClose}
-          keepMounted
-          open={isDialogOpen}
-        >
+        <BootstrapDialog onClose={handleClose} keepMounted open={isDialogOpen}>
           <DialogTitle
             sx={{
               padding: "10px 16px",
@@ -50,7 +53,7 @@ export default function CreateDialog({
           </DialogTitle>
           <IconButton
             aria-label="close"
-            onClick={handleDialogClose}
+            onClick={handleClose}
             sx={(theme) => ({
               position: "absolute",
               right: 8,
@@ -62,7 +65,7 @@ export default function CreateDialog({
           </IconButton>
           <DialogContent dividers>
             {path === "/region" ? (
-              <RegionForm />
+              <RegionForm close={close} />
             ) : (
               <Typography gutterBottom>
                 Cras mattis consectetur purus sit amet fermentum. Cras justo
