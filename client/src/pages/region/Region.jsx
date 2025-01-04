@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header/Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRegions } from '../../store/ActionApis/regionApi';
 
 const Region = () => {
   const dispatch = useDispatch();
