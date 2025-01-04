@@ -52,7 +52,7 @@ router.post("/", (req, res) => {
                   .send(RESPONSE(false, "User creation failed", err));
               }
             } else {
-              sendUserCredentials(email, username, password, req, res);
+              sendUserCredentials(email, username, password, "create" , req, res);
               return res.send(RESPONSE(true, "Succesfully Created", result));
             }
           }
