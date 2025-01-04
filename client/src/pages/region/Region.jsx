@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from '../../components/Header/Header';
 
 const Region = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const Region = () => {
     dispatch(fetchRegions());
   }, [dispatch]);
 
-  return <div>Region</div>;
+  return <div><Header /></div>;
 };
 
 export default Region;
