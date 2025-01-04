@@ -38,7 +38,7 @@ const Clients = () => {
     <div>
       <Header />
     </div>
-    {/* <ReusableTable
+    <ReusableTable
       columns={columns}
       data={data}
       onDelete={handleDelete}
@@ -47,7 +47,7 @@ const Clients = () => {
         showQuickJumper: true,
         showTotal: (total) => `Total ${total} items`,
       }}
-    /> */}
+    />
   </div>
   )
 }

@@ -52,19 +52,18 @@ const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, scro
 
   return (
     <>
-    <div className='paper-shadow'>
+    <div className=''>
 
       <Table
-      // style={{width: "99%"}}    
-      className=' table-height w-full mt-5 '
+      className=' table-height  mt-5 '
         columns={enhancedColumns}
         dataSource={paginatedData}
         rowKey="id"
         pagination={false} // Disable built-in pagination
-        scroll={{
-            y: scrollHeight, // Vertical scrolling with fixed height
-            x: '100%', // Horizontal scrolling for larger tables
-          }}
+        // scroll={{
+        //     y: scrollHeight, // Vertical scrolling with fixed height
+        //     x: '100%', // Horizontal scrolling for larger tables
+        //   }}
         
         rowClassName={() => 'small-row'} // Custom class for small row height
         />
