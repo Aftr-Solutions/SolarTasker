@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRegions } from "../../store/ActionApis/regionApi";
 
 const Region = () => {
-  return (
-    <div>
-      Region
-    </div>
-  )
-}
+  const dispatch = useDispatch();
 
-export default Region
+  const { regions } = useSelector((state) => state.region);
+
+  console.log(regions);
+
+  useEffect(() => {
+    dispatch(fetchRegions());
+  }, [dispatch]);
+
+  return <div>Region</div>;
+};
+
+export default Region;
