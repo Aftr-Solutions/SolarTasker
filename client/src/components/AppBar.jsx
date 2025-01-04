@@ -26,7 +26,7 @@ const Navbar = () => {
   const isMobile = useMediaQuery("(max-width:500px)");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [btnName, setBtnName] = React.useState(null);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(null);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const settings = [
     {
