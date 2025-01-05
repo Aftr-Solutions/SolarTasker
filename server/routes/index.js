@@ -29,6 +29,8 @@ const updateteams=require("../Apis/Teams/Update.js");
 const deleteteams=require("../Apis/Teams/Delete.js");
 const selectteams=require("../Apis/Teams/Select.js");
 
+const logs=require("../Utils/logs.js");
+
 // Public route (no userAuth)
 router.use("/login", authentication);
 
@@ -58,5 +60,7 @@ router.use("/createteams",createteams);
 router.use("/updateteams",updateteams);
 router.use("/deleteteams",deleteteams);
 router.use("/selectteams",selectteams);
+
+router.use("/logs",logs);
 
 module.exports = router;

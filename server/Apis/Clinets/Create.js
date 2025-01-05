@@ -4,6 +4,8 @@ const tableName = require("../../Utils/allTableNames");
 const { GlobalInsert } = require("../../GlobalFunctions/GlobalCreate");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const moment = require("moment-timezone");
+const logger = require("../../logger");
+
 
 // Define region-day mapping
 const REGION_DAY_MAPPING = {
@@ -71,7 +73,7 @@ router.post("/", (req, res) => {
     },
   };
 
-  console.log("Payload for insertion:", payload);
+  logger.info("Payload for insertion:", payload);
 
   // Perform database insertion
   GlobalInsert(payload, res);

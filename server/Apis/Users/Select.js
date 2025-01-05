@@ -3,6 +3,8 @@ const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const {GlobalSelect}=require("../../GlobalFunctions/GlobalSelect");
 const RESPONSE=require("../../GlobalResponse/RESPONSE");
+const logger = require("../../logger");
+
 
 router.get("/",(req,res)=>{
     let payload={

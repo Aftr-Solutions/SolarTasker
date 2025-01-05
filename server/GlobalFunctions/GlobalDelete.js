@@ -1,11 +1,13 @@
 const pool = require("../Utils/db");
 const response = require("../GlobalResponse/RESPONSE");
+const logger = require("../logger");
+
 
 const GlobalDelete = (payload, res) => {
   try {
     pool.getConnection((err, connection) => {
       if (err) {
-        // // console.log("eror while creating connection", err);
+        // // logger.info("eror while creating connection", err);
         return res.send(response(false, "database error", {}));
       }
       connection.query(
@@ -14,11 +16,11 @@ const GlobalDelete = (payload, res) => {
           connection.release();
 
           if (err) {
-            // // console.log(err);
+            // // logger.info(err);
             return res.send(response(false, "error while deleting", err));
           } else {
 
-            // // // console.log(result);
+            // // // logger.info(result);
             return res.send(response(true, "succesfully deleted", {}));
           }
         }

@@ -3,6 +3,8 @@ const router=express.Router();
 const tableName=require("../../Utils/allTableNames");
 const {GlobalUpdate}=require("../../GlobalFunctions/GlobalUpdate");
 const RESPONSE=require("../../GlobalResponse/RESPONSE");
+const logger = require("../../logger");
+
 
 router.post("/",(req,res)=>{
     if (!req.body.id||!req.body.name || !req.body.email || !req.body.number || !req.body.address || !req.body.plan || !req.body.area_region_id || !req.body.service_plan_duration){
@@ -25,7 +27,7 @@ router.post("/",(req,res)=>{
             region_preference:req.body.region_preference,
         }
     }
-    console.log("Payload for update:", payload);
+    logger.info("Payload for update:", payload);
     
         GlobalUpdate(payload,res);
     });

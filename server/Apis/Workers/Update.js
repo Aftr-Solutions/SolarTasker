@@ -3,6 +3,8 @@ const router=express.Router();
 const tableName=require("../../Utils/allTableNames");
 const {GlobalUpdate}=require("../../GlobalFunctions/GlobalUpdate");
 const RESPONSE=require("../../GlobalResponse/RESPONSE");
+const logger = require("../../logger");
+
 
 router.post("/",(req,res)=>{
     const{
@@ -23,7 +25,7 @@ router.post("/",(req,res)=>{
             address:address,
         },
     };
-    console.log("Payload for update:", payload);
+    logger.info("Payload for update:", payload);
 
     GlobalUpdate(payload,res);
 });

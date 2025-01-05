@@ -1,0 +1,39 @@
+2025-01-08 06:04:10 [INFO]: Server is running on: localhost:
+2025-01-08 23:45:00 [INFO]: Running cron job for rescheduling pending tasks at 11:45 PM....
+2025-01-08 23:45:00 [INFO]: today==>
+2025-01-08 23:45:02 [INFO]: Found 1 tasks to be rescheduled.
+2025-01-08 23:45:02 [INFO]: Task 71 rescheduled to 2025-01-15
+2025-01-08 23:45:02 [INFO]: Client 24 successfully rescheduled.
+2025-01-08 23:45:02 [INFO]: Task 71 marked as inactive.
+2025-01-08 23:50:00 [INFO]: Running cron job for rescheduling complete tasks at 11:50 PM....
+2025-01-08 23:50:00 [INFO]: today==>
+2025-01-08 23:50:44 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-08 23:50:47 [INFO]: Processing 1 tasks for rescheduling...
+2025-01-08 23:50:47 [INFO]: Client 25 updated with new service date: 2025-01-28 00:00:00
+2025-01-08 23:50:47 [INFO]: Task 72 marked as inactive.
+2025-01-09 00:02:00 [INFO]: Running cron job for task creation at 12:02 AM....
+2025-01-09 00:02:00 [INFO]: today==>
+2025-01-09 00:02:35 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-09 00:02:37 [INFO]: Found 1 clients with upcoming services.
+2025-01-09 00:02:37 [INFO]: Successfully created 1 tasks.
+2025-01-09 00:10:00 [INFO]: Running cron job for assigning tasks at 12:10 AM....
+2025-01-09 00:11:05 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-09 00:11:08 [INFO]: Assigning 1 tasks among 1 teams (1).
+2025-01-09 00:11:08 [INFO]: Task 74 assigned to Team 1 (Tasks assigned: 1)
+2025-01-09 23:45:00 [INFO]: Running cron job for rescheduling pending tasks at 11:45 PM....
+2025-01-09 23:45:00 [INFO]: today==>
+2025-01-09 23:45:48 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-09 23:45:50 [INFO]: No tasks to be rescheduled.
+2025-01-09 23:50:00 [INFO]: Running cron job for rescheduling complete tasks at 11:50 PM....
+2025-01-09 23:50:00 [INFO]: today==>
+2025-01-09 23:50:54 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-09 23:50:56 [INFO]: No tasks found for rescheduling.
+2025-01-10 00:02:00 [INFO]: Running cron job for task creation at 12:02 AM....
+2025-01-10 00:02:00 [INFO]: today==>
+2025-01-10 00:02:40 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-10 00:02:42 [INFO]: Found 1 clients with upcoming services.
+2025-01-10 00:02:42 [INFO]: Successfully created 1 tasks.
+2025-01-10 00:10:00 [INFO]: Running cron job for assigning tasks at 12:10 AM....
+2025-01-10 00:10:55 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-10 00:10:58 [INFO]: Assigning 1 tasks among 1 teams (1).
+2025-01-10 00:10:58 [INFO]: Task 75 assigned to Team 1 (Tasks assigned: 1)

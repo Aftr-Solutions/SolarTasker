@@ -54,7 +54,7 @@ const assignteam = async () => {
           );
 
           const selectedTeams = teamIds.slice(0, teamsRequired); // Select required teams
-          console.log(
+          logger.info(
             `Assigning ${taskCount} tasks among ${teamsRequired} teams (${selectedTeams.join(", ")}).`
           );
 
@@ -82,14 +82,14 @@ const assignteam = async () => {
                 await new Promise((resolve, reject) => {
                   connection.query(assignQuery, (err) => {
                     if (err) {
-                      console.error(
+                      logger.error(
                         `Error assigning task ${taskId} to team ${teamId}:`,
                         err
                       );
                       reject(err);
                     } else {
                       teamTaskCount[teamIndex]++; // Increment the count for the team
-                      console.log(
+                      logger.info(
                         `Task ${taskId} assigned to Team ${teamId} (Tasks assigned: ${teamTaskCount[teamIndex]})`
                       );
                       assigned = true;
@@ -112,21 +112,21 @@ const assignteam = async () => {
 
           // Log unassigned tasks
           if (unassignedTasks.length > 0) {
-            console.log(
+            logger.info(
               `The following tasks could not be assigned: ${unassignedTasks.join(", ")}`
             );
           }
         } else {
-          console.log("No teams available. Tasks will remain unassigned.");
+          logger.info("No teams available. Tasks will remain unassigned.");
         }
       } else {
-        console.log("No tasks with upcoming services.");
+        logger.info("No tasks with upcoming services.");
       }
     } finally {
       connection.release(); // Ensure the connection is released
     }
   } catch (error) {
-    console.error("Error in assignteam function:", error.message);
+    logger.error("Error in assignteam function:", error.message);
   }
 };
 
@@ -186,7 +186,7 @@ module.exports = { assignteam };*/
           );
 
           const selectedTeams = teamIds.slice(0, teamsRequired); // Select required teams
-          console.log(
+          logger.info(
             `Assigning ${taskCount} tasks among ${teamsRequired} teams (${selectedTeams.join(", ")}).`
           );
 
@@ -214,14 +214,14 @@ module.exports = { assignteam };*/
                 await new Promise((resolve, reject) => {
                   connection.query(assignQuery, (err) => {
                     if (err) {
-                      console.error(
+                      logger.error(
                         `Error assigning task ${taskId} to team ${teamId}:`,
                         err
                       );
                       reject(err);
                     } else {
                       teamTaskCount[teamIndex]++; // Increment the count for the team
-                      console.log(
+                      logger.info(
                         `Task ${taskId} assigned to Team ${teamId} (Tasks assigned: ${teamTaskCount[teamIndex]})`
                       );
                       assigned = true;
@@ -246,21 +246,21 @@ module.exports = { assignteam };*/
 
           // Log unassigned tasks
           if (unassignedTasks.length > 0) {
-            console.log(
+            logger.info(
               `The following tasks could not be assigned: ${unassignedTasks.join(", ")}`
             );
           }
         } else {
-          console.log("No teams available. Tasks will remain unassigned.");
+          logger.info("No teams available. Tasks will remain unassigned.");
         }
       } else {
-        console.log("No tasks with upcoming services.");
+        logger.info("No tasks with upcoming services.");
       }
     } finally {
       connection.release(); // Ensure the connection is released
     }
   } catch (error) {
-    console.error("Error in assignteam function:", error.message);
+    logger.error("Error in assignteam function:", error.message);
   }
 };
 
@@ -268,6 +268,8 @@ module.exports = { assignteam };*/
 
 const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
+const logger = require("../logger");
+
 
 const assignteam = async (pool) => {
   try {
@@ -312,7 +314,7 @@ const assignteam = async (pool) => {
         );
 
         const selectedTeams = teamIds.slice(0, teamsRequired); // Select required teams
-        console.log(
+        logger.info(
           `Assigning ${taskCount} tasks among ${teamsRequired} teams (${selectedTeams.join(", ")}).`
         );
 
@@ -345,12 +347,12 @@ const assignteam = async (pool) => {
                 });
 
                 teamTaskCount[teamIndex]++; // Increment the count for the team
-                console.log(
+                logger.info(
                   `Task ${taskId} assigned to Team ${teamId} (Tasks assigned: ${teamTaskCount[teamIndex]})`
                 );
                 assigned = true;
               } catch (err) {
-                console.error(
+                logger.error(
                   `Error assigning task ${taskId} to team ${teamId}:`,
                   err.message
                 );
@@ -372,18 +374,18 @@ const assignteam = async (pool) => {
 
         // Log unassigned tasks
         if (unassignedTasks.length > 0) {
-          console.log(
+          logger.info(
             `The following tasks could not be assigned: ${unassignedTasks.join(", ")}`
           );
         }
       } else {
-        console.log("No teams available. Tasks will remain unassigned.");
+        logger.info("No teams available. Tasks will remain unassigned.");
       }
     } else {
-      console.log("No tasks with upcoming services.");
+      logger.info("No tasks with upcoming services.");
     }
   } catch (error) {
-    console.error("Error in assignteam function:", error.message);
+    logger.error("Error in assignteam function:", error.message);
   }
 };
 
