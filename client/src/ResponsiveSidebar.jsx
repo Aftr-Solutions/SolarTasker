@@ -19,8 +19,8 @@ export default function ResponsiveSidebar() {
   );
 
   return (
-    <div className='flex'>
-      <button className='h-10 ' onClick={toggleDrawer(true)}>    
+    <div className='flex '>
+      <button className='h-10 sticky top-0 ' onClick={toggleDrawer(true)}>    
               <MenuOutlinedIcon
           className=" p-1 cursor-pointer mt-5 mx-5 hover:  hover:bg-hoverbgGray rounded-full text-gray-700  hover:text-primary"
         />
