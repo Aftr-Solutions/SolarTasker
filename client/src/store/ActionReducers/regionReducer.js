@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchRegions } from "../ActionApis/regionApi";
 
-const prioritySlice = createSlice({
+const regionSlice = createSlice({
   name: "region",
   initialState: {
     regions: [],
@@ -25,4 +25,4 @@ const prioritySlice = createSlice({
   },
 });
 
-export default prioritySlice.reducer;
+export default regionSlice.reducer;
