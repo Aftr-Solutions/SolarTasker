@@ -25,13 +25,13 @@ body {
 
 .css-jhg68t {
   transition: width 0.3s ease !important; /* Smooth animation for width */
-  width: 320px !important;
+  /* width: 320px !important; */
 }
 .css-2ld9pa{
   transition: width 0.3s ease !important; /* Smooth animation for width */
 }
 .side-bar {
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 /* Profile  */
@@ -130,6 +130,12 @@ body {
   }
 }
 
+
+.nav-bar{
+  background: white !important;
+  position: sticky !important;
+  top: 0;
+}
 
 /* Table Row Height */
 

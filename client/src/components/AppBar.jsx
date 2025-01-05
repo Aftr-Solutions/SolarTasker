@@ -73,9 +73,9 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
   
     <AppBar
       position="static"
-      className="bg-white shadow-sm w-full"
+      className="bg-white shadow-sm w-full nav-bar"
       elevation={0}
-      style={{ background: "white" }}
+      // style={{ background: "white" }}
     >
       <Toolbar className="flex justify-between w-full">
         {/* Left Section */}
