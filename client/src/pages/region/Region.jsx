@@ -8,11 +8,9 @@ const Region = () => {
 
   const { regions } = useSelector((state) => state.region);
 
-  console.log(regions);
-
   useEffect(() => {
     dispatch(fetchRegions());
-  }, [dispatch]);
+  }, []);
 
   return <div><Header /></div>;
 };
