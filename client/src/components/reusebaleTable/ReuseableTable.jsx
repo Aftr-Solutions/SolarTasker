@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Table, Button, Modal, Form, Input, Pagination, message } from 'antd';
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import DriveFileRenameOutlineRoundedIcon from '@mui/icons-material/DriveFileRenameOutlineRounded';
+import DeleteSweepRoundedIcon from '@mui/icons-material/DeleteSweepRounded';
+import { Tooltip } from "antd";
 
 const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, }) => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -42,14 +43,28 @@ const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, }) =
       title: 'Action',
       key: 'actions',
       width: 150,
+      fixed: "right",
       render: (_, record) => (
-        <div className='flex'>
-          <Button type="link" onClick={() => handleEdit(record)}>
-            <EditNoteRoundedIcon />
-          </Button>
-          <Button type="link" danger onClick={() => handleDelete(record)}>
-            <DeleteForeverRoundedIcon />
-          </Button>
+        <div className="flex space-x-3">
+          {/* View Action */}
+          <Tooltip title="Edit">
+            <button
+              onClick={() => handleEdit(record)}
+              className="flex items-center justify-center two-icons w-10 h-10 rounded-full transition duration-300 hover:bg-[#13DEB9] hover:text-white"
+            >
+              <DriveFileRenameOutlineRoundedIcon className='icons' style={{fontSize:"20px", color: "#13DEB9"}} />
+            </button>
+          </Tooltip>
+    
+          {/* Delete Action */}
+          <Tooltip title="Delete">
+            <button
+              onClick={() => handleDelete(record)}
+              className="flex items-center justify-center w-10 h-10 two-icons  rounded-full transition duration-300 hover:bg-[#FA896B] hover:text-white"
+            >
+              <DeleteSweepRoundedIcon className='icons' style={{fontSize:"20px", color: "#FA896B"}} />
+            </button>
+          </Tooltip>
         </div>
       ),
     },

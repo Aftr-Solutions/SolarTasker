@@ -130,7 +130,9 @@ body {
   }
 }
 
-
+.two-icons:hover .icons {
+  color: white !important;
+}
 .nav-bar{
   background: white !important;
   position: sticky !important;
@@ -196,6 +198,8 @@ body {
 .ant-table-column-sorter{
   color: #1976d2 !important;
 }
+
+
 
 /* Custom scroll styles for the table */
 .custom-scroll-table .ant-table-body {
