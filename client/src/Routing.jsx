@@ -13,7 +13,7 @@ const Routing = React.memo(() => {
   return (
     <div className=' mx-3 text-lightBlackText font-jakarta'>
           <Routes>
-            <Route path="/clients" element={<Clients />} />  
+            <Route path="/" element={<Clients />} />  
             <Route path="/region" element={<Region />} />
             <Route path="/worker" element={<Workers />} />
             <Route path="/team" element={<Team />} />

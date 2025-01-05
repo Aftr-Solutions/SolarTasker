@@ -75,7 +75,7 @@
               )}
             </div>
             <Menu subHeading="HOME">
-              <Link to="/clients">
+              <Link to="/">
                 <MenuItem
                   icon={
                     <Groups3OutlinedIcon
