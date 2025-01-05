@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const logger = require("../logger");
 const RESPONSE=require("../GlobalResponse/RESPONSE");
+//const moment=require("moment-timezone");
 
 const pool = mysql.createPool({
   host: "148.163.69.162" || process.env.DB_HOST, //"s13.hosterpk.com", // Shared IP from cPanel
@@ -30,5 +31,6 @@ pool.getConnection((err, connection) => {
     return res.status(500).send(RESPONSE(false, "database error", {}));
   }
      logger.info("Database connection successful");
+     //console.log(moment().tz("Asia/Karachi").format("YYYY-MM-DD"))
  });
 module.exports = pool;
