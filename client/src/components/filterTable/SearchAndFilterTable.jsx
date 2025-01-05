@@ -20,7 +20,7 @@ const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit }) => {
 
 
   return (
-    <div  className="shadow-md p-6 bg-gray-100 rounded mt-2">
+    <div  className="shadow-md p-6 bg-gray-50 rounded mt-2">
       <div
         style={{
           display: "flex",
