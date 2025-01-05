@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Table, Button, Modal, Form, Input, Pagination, message } from 'antd';
+import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
-const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, scrollHeight = 350  }) => {
+const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, }) => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(7);
+  const [pageSize, setPageSize] = useState(10);
 
   // Pagination logic
   const handlePageChange = (page, pageSize) => {
@@ -31,41 +33,43 @@ const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, scro
     setDeleteModalOpen(true);
   };
 
+
+
   // Add Edit and Delete buttons to columns
   const enhancedColumns = [
     ...columns,
     {
-      title: 'Actions',
+      title: 'Action',
       key: 'actions',
+      width: 150,
       render: (_, record) => (
-        <>
+        <div className='flex'>
           <Button type="link" onClick={() => handleEdit(record)}>
-            Edit
+            <EditNoteRoundedIcon />
           </Button>
           <Button type="link" danger onClick={() => handleDelete(record)}>
-            Delete
+            <DeleteForeverRoundedIcon />
           </Button>
-        </>
+        </div>
       ),
     },
   ];
 
   return (
     <>
-    <div className=''>
+    <div>
+
 
       <Table
-      className=' table-height  mt-5 '
+      className=' table-height custom-scroll-table mt-5 '
         columns={enhancedColumns}
         dataSource={paginatedData}
-        rowKey="id"
         pagination={false} // Disable built-in pagination
-        // scroll={{
-        //     y: scrollHeight, // Vertical scrolling with fixed height
-        //     x: '100%', // Horizontal scrolling for larger tables
-        //   }}
-        
         rowClassName={() => 'small-row'} // Custom class for small row height
+        scroll={{
+          x: 'max-content', // Set horizontal scrolling width
+          y: 380, // Set vertical scrolling height
+        }}
         />
         
       
