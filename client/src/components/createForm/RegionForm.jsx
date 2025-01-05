@@ -108,8 +108,10 @@ const RegionForm = ({ close, handleDialogClose }) => {
             onChange={(e) => setRegion(e.target.value)}
             label="Select Region"
           >
-            {regions.map((idx, region) => (
-              <MenuItem key={idx} value={region}>{region}</MenuItem>
+            {regions.map((region, idx) => (
+              <MenuItem key={idx} value={region}>
+                {region}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

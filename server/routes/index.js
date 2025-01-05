@@ -62,7 +62,7 @@ router.use("/selectclients",selectclients);
 router.use("/createworkers",createworkers);
 router.use("/updateworkers",updateworkers);
 router.use("/deleteworkers",deleteworkers);
-router.use("/selectworkers",selectworkers);
+router.use("/selectworker",selectworkers);
 
 router.use("/createteams",createteams);
 router.use("/updateteams",updateteams);

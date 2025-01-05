@@ -14,9 +14,9 @@ const SearchAndFilterTable = ({
 }) => {
   // Table States
   const [tableData, setTableData] = useState([]);
-  console.log(tableData)
-  console.log("Table Type =>", tableType);
-  console.log("Data as props =>", data);
+  // console.log(tableData)
+  // console.log("Table Type =>", tableType);
+  // console.log("Data as props =>", data);
 
   // Client States
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,7 +48,7 @@ const SearchAndFilterTable = ({
 // Date format in the data
 const dateFormat = "DD/MM/YYYY";
 const onDateChange = (date , dateString) => {
-  console.log( dateString);
+  // console.log( dateString);
   setSelectedDate(dateString)
 };
 
@@ -59,7 +59,7 @@ const onDateChange = (date , dateString) => {
   useEffect(() => {
     // Ensure data is an array
     let filteredData = Array.isArray(data) ? data : [];
-    console.log(filteredData)
+    // console.log(filteredData)
 
     if (tableType === "clients") {
       filteredData = filteredData.filter((item) => {
@@ -121,7 +121,7 @@ const onDateChange = (date , dateString) => {
         const matchesTaskDate = selectedDate
           ? item.created_at === selectedDate
           : true; 
-          console.log(matchesTaskDate)
+          // console.log(matchesTaskDate)
         return matchesTaskName && matchesTaskDate;
       });
     }
