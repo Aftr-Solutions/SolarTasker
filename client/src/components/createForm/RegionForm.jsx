@@ -80,6 +80,7 @@ const RegionForm = ({ close, handleDialogClose }) => {
     setIsAreaValid(isDataSafe);
   };
 
+  // effect to empty all state whenever dialog is closed
   useEffect(() => {
     emptyStates();
   }, [close]);
@@ -87,7 +88,7 @@ const RegionForm = ({ close, handleDialogClose }) => {
   return (
     <div className="my-5">
       <Box sx={{ minWidth: isMobile ? 270 : 420 }}>
-        {/* area field */}
+        {/* name field */}
         <FormControl fullWidth sx={{ mb: isAreaValid ? 3 : 2 }}>
           <TextField
             label="Enter Area"
@@ -100,9 +101,9 @@ const RegionForm = ({ close, handleDialogClose }) => {
         </FormControl>
         {/* region field */}
         <FormControl fullWidth sx={{ mb: 3 }}>
-          <InputLabel id="demo-simple-select-label">Select Region</InputLabel>
+          <InputLabel id="region">Select Region</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
+            labelId="region"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
             label="Select Region"

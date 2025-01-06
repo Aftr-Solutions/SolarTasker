@@ -79,6 +79,7 @@ const WorkerForm = ({ close,handleDialogClose }) => {
     }
   };
 
+  // effect to empty all state whenever dialog is closed
   useEffect(() => {
     emptyStates();
   }, [close]);
