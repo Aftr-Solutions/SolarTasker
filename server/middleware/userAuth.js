@@ -7,6 +7,7 @@ const logger = require("../logger");
 
 module.exports = async (req, res, next) => {
   try {
+    
     // Get the token from the Authorization header
     const authHeader = req.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {

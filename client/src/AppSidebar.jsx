@@ -17,6 +17,7 @@
     const [isCollapse, setIsCollapse] = useState(false);
  
     return (
+      <>
       <div className="flex ">
         <div className=" h-screen bg-white border side-bar my-scrollable-element  ">
           <Sidebar
@@ -197,14 +198,23 @@
           </Sidebar>
         </div>
         {!open? (
+          <>
   <Navbar  setIsCollapse ={setIsCollapse} />
+
+          </>
+  
 
 
         ):(
     ""
         )}
+
+       
       
       </div>
+      
+      </>
+
     );
   };
 

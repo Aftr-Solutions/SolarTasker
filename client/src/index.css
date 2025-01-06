@@ -140,6 +140,12 @@ body {
   z-index: 100;
 }
 
+.tool-bar{
+  background: white !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+}
 /* Table Row Height */
 
 /* Style for smaller row height */
