@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import RegionForm from "../createForm/RegionForm";
 import { Grow, Slide } from "@mui/material";
 import WorkerForm from "../createForm/WorkerForm";
+import TeamForm from "../createForm/TeamForm";
+import UserForm from "../createForm/UserForm";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -69,6 +71,10 @@ export default function CreateDialog({
               <RegionForm close={close} handleDialogClose={handleDialogClose} />
             ) : path === "/worker" ? (
               <WorkerForm close={close} handleDialogClose={handleDialogClose} />
+            ) : path === "/team" ? (
+              <TeamForm close={close} handleDialogClose={handleDialogClose} />
+            ) : path === "/user" ? (
+              <UserForm close={close} handleDialogClose={handleDialogClose} />
             ) : (
               <Typography gutterBottom>
                 Cras mattis consectetur purus sit amet fermentum. Cras justo
