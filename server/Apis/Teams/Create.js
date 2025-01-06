@@ -16,14 +16,15 @@ router.post("/",(req,res)=>{
     if(!member1 || !member2){
         return res.status(400).send(RESPONSE(false, "Missing required fields", {}));
     }
-
+    console.log("body",req.body);
+    
     let payload={
         tableName:tableName.team,
         table:"Teams",
         databaseFields:{
-            member1,
-            member2,
-            member3,
+            member1_id:member1,
+            member2_id: member2,
+            member3_id: member3,
             team_name:teamname
         },
         
