@@ -9,6 +9,7 @@ const logger = require("../../logger");
 router.get("/",(req,res)=>{
     let payload={
         tableName:tableName.area_region,
+        table:"Area Region Table",
     };
     GlobalSelect(payload,res);
 });

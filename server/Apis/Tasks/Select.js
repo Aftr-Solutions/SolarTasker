@@ -47,12 +47,12 @@ router.get("/", (req, res) => {
         if (err) {
           // Log the error and send a proper response
           logger.error("Error while executing query:", err);
-          return res.send(RESPONSE(false, "Error while selecting data", err));
+          return res.send(RESPONSE(false, "Error while selecting data from Tasks", err));
         }
 
         // Log the result and send a success response
         logger.info("Successfully fetched tasks:", result);
-        return res.send(RESPONSE(true, "Successfully selected tasks", result));
+        return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
       });
     });
   } catch (err) {

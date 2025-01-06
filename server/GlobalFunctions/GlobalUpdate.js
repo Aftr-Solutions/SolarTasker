@@ -22,11 +22,11 @@ const GlobalUpdate = (payload, res) => {
 
         if (err) {
           // // logger.info(err);
-          return res.send(reponse(false, "error while updating", err));
+          return res.send(reponse(false, `error while updating in ${payload.tableName}`, err));
         } else {
           return res
             .status(200)
-            .send(reponse(true, "succesfully updated", result));
+            .send(reponse(true, `succesfully updated in ${payload.tableName}`, result));
         }
       });
     });

@@ -13,12 +13,13 @@ router.post("/", (req, res) => {
 
   // Validate required fields
   if (!region||!area) {
-    return res.status(400).send(RESPONSE(false, "Missing required fields", {}));
+    return res.status(400).send(RESPONSE(false, "Missing required fields such as area or region", {}));
   }
 
   // Create payload
   let payload = {
     tableName: tableName.area_region,
+    table:"Area Region Table",
     databaseFields: {
       area,
       region

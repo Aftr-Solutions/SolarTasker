@@ -57,6 +57,7 @@ router.post("/", (req, res) => {
   // Create payload
   let payload = {
     tableName: tableName.clients,
+    table:"Clients",
     databaseFields: {
       name,
       number,

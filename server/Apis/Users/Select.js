@@ -9,6 +9,7 @@ const logger = require("../../logger");
 router.get("/",(req,res)=>{
     let payload={
         tableName:tableName.owners,
+        table:"Owners"
     };
     GlobalSelect(payload,res);
 });

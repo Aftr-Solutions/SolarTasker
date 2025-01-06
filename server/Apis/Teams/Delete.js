@@ -40,6 +40,7 @@ router.post("/", (req, res) => {
         // Prepare payload for deletion
         let payload = {
             tableName: tableName.team,
+            table:"Teams",
             databaseFields: {
                 id: id,
             },

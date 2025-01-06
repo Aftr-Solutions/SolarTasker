@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
 
   // Validate required fields
   if (!id) {
-    return res.status(400).send(RESPONSE(false, "Missing required 'id' field", {}));
+    return res.status(400).send(RESPONSE(false, "Missing required 'id' field for deletion", {}));
   }
   const query = `SELECT COUNT(*) AS count FROM ${tableName.clients} WHERE area_region_id = ?`;
 
@@ -32,7 +32,8 @@ router.post("/", (req, res) => {
     
   // Create payload
     let payload = {
-      tableName: tableName.area_region, // Corrected to singular
+      tableName: tableName.area_region,
+      table:"Area Region Table",// Corrected to singular
       databaseFields: {
         id: id, // ID to be deleted
     },

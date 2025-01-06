@@ -12,7 +12,8 @@ router.post("/",(req,res)=>{
         member1,
         member2,
         member3,
-        isactive
+        isactive,
+        teamname,
     }=req.body;
     if(!id || !member1 ||!member2){
         return res.status(400).send(RESPONSE(false,"Please Fill All Fields",{}));
@@ -20,11 +21,13 @@ router.post("/",(req,res)=>{
     let payload={
         id:id,
         tableName:tableName.team,
+        table:"Teams",
         databaseFields:{
             member1:member1,
             member2:member2,
             member3:member3,
-            isactive:isactive
+            isactive:isactive,
+            team_name:teamname,
         },
     };
     logger.info("Payload for update:", payload);

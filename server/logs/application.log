@@ -194,9 +194,86 @@
 2025-01-05 23:50:00 [INFO]: today==>
 2025-01-05 23:50:34 [WARN]: ECONNRESET encountered. Retrying... (1/3)
 2025-01-05 23:50:36 [INFO]: No tasks found for rescheduling.
+<<<<<<< HEAD
 2025-01-06 10:27:19 [INFO]: Server is running on: localhost:
 2025-01-06 10:27:19 [ERROR]: Authentication error:
 2025-01-06 10:27:19 [ERROR]: Authentication error:
 2025-01-06 10:27:19 [ERROR]: Authentication error:
 2025-01-06 10:27:19 [ERROR]: Authentication error:
 2025-01-06 10:27:21 [INFO]: Database connection successful
+=======
+2025-01-12 10:30:10 [INFO]: Server is running on: localhost:
+2025-01-12 10:30:11 [INFO]: Database connection successful
+2025-01-12 10:31:41 [INFO]: Server is running on: localhost:
+2025-01-12 10:31:42 [INFO]: Database connection successful
+2025-01-12 10:33:23 [INFO]: Server is running on: localhost:
+2025-01-12 10:33:24 [INFO]: Database connection successful
+2025-01-12 10:39:40 [INFO]: Payload for insertion:
+2025-01-12 10:41:08 [INFO]: Server is running on: localhost:
+2025-01-12 10:41:09 [INFO]: Database connection successful
+2025-01-12 10:42:37 [INFO]: Server is running on: localhost:
+2025-01-12 10:42:38 [INFO]: Database connection successful
+2025-01-12 10:59:54 [INFO]: Payload for insertion:
+2025-01-12 11:00:15 [INFO]: Payload for insertion:
+2025-01-12 11:13:46 [INFO]: Server is running on: localhost:
+2025-01-12 11:13:47 [INFO]: Database connection successful
+2025-01-12 11:14:54 [INFO]: Server is running on: localhost:
+2025-01-12 11:14:55 [INFO]: Database connection successful
+2025-01-12 11:15:34 [INFO]: Server is running on: localhost:
+2025-01-12 11:15:35 [INFO]: Database connection successful
+2025-01-12 11:17:16 [INFO]: Server is running on: localhost:
+2025-01-12 11:17:17 [INFO]: Database connection successful
+2025-01-12 11:19:14 [INFO]: Server is running on: localhost:
+2025-01-12 11:19:15 [INFO]: Database connection successful
+2025-01-12 11:20:43 [INFO]: Server is running on: localhost:
+2025-01-12 11:20:44 [INFO]: Database connection successful
+2025-01-12 11:21:05 [INFO]: Server is running on: localhost:
+2025-01-12 11:21:06 [INFO]: Database connection successful
+2025-01-12 11:22:51 [INFO]: Server is running on: localhost:
+2025-01-12 11:22:52 [INFO]: Database connection successful
+2025-01-12 11:23:42 [INFO]: Server is running on: localhost:
+2025-01-12 11:23:43 [INFO]: Database connection successful
+2025-01-12 11:24:29 [INFO]: Server is running on: localhost:
+2025-01-12 11:24:30 [INFO]: Database connection successful
+2025-01-12 11:24:40 [INFO]: Server is running on: localhost:
+2025-01-12 11:24:42 [INFO]: Database connection successful
+2025-01-12 11:25:41 [INFO]: Server is running on: localhost:
+2025-01-12 11:25:41 [INFO]: Database connection successful
+2025-01-12 11:26:03 [INFO]: Server is running on: localhost:
+2025-01-12 11:26:03 [INFO]: Database connection successful
+2025-01-12 11:26:33 [INFO]: Server is running on: localhost:
+2025-01-12 11:26:34 [INFO]: Database connection successful
+2025-01-12 11:27:25 [INFO]: Server is running on: localhost:
+2025-01-12 11:27:25 [INFO]: Database connection successful
+2025-01-12 11:27:47 [INFO]: Server is running on: localhost:
+2025-01-12 11:27:48 [INFO]: Database connection successful
+2025-01-12 11:28:01 [INFO]: Server is running on: localhost:
+2025-01-12 11:28:02 [INFO]: Database connection successful
+2025-01-12 11:28:06 [INFO]: Server is running on: localhost:
+2025-01-12 11:28:07 [INFO]: Database connection successful
+2025-01-12 11:28:13 [INFO]: Server is running on: localhost:
+2025-01-12 11:28:14 [INFO]: Database connection successful
+2025-01-12 11:29:47 [INFO]: Server is running on: localhost:
+2025-01-12 11:29:48 [INFO]: Database connection successful
+2025-01-12 11:31:02 [INFO]: Server is running on: localhost:
+2025-01-12 11:31:03 [INFO]: Database connection successful
+2025-01-12 11:31:07 [INFO]: Server is running on: localhost:
+2025-01-12 11:31:07 [INFO]: Database connection successful
+2025-01-12 11:31:25 [INFO]: Server is running on: localhost:
+2025-01-12 11:31:26 [INFO]: Database connection successful
+2025-01-12 11:31:42 [INFO]: Server is running on: localhost:
+2025-01-12 11:31:43 [INFO]: Database connection successful
+2025-01-12 11:32:07 [INFO]: Server is running on: localhost:
+2025-01-12 11:32:08 [INFO]: Database connection successful
+2025-01-12 11:32:21 [INFO]: Server is running on: localhost:
+2025-01-12 11:32:23 [INFO]: Database connection successful
+2025-01-12 11:32:27 [INFO]: Server is running on: localhost:
+2025-01-12 11:32:29 [INFO]: Database connection successful
+2025-01-12 11:34:55 [INFO]: Payload for insertion:
+2025-01-12 11:47:40 [INFO]: Server is running on: localhost:
+2025-01-12 11:47:41 [INFO]: Database connection successful
+2025-01-12 11:47:51 [INFO]: Server is running on: localhost:
+2025-01-12 11:47:52 [INFO]: Database connection successful
+>>>>>>> 5cc75cac7c099176947da24a08a02e510aec73aa
+2025-01-06 16:48:12 [INFO]: Server is running on: localhost:
+2025-01-06 16:48:14 [INFO]: Database connection successful
