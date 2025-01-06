@@ -44,8 +44,8 @@ const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit }) => {
           style={{ width: "150px" }}
           allowClear
         >
-          <Option value="Basic">Basic</Option>
-          <Option value="Premium">Premium</Option>
+          <Option value={0}>Basic</Option>
+          <Option value={1}>Premium</Option>
         </Select>
 
       </div>
