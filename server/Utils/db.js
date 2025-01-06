@@ -23,11 +23,11 @@ const pool = mysql.createPool({
   //queueLimit: 0, // No limit on the number of queued requests
   //idleTimeout: 60000, // 60 seconds (adjust as needed)
 });
-pool.getConnection((err, connection) => {
-  if (err) {
-    logger.error("Database connection error:", err);
-    return res.status(500).send(RESPONSE(false, "database error", {}));
-  }
-  logger.info("Database connection successful");
-});
+// pool.getConnection((err, connection) => {
+//   if (err) {
+//     logger.error("Database connection error:", err);
+//     return res.status(500).send(RESPONSE(false, "database error", {}));
+//   }
+//   logger.info("Database connection successful");
+// });
 module.exports = pool;
