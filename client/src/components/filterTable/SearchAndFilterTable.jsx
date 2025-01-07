@@ -6,18 +6,16 @@ const { Search } = Input;
 const { Option } = Select;
 
 const SearchAndFilterTable = ({
-  data,
+  data = [], // Default to an empty array if data is undefined
   columns,
   handleDelete,
   handleEdit,
   tableType,
 }) => {
-  console.log("tableType==>", tableType);
-  console.log("Data as props ===>", data);
-
-  //Table Sates
+  // Table States
   const [tableData, setTableData] = useState([]);
-  console.log(tableData);
+  console.log("Table Type =>", tableType);
+  console.log("Data as props =>", data);
 
   // Client States
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,23 +26,22 @@ const SearchAndFilterTable = ({
   const [searchTermByArea, setSearchTermByArea] = useState("");
   const [searchTermByRegion, setSearchTermByRegion] = useState("");
 
-  //Workers Sates
+  // Workers States
   const [searchTermByWorkerName, setSearchTermByWrokerName] = useState("");
   const [searchTermByWorkerCNIC, setSearchTermByWorkerCNIC] = useState("");
 
-
-  //Team Status 
-
+  // Team States
   const [searchTeamByName, setSearchTeamByName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
-  console.log(selectedStatus)
+  console.log("Selected Status =>", selectedStatus);
 
-  // Filter data based on search name, email, and selected plan
+  // Filter data based on search inputs
   useEffect(() => {
-    let filteredData = data;
+    // Ensure data is an array
+    let filteredData = Array.isArray(data) ? data : [];
 
     if (tableType === "clients") {
-      filteredData = data.filter((item) => {
+      filteredData = filteredData.filter((item) => {
         const matchesSearch = item.email
           ?.toLowerCase()
           .includes(searchTerm.toLowerCase());
@@ -55,7 +52,7 @@ const SearchAndFilterTable = ({
         return matchesPlan && matchesSearch && matchesSearchName;
       });
     } else if (tableType === "regions") {
-      filteredData = data.filter((item) => {
+      filteredData = filteredData.filter((item) => {
         const matchesSearchArea = item.area
           ?.toLowerCase()
           .includes(searchTermByArea.toLowerCase());
@@ -65,7 +62,7 @@ const SearchAndFilterTable = ({
         return matchesSearchArea && matchesSearchRegion;
       });
     } else if (tableType === "workers") {
-      filteredData = data.filter((item) => {
+      filteredData = filteredData.filter((item) => {
         const matchesSearchWorkerName = item.name
           ?.toLowerCase()
           .includes(searchTermByWorkerName.toLowerCase());
@@ -74,13 +71,15 @@ const SearchAndFilterTable = ({
           .includes(searchTermByWorkerCNIC.toLowerCase());
         return matchesSearchWorkerName && matchesSearchByWorkerCNIC;
       });
-    } else  if (tableType === "teams") {
-      filteredData = data.filter((item) => {
+    } else if (tableType === "teams") {
+      filteredData = filteredData.filter((item) => {
         const matchesTeam = item.team_name
           ?.toLowerCase()
           .includes(searchTeamByName.toLowerCase());
-        const matchesStatus = selectedPlan ? item.isactive === selectedStatus : true;
-        return matchesStatus && matchesTeam ;
+        const matchesStatus = selectedStatus
+          ? item.isactive === selectedStatus
+          : true;
+        return matchesStatus && matchesTeam;
       });
     }
 
@@ -96,7 +95,7 @@ const SearchAndFilterTable = ({
     searchTermByWorkerCNIC,
     searchTermByWorkerName,
     searchTeamByName,
-    selectedStatus
+    selectedStatus,
   ]);
 
   return (
@@ -125,18 +124,17 @@ const SearchAndFilterTable = ({
               allowClear
             />
 
-            {/* Select dropdown */}
             <Select
               placeholder="Select Plan"
               onChange={(value) => setSelectedPlan(value)}
               style={{ width: "150px" }}
               allowClear
             >
-              <Option value={0}>Basic</Option>
-              <Option value={1}>Premium</Option>
+              <Option value="Basic">Basic</Option>
+              <Option value="Premium">Premium</Option>
             </Select>
           </>
-        ) : tableType === "region" ? (
+        ) : tableType === "regions" ? (
           <>
             <Search
               placeholder="Search By Area"
@@ -161,7 +159,6 @@ const SearchAndFilterTable = ({
               allowClear
             />
 
-            {/* Search by CNIC (Numbers Only) */}
             <Input
               placeholder="Search By CNIC"
               onChange={(e) => {
@@ -170,17 +167,12 @@ const SearchAndFilterTable = ({
                   setSearchTermByWorkerCNIC(value); // Only set numeric values
                 }
               }}
-              onKeyPress={(e) => {
-                if (!/^\d$/.test(e.key)) {
-                  e.preventDefault(); // Prevent non-numeric characters
-                }
-              }}
               style={{ width: "200px" }}
-              maxLength={13} // Optional: CNIC typically has 13 digits
+              maxLength={13}
               allowClear
             />
           </>
-        ) : tableType === "teams"? (
+        ) : tableType === "teams" ? (
           <>
             <Search
               placeholder="Search By Team Name"
@@ -189,7 +181,6 @@ const SearchAndFilterTable = ({
               allowClear
             />
 
-            {/* Select dropdown */}
             <Select
               placeholder="Select Status"
               onChange={(value) => setSelectedStatus(value)}
@@ -200,12 +191,9 @@ const SearchAndFilterTable = ({
               <Option value={0}>Offline</Option>
             </Select>
           </>
-        ): (
-          ""
-        )}
+        ) : null}
       </div>
 
-      {/* Filtered data table */}
       <ReusableTable
         columns={columns}
         data={tableData}
