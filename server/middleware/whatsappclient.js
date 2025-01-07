@@ -4,14 +4,14 @@ const logger = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BOZCnaGQebseiVIL1ZBsnlRLYzgUlGLlQy2G8yYbK0fJ3oafmXueOnwp0B1zantpl6r106dcUry5tMpQIGkwxZBorLGMEqb6YAaxuoglVdZBsqyLk57VKeuz2R6xIMdI6hsE8BXKSBhA8wajbZC6B0cwAUdrE3v5hck2HZCusO3UrZAQLYaq0ZAkZBmrany577ek9ViVdpx1smobObTXJbELkAeKZAph7CQf5jeUDRqyr4ZD";
-const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
-const API_URL = `https://graph.facebook.com/v16.0/${PHONE_NUMBER_ID}/messages`;
+const ACCESS_TOKEN = "EAAItPCtNug4BO5H68gwZAO6XoeflAZAiRZAiT6EjBzbufPFAMWqm5W3ojLC6EdySM2d5H0PO0YY4ZAZBdP7HEhL7BcTGDks6gNZCJW55TvnBcQk0a0bs2vkBqykUQx9HuP9zRyAPcPPVq5RrSEEJbz9pwqF94q5ZC02PUYKA7XspfXP3Kp9PZAfqlyKbcuJxQIXGPCRnPdmih6bEAZBIYSSgWO5w4mEZCH2MqcGCey9zSWJ7MOOVX6OuIZD";
+//const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
+const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
 
 const sendMessage = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info("today==>", todayDate);
+    logger.info(`today==>, ${todayDate}`);
 
     // Query to get clients with upcoming services in 2 days
     const selectQuery = `
@@ -33,28 +33,29 @@ const sendMessage = async (pool) => {
       logger.info("No clients with upcoming services n 2 days.");
       return;
     }
-
+    logger.info("Query Results:", results);
     // Iterate over results and send WhatsApp messages
     for (const item of results) {
       const payload = {
-        messaging_product: "whatsapp",
-        to: item.number, // Client's phone number
-        type: "template",
-        template: {
-          name: "service_call",
-          language: { code: "en" },
-          components: [
+        "messaging_product": "whatsapp",
+        "to": item.number, // Use `item` here
+        "type": "template",
+        "template": {
+          "name": "service_message",
+          "language": { "code": "en" },
+          "components": [
             {
-              type: "body",
-              parameters: [
-                { type: "text", text: item.name }, // Client name
-                { type: "text", text: moment(item.service_date).format("YYYY-MM-DD") },// Service date
-                { type: "text", text: item.address} 
-              ],
-            },
-          ],
-        },
+              "type": "body",
+              "parameters": [
+                { "type": "text", "text": item.name }, // Use `item` here
+                { "type": "text", "text": moment(item.service_date).format("YYYY-MM-DD") }, // Format date
+                { "type": "text", "text": item.address } // Use `item` here
+              ]
+            }
+          ]
+        }
       };
+
 
       try {
         const response = await axios.post(API_URL, payload, {
@@ -65,11 +66,11 @@ const sendMessage = async (pool) => {
         });
         logger.info(`Message sent to ${item.name} (${item.number}) successfully.`);
       } catch (error) {
-        logger.error(`Error sending message to ${item.name} (${item.number}):`,  error.message || error.response?.data );
-      }
+        logger.error(`Error sending message to ${item.name} (${item.number}):`, error.response?.data || error.message);
+      }      
     }
   } catch (error) {
-    logger.error("Error in WhatsApp message send cron job:", error.message);
+    logger.error(`Error in WhatsApp message send cron job: ${error.message}`);
   }
 };
 
