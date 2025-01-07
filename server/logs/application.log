@@ -707,3 +707,84 @@
 2025-01-07 08:16:23 [INFO]: Combined Results:
 2025-01-07 08:16:23 [INFO]: Message sent to Ahmed for client Umer
 2025-01-07 08:18:44 [INFO]: Server is running on: localhost:
+2025-01-07 22:18:32 [INFO]: Server is running on: localhost:
+2025-01-07 22:18:33 [INFO]: Database connection successful
+2025-01-07 23:45:00 [INFO]: Running cron job for rescheduling pending tasks at 11:45 PM....
+2025-01-07 23:45:00 [INFO]: today==>
+2025-01-07 23:45:14 [INFO]: No tasks to be rescheduled.
+2025-01-07 23:50:00 [INFO]: Running cron job for rescheduling complete tasks at 11:50 PM....
+2025-01-07 23:50:00 [INFO]: today==>
+2025-01-07 23:53:11 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-07 23:53:13 [INFO]: No tasks found for rescheduling.
+2025-01-08 00:02:00 [INFO]: Running cron job for task creation at 12:02 AM....
+2025-01-08 00:02:00 [INFO]: today==>
+2025-01-08 00:02:41 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-08 00:02:43 [INFO]: No clients with upcoming services within 2 days.
+2025-01-08 00:10:00 [INFO]: Running cron job for assigning tasks at 12:10 AM....
+2025-01-08 00:10:41 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-08 00:10:43 [INFO]: No tasks with upcoming services.
+2025-01-08 00:55:31 [INFO]: Server is running on: localhost:
+2025-01-08 00:55:32 [INFO]: Database connection successful
+2025-01-08 00:58:59 [INFO]: Today: 2025-01-08
+2025-01-08 00:58:59 [INFO]: Server is running on: localhost:
+2025-01-08 00:59:00 [INFO]: Database connection successful
+2025-01-08 00:59:00 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 00:59:00 [INFO]: Unique Team IDs: 1
+2025-01-08 00:59:00 [INFO]: Executing teamMemberQuery: 
+      SELECT 
+          t.id AS team_id, 
+          t.team_name AS team_name, 
+          w.name AS team_lead, 
+          w.number AS team_contact
+      FROM 
+          team t 
+      INNER JOIN 
+          workers w 
+      ON 
+          t.member1_id = w.id
+      WHERE 
+          t.id IN (?);
+    
+2025-01-08 00:59:00 [INFO]: Query parameters: 1
+2025-01-08 00:59:01 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 00:59:01 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 01:01:43 [INFO]: Today: 2025-01-08
+2025-01-08 01:01:43 [INFO]: Server is running on: localhost:
+2025-01-08 01:01:43 [INFO]: Database connection successful
+2025-01-08 01:01:44 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 01:01:44 [INFO]: Unique Team IDs: 1
+2025-01-08 01:01:44 [INFO]: Executing teamMemberQuery: 
+      SELECT 
+          t.id AS team_id, 
+          t.team_name AS team_name, 
+          w.name AS team_lead, 
+          w.number AS team_contact
+      FROM 
+          team t 
+      INNER JOIN 
+          workers w 
+      ON 
+          t.member1_id = w.id
+      WHERE 
+          t.id IN (?);
+    
+2025-01-08 01:01:44 [INFO]: Query parameters: 1
+2025-01-08 01:01:44 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 01:01:44 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 01:01:59 [INFO]: Today: 2025-01-08
+2025-01-08 01:01:59 [INFO]: Server is running on: localhost:
+2025-01-08 01:02:00 [INFO]: Database connection successful
+2025-01-08 01:02:00 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 01:02:00 [INFO]: Unique Team IDs: 1
+2025-01-08 01:02:00 [INFO]: Query parameters: 1
+2025-01-08 01:02:01 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 01:02:01 [INFO]: Message sent to Ahmed for client Hamza khan
+2025-01-08 02:35:09 [INFO]: Successfully fetched tasks:
+2025-01-08 02:35:15 [INFO]: Successfully fetched tasks:
+2025-01-08 02:35:16 [INFO]: Successfully fetched tasks:
+2025-01-08 02:35:19 [INFO]: Successfully fetched tasks:
+2025-01-08 02:35:20 [INFO]: Successfully fetched tasks:
+2025-01-08 02:35:58 [INFO]: Successfully fetched tasks:
+2025-01-08 02:35:59 [INFO]: Successfully fetched tasks:
+2025-01-08 02:38:32 [INFO]: Successfully fetched tasks:
+2025-01-08 02:38:33 [INFO]: Successfully fetched tasks:
