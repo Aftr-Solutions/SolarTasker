@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
                 const { email, user_name } = userResult[0];
 
                 // Send the reset password email
-                sendUserCredentials(email, user_name, newPassword, req, res);
+                sendUserCredentials(email, user_name, newPassword,"reset", req, res);
 
                 return res.send(RESPONSE(true, "Password reset successfully", result));
               } else {
