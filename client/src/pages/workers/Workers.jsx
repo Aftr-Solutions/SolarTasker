@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchWorkers } from '../../store/ActionApis/workerApi';
 import SearchAndFilterTable from '../../components/filterTable/SearchAndFilterTable';
 import { workerColumns } from '../../components/columns/Columns';
+import Header from '../../components/Header/Header';
 
 const Workers = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ const Workers = () => {
 
   return (
     <>
+    <div>
+        <Header />
+      </div>
     <div className="">
       <SearchAndFilterTable
         data={workers}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeams } from '../../store/ActionApis/teamApi';
 import SearchAndFilterTable from '../../components/filterTable/SearchAndFilterTable';
 import { teamColumn } from '../../components/columns/Columns';
+import Header from '../../components/Header/Header';
 
 const Team = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,9 @@ const Team = () => {
 
   return (
     <>
-    <div className="">
+     <div>
+        <Header  />
+      </div>
       <SearchAndFilterTable
         data={teams}
         columns={teamColumn}
@@ -39,7 +42,6 @@ const Team = () => {
         handleEdit={handleEdit}
         tableType="teams"
       />
-    </div>
     </>
   )
 }

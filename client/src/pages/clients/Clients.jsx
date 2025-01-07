@@ -4,6 +4,7 @@ import { clientColumns } from "../../components/columns/Columns";
 import SearchAndFilterTable from "../../components/filterTable/SearchAndFilterTable";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchClients } from '../../store/ActionApis/clientApi';
+import Header from "../../components/Header/Header";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -31,15 +32,19 @@ const Clients = () => {
     );
   };
   return (
-    <div className="">
-      <SearchAndFilterTable
-        data={clients}
-        columns={clientColumns}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-        tableType= "clients"
-      />
-    </div>
+    <>
+     <div>
+        <Header />
+      </div>
+<SearchAndFilterTable
+  data={clients}
+  columns={clientColumns}
+  handleDelete={handleDelete}
+  handleEdit={handleEdit}
+  tableType= "clients"
+/>
+    </>
+  
   );
 };
 

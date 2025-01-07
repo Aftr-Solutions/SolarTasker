@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRegions } from '../../store/ActionApis/regionApi';
 import SearchAndFilterTable from '../../components/filterTable/SearchAndFilterTable';
-import { clientColumns, regionColumns } from '../../components/columns/Columns';
+import {  regionColumns } from '../../components/columns/Columns';
+import Header from '../../components/Header/Header'
 
 const Region = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,10 @@ const Region = () => {
 
   return (
     <>
-    <div className="">
+    <div>
+        <Header />
+      </div>
+      
       <SearchAndFilterTable
         data={regions}
         columns={regionColumns}
@@ -38,7 +42,6 @@ const Region = () => {
         handleEdit={handleEdit}
         tableType="regions"
       />
-    </div>
     </>
   )
 };
