@@ -48,17 +48,31 @@ body {
 
 /* dialog  */
 .MuiDialog-paper {
-  border-radius: 20px !important;
+  border-radius: 15px !important;
 }
 /* input field  */
 .MuiOutlinedInput-notchedOutline {
   border-radius: 10px !important;
 }
 .MuiInputBase-input {
-  padding: 12px 14px !important;
+  padding: 10px 14px !important;
+}
+.MuiInputLabel-outlined{
+  top: -4px !important;
 }
 .Mui-focused > input {
   color: #1976d2 !important;
+}
+/* icon in btton  */
+.MuiSvgIcon-root{
+  vertical-align: -4px !important;
+}
+/* small screen  */
+@media (max-width: 640px) {
+  /* dialog  */
+  .MuiDialog-paper {
+    margin: 10px !important;
+  }
 }
 
 @media (max-width: 1165px) {
