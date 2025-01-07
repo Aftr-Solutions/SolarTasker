@@ -18,7 +18,7 @@
  
     return (
       <>
-      <div className="flex h-screen ">
+      <div className="flex">
         <div className=" h-full bg-white border side-bar my-scrollable-element  ">
           <Sidebar
             isCollapse={isCollapse}
