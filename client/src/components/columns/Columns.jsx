@@ -285,51 +285,29 @@ export const teamColumn = [
     render: (row) => <span className="">{row}</span>,
   },
   {
-    title: "Team Member 1",
-    dataIndex: "member1_id",
-    key: "member1_id",
+    title: "Team Lead",
+    dataIndex: "team_lead",
+    key: "team_lead",
     width: 200,
-    sorter: (a, b) => a.member1_id.length - b.member1_id.length,
+    sorter: (a, b) => a.team_lead.length - b.team_lead.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Member 1",
+    dataIndex: "member1",
+    key: "member1",
+    width: 200,
+    sorter: (a, b) => a.member1.length - b.member1.length,
     render: (row) => <span className="">{row}</span>,
   },
   {
     title: "Team Member 2",
-    dataIndex: "member2_id",
-    key: "member2_id",
+    dataIndex: "member2",
+    key: "member2",
     width: 200,
-    sorter: (a, b) => a.member2_id.length - b.member2_id.length,
+    sorter: (a, b) => a.member2.length - b.member2.length,
     render: (row) => <span className="">{row}</span>,
   },
-  {
-    title: "Team Member 3",
-    dataIndex: "member3_id",
-    key: "member3_id",
-    width: 200,
-    sorter: (a, b) => a.member3_id.length - b.member3_id.length,
-    render: (row) => <span className="">{row}</span>,
-  },
-  {
-    title: "Team Status",
-    dataIndex: "isactive",
-    key: "isactive",
-    width: 200,
-    sorter: (a, b) => a.isactive.length - b.isactive.length,
-    render: (plan) => (
-      <Tag
-        color={getPlanTagColor(plan)}
-        style={{
-          fontSize: "12px",
-          padding: "2px 2px",
-          borderRadius: "10px",
-          textAlign: "center",
-          width: "100px",
-          color: "white",
-        }}
-        
-      >
-        {plan === 0 ? "Offline" : "Active"}
-      </Tag>
-    )
-  },  
+ 
 
 ]
