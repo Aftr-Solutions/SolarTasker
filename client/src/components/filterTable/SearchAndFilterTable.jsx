@@ -99,10 +99,11 @@ const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit , table
         >
           <Option value={0}>Basic</Option>
           <Option value={1}>Premium</Option>
-        </Select></>
-        ):(
-          <>
+        </Select>
+        </>
+        ): tableType === "region"?(
 
+          <>
 <Search
           placeholder="Search By Area"
           onChange={(e) => setSearchTermByArea(e.target.value)}
@@ -118,7 +119,9 @@ const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit , table
         />
 
           </>
-        ) 
+        ) : (
+          ""
+        )
         }
       
 
