@@ -300,3 +300,16 @@
 2025-01-07 14:02:06 [ERROR]: Unexpected error in route handler: pool is not defined
 2025-01-07 14:02:06 [ERROR]: Unexpected error in route handler: pool is not defined
 2025-01-07 14:02:23 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:03:47 [INFO]: Server is running on: localhost:
+2025-01-07 14:03:48 [INFO]: Database connection successful
+2025-01-07 14:03:57 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:03:57 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:05:07 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:05:08 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:05:57 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:06:44 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:06:45 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:06:50 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:06:51 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:07:27 [ERROR]: Unexpected error in route handler: pool is not defined
+2025-01-07 14:07:27 [ERROR]: Unexpected error in route handler: pool is not defined
