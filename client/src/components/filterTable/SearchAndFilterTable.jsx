@@ -7,6 +7,9 @@ const { Option } = Select;
 
 const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm)
+  const [searchTermName, setSearchTermName] = useState("");
+  console.log(searchTermName)
   const [selectedPlan, setSelectedPlan] = useState("");
 
  
@@ -14,9 +17,12 @@ const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit }) => {
   // Filter data based on search term and selected plan
   const filteredData = data.filter((item) => {
     const matchesSearch = item.email.toLowerCase().includes(searchTerm.toLowerCase());
+    console.log(matchesSearch)
+    const matchesSearchName = item.name.toLowerCase().includes(searchTermName.toLowerCase());
     const matchesPlan = selectedPlan ? item.plan === selectedPlan : true;
-    return matchesSearch && matchesPlan;
+    return  matchesPlan && matchesSearch && matchesSearchName; 
   });
+  console.log(filteredData)
 
 
   return (
@@ -30,8 +36,16 @@ const SearchAndFilterTable = ({ data , columns, handleDelete, handleEdit }) => {
         }}
       >
         {/* Search input */}
-        <Search
-          placeholder="Search"
+      
+<Search
+          placeholder="Search By Name"
+          onChange={(e) => setSearchTermName(e.target.value)}
+          style={{ width: "200px" }}
+          allowClear
+        />
+
+<Search
+          placeholder="Search By Email"
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ width: "200px" }}
           allowClear

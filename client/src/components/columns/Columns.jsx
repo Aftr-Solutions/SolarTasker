@@ -136,6 +136,7 @@ export const clientColumns = [
           width: "100px",
           color: "white",
         }}
+        
       >
         {plan === 0 ? "Basic" : "Premium"}
       </Tag>
