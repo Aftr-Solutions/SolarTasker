@@ -788,3 +788,13 @@
 2025-01-08 02:35:59 [INFO]: Successfully fetched tasks:
 2025-01-08 02:38:32 [INFO]: Successfully fetched tasks:
 2025-01-08 02:38:33 [INFO]: Successfully fetched tasks:
+2025-01-08 02:57:53 [INFO]: Today: 2025-01-08
+2025-01-08 02:57:53 [INFO]: Server is running on: localhost:
+2025-01-08 02:57:54 [INFO]: Database connection successful
+2025-01-08 02:57:55 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 02:57:55 [INFO]: Unique Team IDs: 1
+2025-01-08 02:57:55 [INFO]: Query parameters: 1
+2025-01-08 02:57:55 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 02:57:57 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 02:58:02 [INFO]: Successfully fetched tasks:
+2025-01-08 02:58:02 [INFO]: Successfully fetched tasks:
