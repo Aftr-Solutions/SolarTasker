@@ -37,6 +37,7 @@ const Clients = () => {
         columns={clientColumns}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
+        tableType= "clients"
       />
     </div>
   );

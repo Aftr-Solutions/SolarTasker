@@ -1,5 +1,12 @@
 import React from "react";
 import { Avatar, Tag } from "antd";
+
+
+
+
+// Clients Columns
+
+
 // Function to generate a random light color
 const getRandomLightColor = () => {
   const colors = [
@@ -160,3 +167,30 @@ export const clientColumns = [
     render: (row) => <span className="">{row}</span>,
   },
 ];
+
+
+// Region Columns 
+
+
+export const regionColumns = [
+  
+    {
+      title: "Area",
+      dataIndex: "area",
+      key: "area",
+      width: 200,
+      sorter: (a, b) => a.area.length - b.area.length,
+      render: (row) => <span className="">{row}</span>,
+    },
+
+    {
+      title: "Region",
+      dataIndex: "region",
+      key: "region",
+      width: 200,
+      sorter: (a, b) => a.region.length - b.region.length,
+      render: (row) => <span className="">{row}</span>,
+    },
+  
+  
+]
