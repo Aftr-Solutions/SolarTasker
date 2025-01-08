@@ -798,3 +798,64 @@
 2025-01-08 02:57:57 [ERROR]: Error sending message to Ahmed for client Hamza khan:
 2025-01-08 02:58:02 [INFO]: Successfully fetched tasks:
 2025-01-08 02:58:02 [INFO]: Successfully fetched tasks:
+2025-01-08 04:07:22 [INFO]: Today: 2025-01-08
+2025-01-08 04:07:22 [INFO]: Server is running on: localhost:
+2025-01-08 04:07:23 [INFO]: Database connection successful
+2025-01-08 04:07:23 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 04:07:23 [INFO]: Unique Team IDs: 1
+2025-01-08 04:07:23 [INFO]: Query parameters: 1
+2025-01-08 04:07:24 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 04:07:24 [INFO]: Successfully fetched tasks:
+2025-01-08 04:07:24 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 04:07:32 [INFO]: Successfully fetched tasks:
+2025-01-08 04:07:33 [INFO]: Successfully fetched tasks:
+2025-01-08 04:27:17 [INFO]: Successfully fetched tasks:
+2025-01-08 05:19:46 [INFO]: Today: 2025-01-08
+2025-01-08 05:19:46 [INFO]: Server is running on: localhost:
+2025-01-08 05:19:47 [INFO]: Database connection successful
+2025-01-08 05:19:47 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 05:19:47 [INFO]: Unique Team IDs: 1
+2025-01-08 05:19:47 [INFO]: Query parameters: 1
+2025-01-08 05:19:48 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 05:19:48 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 05:19:54 [INFO]: Successfully fetched tasks:
+2025-01-08 05:19:54 [INFO]: Successfully fetched tasks:
+2025-01-08 05:52:09 [INFO]: Today: 2025-01-08
+2025-01-08 05:52:09 [INFO]: Server is running on: localhost:
+2025-01-08 05:52:10 [INFO]: Database connection successful
+2025-01-08 05:52:10 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 05:52:10 [INFO]: Unique Team IDs: 1
+2025-01-08 05:52:10 [INFO]: Query parameters: 1
+2025-01-08 05:52:11 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 05:52:11 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 06:07:37 [INFO]: Today: 2025-01-08
+2025-01-08 06:07:37 [INFO]: Server is running on: localhost:
+2025-01-08 06:07:38 [INFO]: Database connection successful
+2025-01-08 06:07:39 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 06:07:39 [INFO]: Unique Team IDs: 1
+2025-01-08 06:07:39 [INFO]: Query parameters: 1
+2025-01-08 06:07:39 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 06:07:39 [ERROR]: Error sending message to Ahmed for client Hamza khan:
+2025-01-08 06:10:36 [INFO]: Today: 2025-01-08
+2025-01-08 06:10:36 [INFO]: Server is running on: localhost:
+2025-01-08 06:10:37 [INFO]: Database connection successful
+2025-01-08 06:10:37 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 06:10:37 [INFO]: Unique Team IDs: 1
+2025-01-08 06:10:37 [INFO]: Query parameters: 1
+2025-01-08 06:10:38 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 06:10:39 [INFO]: Message sent to Ahmed for client Hamza khan
+2025-01-08 06:20:07 [INFO]: Today: 2025-01-08
+2025-01-08 06:20:07 [INFO]: Server is running on: localhost:
+2025-01-08 06:20:08 [INFO]: Database connection successful
+2025-01-08 06:20:08 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-08 06:20:08 [INFO]: Unique Team IDs: 1
+2025-01-08 06:20:08 [INFO]: Query parameters: 1
+2025-01-08 06:20:09 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-08 06:20:09 [INFO]: Message sent to Ahmed for client Hamza khan
+2025-01-08 06:20:09 [INFO]: Successfully fetched tasks:
+2025-01-08 06:20:15 [INFO]: Server is running on: localhost:
+2025-01-08 06:20:16 [INFO]: Database connection successful
+2025-01-08 06:20:17 [INFO]: Successfully fetched tasks:
+2025-01-08 06:20:18 [INFO]: Successfully fetched tasks:
+2025-01-08 06:47:53 [INFO]: Server is running on: localhost:
+2025-01-08 06:47:54 [INFO]: Database connection successful
