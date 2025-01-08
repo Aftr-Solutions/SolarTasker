@@ -30,8 +30,11 @@ body {
 .css-2ld9pa{
   transition: width 0.3s ease !important; /* Smooth animation for width */
 }
-.side-bar {
-  /* overflow-x: hidden; */
+
+.css-zjorp6{
+  transition: width 0.3s ease !important; /* Smooth animation for width */
+  z-index: 100;
+  position: relative;
 }
 
 /* Profile  */
@@ -127,6 +130,9 @@ body {
     display: block;
   }
   .hide-icon{
+    display: none;
+  }
+  .nav-width {
     display: none;
   }
 }
@@ -240,4 +246,34 @@ body {
 
 .custom-scroll-table .ant-table-fixed-right {
   border-left: 1px solid #ddd;
+}
+
+.nav-width{
+  width: calc(100vw - 300px)
+}
+
+.nav-width-collapse{
+  width: calc(100vw - 100px)
+
+}
+
+.large-screens > div {
+  position: relative;
+}
+.large-screens  > div > div {
+  position: fixed;
+  border-right: 1px solid rgb(218, 218, 218);
+  height: 100vh;
+    overflow-y: auto;
+
+}
+
+/* Target the scrollbar track and thumb */
+.css-1g48ue6::-webkit-scrollbar {
+  width: 2px !important; /* Set scrollbar width */
+}
+
+
+.small-screen-nav-width{
+  width: calc(100vw - 80px);
 }
