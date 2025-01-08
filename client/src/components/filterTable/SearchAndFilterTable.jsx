@@ -45,6 +45,11 @@ const SearchAndFilterTable = ({
   const [searchByTaskName , setSearchByTaskName] = useState("")
   const [selectedDate, setSelectedDate ]= useState("")
 
+
+  // Upcomming Task Status  
+  const [searchByUpcommingTaskName , setSearchByUpcommingTaskName] = useState("")
+  // const [selectedDate, setSelectedDate ]= useState("")
+
 // Date format in the data
 const dateFormat = "DD/MM/YYYY";
 const onDateChange = (date , dateString) => {
@@ -126,6 +131,19 @@ const onDateChange = (date , dateString) => {
       });
     }
 
+    else if (tableType === "UpcommingTask" || tableType === "MissedTask") {
+      filteredData = filteredData.filter((item) => {
+        const matchesUpcommingTaskName = item.name
+          ?.toLowerCase()
+          .includes(searchByUpcommingTaskName.toLowerCase());
+        const matchesUpcommingTaskDate = selectedDate
+          ? item.created_at === selectedDate
+          : true; 
+          // console.log(matchesTaskDate)
+        return matchesUpcommingTaskName && matchesUpcommingTaskDate;
+      });
+    }
+
     setTableData(filteredData);
   }, [
     data,
@@ -143,7 +161,8 @@ const onDateChange = (date , dateString) => {
     searchByName,
     selectedRole,
     searchByTaskName, 
-    selectedDate
+    selectedDate,
+    searchByUpcommingTaskName,
   ]);
 
 
@@ -284,6 +303,23 @@ const onDateChange = (date , dateString) => {
               />
 
           </>
+        ): tableType === "UpcommingTask" || tableType === "MissedTask"? (
+<>
+           <Search
+              placeholder="Search By Name"
+              onChange={(e) => setSearchByUpcommingTaskName(e.target.value)}
+              style={{ width: "200px" }}
+              allowClear
+            />
+             <DatePicker placeholder="Created Date" 
+             format={dateFormat} // Match the format of your data
+            //  onChange={(date) => setTaskDate(date)}
+            onChange={onDateChange}
+             style={{ width: "200px" }}
+
+              />
+
+      </>
         ):
         (
           ""
