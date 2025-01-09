@@ -13,7 +13,10 @@ const Header = () => {
     '/worker': 'Worker',
     '/team': 'Team',
     '/tasks': 'Tasks',
-    '/users': 'Users',
+    '/user': 'Users',
+    '/upcoming-tasks': 'Upcoming Task',
+    '/missed-tasks': 'Missed Task'
+
   };
 
   // Generate breadcrumb items dynamically based on the current path
