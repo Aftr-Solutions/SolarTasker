@@ -21,11 +21,12 @@ router.get("/", (req, res) => {
       t.created_at,
       te.team_name,
       t.response,
+      t.isactive,
       t.task_status,
       c.name,
       c.number
   FROM ${tableName.tasks} t
-  INNER JOIN ${tableName.clients} c ON c.id = t.client_id INNER JOIN ${tableName.team} te on te.id=t.id
+  INNER JOIN ${tableName.clients} c ON c.id = t.client_id INNER JOIN ${tableName.team} te on te.id=t.team_id
   WHERE t.isactive = 0
   ORDER BY t.id DESC;
 `;
