@@ -178,7 +178,7 @@
               </Link>
             </Menu>
             <Menu subHeading="ADMIN">
-              <Link to="/user">
+              <Link to="/users">
                 <MenuItem
                   icon={
                     <GroupAddOutlinedIcon

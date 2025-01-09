@@ -13,7 +13,7 @@ const Header = () => {
     '/worker': 'Worker',
     '/team': 'Team',
     '/tasks': 'Tasks',
-    '/user': 'Users',
+    '/users': 'Users',
     '/upcoming-tasks': 'Upcoming Task',
     '/missed-tasks': 'Missed Task'
 
