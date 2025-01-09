@@ -341,3 +341,98 @@ export const userColumn = [
   },
 
 ]
+
+export const taskColumn = [
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+    key: 'amount',
+  },
+  {
+    title: 'Client ID',
+    dataIndex: 'client_id',
+    key: 'client_id',
+  },
+  {
+    title: 'Created At',
+    dataIndex: 'created_at',
+    key: 'created_at',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+  {
+    title: 'Is Active',
+    dataIndex: 'isactive',
+    key: 'isactive',
+    render: (value) => (value ? 'Yes' : 'No'), // Optional: Format the value
+  },
+  {
+    title: 'Last Service Date',
+    dataIndex: 'last_service_date',
+    key: 'last_service_date',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Number',
+    dataIndex: 'number',
+    key: 'number',
+  },
+  {
+    title: 'Plan',
+    dataIndex: 'plan',
+    key: 'plan',
+  },
+  {
+    title: 'Region Preference',
+    dataIndex: 'region_preference',
+    key: 'region_preference',
+  },
+  {
+    title: 'Response',
+    dataIndex: 'response',
+    key: 'response',
+  },
+  {
+    title: 'Service Date',
+    dataIndex: 'service_date',
+    key: 'service_date',
+  },
+  {
+    title: 'Service Plan Duration',
+    dataIndex: 'service_plan_duration',
+    key: 'service_plan_duration',
+  },
+  {
+    title: 'Task ID',
+    dataIndex: 'task_id',
+    key: 'task_id',
+  },
+  {
+    title: 'Task Status',
+    dataIndex: 'task_status',
+    key: 'task_status',
+  },
+  {
+    title: 'Team ID',
+    dataIndex: 'team_id',
+    key: 'team_id',
+  },
+  {
+    title: 'Upcoming Service Date',
+    dataIndex: 'upcoming_service_date',
+    key: 'upcoming_service_date',
+  },
+];
+

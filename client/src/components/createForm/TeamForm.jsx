@@ -123,8 +123,8 @@ const TeamForm = ({ close, handleDialogClose }) => {
               }}
               label={`Select ${label}`}
             >
-              {workers.map((memb) => (
-                <MenuItem value={memb.id}>{memb.name}</MenuItem>
+              {workers.map((idx , memb) => (
+                <MenuItem key={idx} value={memb.id}>{memb.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
