@@ -1,5 +1,5 @@
-  import React, { useState } from "react";
-  import { Sidebar, Menu, MenuItem, Submenu, Logo } from "react-mui-sidebar";
+  import React from "react";
+  import { Sidebar, Menu, MenuItem, } from "react-mui-sidebar";
   import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
   import EngineeringOutlinedIcon from "@mui/icons-material/EngineeringOutlined";
   import Diversity3OutlinedIcon from "@mui/icons-material/Diversity3Outlined";
@@ -16,7 +16,6 @@
  
     return (  
       <>
-        {/* <div className=" h-full bg-white border side-bar my-scrollable-element  "> */}
           <Sidebar
             isCollapse={isCollapse}
             width={isCollapse ? "80px" : "275px"}
@@ -201,21 +200,6 @@
 
             <UserProfile userName="Hamza" userimg="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg" designation="Developer" isCollapse={isCollapse}  />
           </Sidebar>
-        {/* </div> */}
-        {!open? (
-          <>
-
-          </>
-  
-
-
-        ):(
-    ""
-        )}
-
-       
-      
-      
       </>
 
     );
