@@ -29,8 +29,8 @@ const updateteams=require("../Apis/Teams/Update.js");
 const deleteteams=require("../Apis/Teams/Delete.js");
 const selectteams=require("../Apis/Teams/Select.js");
 
-const selecttasks=require("../Apis/Tasks/Select.js");
-const deletetasks=require("../Apis/Tasks/Delete.js");
+const selecttasks=require("../Apis/UpcomingTasks/Select.js");
+const deletetasks=require("../Apis/UpcomingTasks/Delete.js");
 
 
 const logs=require("../Utils/logs.js");
