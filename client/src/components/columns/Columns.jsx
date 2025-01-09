@@ -41,19 +41,38 @@ const getRandomDarkColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-// Function to assign colors to different plan statuses
+// Function to assign colors to different plan status
 const getPlanTagColor = (plan) => {
   switch (plan) {
     case 0:
       return "#5D87FF"; // Shipped-like color
+      
     case 1:
       return "#13DEB9"; // Delivered-like color
+
     case "Trial":
       return "orange"; // Pending-like color
     default:
       return "default"; // Default color for undefined plans
   }
 };
+
+
+// Function to assign colors to different Response status
+const getResponseTagColor = (response) => {
+  switch (response) {
+    case 1:
+      return "#F9886A"; // RED-like color  
+    case 2:
+      return "#13DEB9"; // Delivered-like color
+    default:
+      return "default"; // Default color for undefined plans
+  }
+};
+
+
+
+
 export const clientColumns = [
   {
     title: "Name",
@@ -396,6 +415,87 @@ export const taskColumn = [
     sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
   },
   {
+    title: 'Task Status',
+    dataIndex: 'task_status',
+    key: 'task_status',
+    width: 130,
+    render: (task_status) => {
+      const getTaskStatusTagColor = (task_status) => {
+        switch (task_status) {
+          case 0:
+            return '#F5BC00'; // Red for Pending
+          case 1:
+            return '#D4C3A7'; // Black for On The Way
+          case 2:
+            return '#5D87FF'; // Blue for Working
+          case 3:
+            return '#13DEB9'; // Green for Completed
+          default:
+            return '#d9d9d9'; // Gray for Unknown
+        }
+      };
+  
+      const getTaskStatusText = (task_status) => {
+        switch (task_status) {
+          case 0:
+            return 'Pending';
+          case 1:
+            return 'On The Way';
+          case 2:
+            return 'Working';
+          case 3:
+            return 'Completed';
+          default:
+            return 'Unknown';
+        }
+      };
+  
+      return (
+        <Tag
+          color={getTaskStatusTagColor(task_status)}
+          style={{
+            fontSize: '12px',
+            padding: '2px 2px',
+            borderRadius: '10px',
+            textAlign: 'center',
+            width: '100px',
+            color: 'white',
+          }}
+        >
+          {getTaskStatusText(task_status)}
+        </Tag>
+      );
+    },
+    sorter: (a, b) => a.task_status - b.task_status, // Sort numerically by status
+  },
+  
+  
+  {
+    title: 'Response',
+    dataIndex: 'response',
+    key: 'response',
+    // render: (response) => (response === 1 ? 'YES' : 'NO'), // Conditional rendering
+    render: (response) => (
+      <Tag
+        color={getResponseTagColor(response)}
+        style={{
+          fontSize: "12px",
+          padding: "2px 2px",
+          borderRadius: "10px",
+          textAlign: "center",
+          width: "100px",
+          color: "white",
+        }}
+        
+      >
+        {response === 2 ? "YES" : "NO"}
+      </Tag>
+    ),
+    sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
+    width: 120,
+
+  },
+  {
     title: 'Created At',
     dataIndex: 'created_at',
     key: 'created_at',
@@ -407,38 +507,6 @@ export const taskColumn = [
     key: 'service_date',
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
-  {
-    title: 'Response',
-    dataIndex: 'response',
-    key: 'response',
-    render: (response) => (response === 1 ? 'YES' : 'NO'), // Conditional rendering
-    sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
-    width: 120,
 
-  },
-  {
-    title: 'Task Status',
-    dataIndex: 'task_status',
-    key: 'task_status',
-    width: 130,
-
-    render: (task_status) => {
-      switch (task_status) {
-        case 0:
-          return 'Pending';
-        case 1:
-          return 'On The Way';
-        case 2:
-          return 'Working';
-        case 3:
-          return 'Completed';
-        default:
-          return 'Unknown'; // Default case for unexpected values
-      }
-      
-    },
-    sorter: (a, b) => a.task_status - b.task_status, // Sort numerically by status
-
-  },
 ];
 
