@@ -120,13 +120,14 @@ const SearchAndFilterTable = ({
   ]);
 
   return (
-    <div className="shadow-md p-6 bg-gray-50 rounded mt-2">
+    <div className="shadow-md p-6 bg-gray-50 rounded mt-2 ">
       <div
         style={{
           display: "flex",
           alignItems: "center",
           gap: "10px",
           marginBottom: "20px",
+          flexWrap: "wrap"
         }}
       >
         {tableType === "clients" ? (

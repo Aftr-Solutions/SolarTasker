@@ -196,7 +196,7 @@ export const regionColumns = [
 ]
 
 
-// Workers Column 
+// Users Column 
 
 export const workerColumns = [
   
