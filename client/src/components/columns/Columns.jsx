@@ -196,7 +196,7 @@ export const regionColumns = [
 ]
 
 
-// Users Column 
+// workers Column 
 
 export const workerColumns = [
   
@@ -274,6 +274,7 @@ export const workerColumns = [
 
 ]
 
+// Teams Column 
 
 export const teamColumn = [
   {
@@ -312,6 +313,7 @@ export const teamColumn = [
 
 ]
 
+// User Column 
 
 export const userColumn = [
   {
@@ -341,6 +343,9 @@ export const userColumn = [
   },
 
 ]
+
+// Task Column 
+
 
 export const taskColumn = [
   {
