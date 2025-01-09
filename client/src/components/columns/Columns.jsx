@@ -1,5 +1,12 @@
 import React from "react";
 import { Avatar, Tag } from "antd";
+
+
+
+
+// Clients Columns
+
+
 // Function to generate a random light color
 const getRandomLightColor = () => {
   const colors = [
@@ -136,6 +143,7 @@ export const clientColumns = [
           width: "100px",
           color: "white",
         }}
+        
       >
         {plan === 0 ? "Basic" : "Premium"}
       </Tag>
@@ -159,3 +167,147 @@ export const clientColumns = [
     render: (row) => <span className="">{row}</span>,
   },
 ];
+
+
+// Region Columns 
+
+
+export const regionColumns = [
+  
+    {
+      title: "Area",
+      dataIndex: "area",
+      key: "area",
+      width: 200,
+      sorter: (a, b) => a.area.length - b.area.length,
+      render: (row) => <span className="">{row}</span>,
+    },
+
+    {
+      title: "Region",
+      dataIndex: "region",
+      key: "region",
+      width: 200,
+      sorter: (a, b) => a.region.length - b.region.length,
+      render: (row) => <span className="">{row}</span>,
+    },
+  
+  
+]
+
+
+// Workers Column 
+
+export const workerColumns = [
+  
+  {
+    title: "Name",
+    key: "name",
+    dataIndex: "name",
+    width: 150,
+    fixed: "left",
+    sorter: (a, b) => a.name.length - b.name.length,
+    render: (_, record) => {
+      const backgroundColor = getRandomLightColor();
+      const textColor = getRandomDarkColor();
+
+      return (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Avatar
+            style={{
+              backgroundColor,
+              color: textColor, // Apply random dark text color
+              verticalAlign: "middle",
+              marginRight: "10px",
+            }}
+            size="large"
+          >
+            {record.name
+              .split(" ")
+              .map((word) => word[0])
+              .join("")
+              .toUpperCase()}
+          </Avatar>
+          <div>
+            <div
+              style={{
+                fontWeight: "600",
+                fontSize: "12px",
+                color: "black", // Apply random dark text color
+              }}
+            >
+              {record.name}
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
+
+  {
+    title: "CNIC",
+    dataIndex: "cnic_number",
+    key: "cnic_number",
+    width: 200,
+    sorter: (a, b) => a.cnic_number.length - b.cnic_number.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+
+  {
+    title: "Number",
+    dataIndex: "number",
+    key: "number",
+    width: 200,
+    sorter: (a, b) => a.number.length - b.number.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+    width: 200,
+    sorter: (a, b) => a.address.length - b.address.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+
+
+]
+
+
+export const teamColumn = [
+  {
+    title: "Team Name",
+    dataIndex: "team_name",
+    key: "team_name",
+    width: 200,
+    sorter: (a, b) => a.team_name.length - b.team_name.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Lead",
+    dataIndex: "team_lead",
+    key: "team_lead",
+    width: 200,
+    sorter: (a, b) => a.team_lead.length - b.team_lead.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Member 1",
+    dataIndex: "member1",
+    key: "member1",
+    width: 200,
+    sorter: (a, b) => a.member1.length - b.member1.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Member 2",
+    dataIndex: "member2",
+    key: "member2",
+    width: 200,
+    sorter: (a, b) => a.member2.length - b.member2.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+ 
+
+]

@@ -12,21 +12,20 @@
   import UserProfile from "./components/UserProfile";
   import Navbar from "./components/AppBar";
 
-  const AppSidebar = ({open}) => {
+  const AppSidebar = ({open, isCollapse, setIsCollapse}) => {
     const location = useLocation();
-    const [isCollapse, setIsCollapse] = useState(false);
  
-    return (
+    return (  
       <>
-      <div className="flex h-screen ">
-        <div className=" h-full bg-white border side-bar my-scrollable-element  ">
+        {/* <div className=" h-full bg-white border side-bar my-scrollable-element  "> */}
           <Sidebar
             isCollapse={isCollapse}
-            width={isCollapse ? "80px" : "260px"}
+            width={isCollapse ? "80px" : "275px"}
             showProfile={false}
             
+            
           >
-            <div className="w-full sticky top-0 bg-white z-10">
+            <div className="w-full sticky top-0 bg-white z-10 logo">
               {!isCollapse ? (
                 <div className="p-5">
                   <svg
@@ -196,10 +195,9 @@
 
             <UserProfile userName="Hamza" userimg="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg" designation="Developer" isCollapse={isCollapse}  />
           </Sidebar>
-        </div>
+        {/* </div> */}
         {!open? (
           <>
-  <Navbar  setIsCollapse ={setIsCollapse} />
 
           </>
   
@@ -211,7 +209,6 @@
 
        
       
-      </div>
       
       </>
 

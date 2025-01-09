@@ -5,7 +5,7 @@ import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 const UserProfile = ({ userName,
     designation ,
     userimg ,
-    isCollapse = isCollapse
+    isCollapse = false
 }) => {
   return (
     <div className='sticky bottom-[20px] z-10'>

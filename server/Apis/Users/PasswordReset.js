@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const tableNames = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
-const sendUserCredentials = require("../../middleware/sendMail"); // Assuming you have this function for sending emails
+const sendUserCredentials = require("../../middleware/sendmail"); // Assuming you have this function for sending emails
 const logger = require("../../logger");
 
 
