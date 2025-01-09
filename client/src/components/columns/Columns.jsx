@@ -84,12 +84,7 @@ export const clientColumns = [
               .toUpperCase()}
           </Avatar>
           <div>
-            <div
-              style={{
-                fontWeight: "600",
-                fontSize: "12px",
-                color: "black", // Apply random dark text color
-              }}
+            <div className="text-black font-semibold text-xs"
             >
               {record.name}
             </div>
@@ -283,7 +278,7 @@ export const teamColumn = [
     key: "team_name",
     width: 200,
     sorter: (a, b) => a.team_name.length - b.team_name.length,
-    render: (row) => <span className="">{row}</span>,
+    render: (row) => <span className="text-sm font-medium">{row}</span>,
   },
   {
     title: "Team Lead",
@@ -317,12 +312,42 @@ export const teamColumn = [
 
 export const userColumn = [
   {
-    title: "User Name",
-    dataIndex: "user_name",
+    title: "Name",
     key: "user_name",
-    width: 200,
+    dataIndex: "user_name",
+    width: 150,
+    fixed: "left",
     sorter: (a, b) => a.user_name.length - b.user_name.length,
-    render: (row) => <span className="">{row}</span>,
+    render: (_, record) => {
+      const backgroundColor = getRandomLightColor();
+      const textColor = getRandomDarkColor();
+
+      return (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Avatar
+            style={{
+              backgroundColor,
+              color: textColor, // Apply random dark text color
+              verticalAlign: "middle",
+              marginRight: "10px",
+            }}
+            size="large"
+          >
+            {record.user_name
+              .split(" ")
+              .map((word) => word[0])
+              .join("")
+              .toUpperCase()}
+          </Avatar>
+          <div>
+            <div className="text-black font-semibold text-xs"
+            >
+              {record.user_name}
+            </div>
+          </div>
+        </div>
+      );
+    },
   },
   {
     title: "User Email",
@@ -348,18 +373,21 @@ export const userColumn = [
 
 
 export const taskColumn = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
-  },
+
   {
     title: 'Team Name',
     dataIndex: 'team_name',
     key: 'team_name',
+    render: (row) => <span className="text-sm font-medium">{row}</span>,
     sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
     width: 130
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: (row) => <span className="">{row}</span>,
+    sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
   },
   {
     title: 'Number',
