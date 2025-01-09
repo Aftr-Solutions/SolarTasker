@@ -21,7 +21,6 @@ const SearchAndFilterTable = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [searchTermName, setSearchTermName] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
-  console.log(selectedPlan)
 
   // Region States
   const [searchTermByArea, setSearchTermByArea] = useState("");
@@ -35,6 +34,13 @@ const SearchAndFilterTable = ({
   const [searchTeamByName, setSearchTeamByName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   console.log("Selected Status =>", selectedStatus);
+
+  //User States 
+
+  const [searchByName , setSearchByName] = useState("")
+  const [searchByEmail , setSearchByEmail] = useState("")
+  const [selectedRole , setSelectedRole] = useState("")
+
 
   // Filter data based on search inputs
   useEffect(() => {
@@ -82,6 +88,17 @@ const SearchAndFilterTable = ({
           : true;
         return matchesStatus && matchesTeam;
       });
+    } else if (tableType === "Users") {
+      filteredData = filteredData.filter((item) => {
+        const matchesUserName = item.user_name
+          ?.toLowerCase()
+          .includes(searchByName.toLowerCase());
+          const matcheEmail = item.email?.toLowerCase().includes(searchByEmail.toLowerCase())
+        const matchesUserRole = selectedRole
+          ? item.role === selectedRole
+          : true;
+        return matchesUserName && matcheEmail && matchesUserRole ;
+      });
     }
 
     setTableData(filteredData);
@@ -97,6 +114,9 @@ const SearchAndFilterTable = ({
     searchTermByWorkerName,
     searchTeamByName,
     selectedStatus,
+    searchByEmail,
+    searchByName,
+    selectedRole,
   ]);
 
   return (
@@ -192,7 +212,35 @@ const SearchAndFilterTable = ({
               <Option value={0}>Offline</Option>
             </Select>
           </>
-        ) : null}
+        ) : tableType === "Users"?(
+<>
+            <Search
+              placeholder="Search By Name"
+              onChange={(e) => setSearchByName(e.target.value)}
+              style={{ width: "200px" }}
+              allowClear
+            />
+
+            <Search
+              placeholder="Search By Email"
+              onChange={(e) => setSearchByEmail(e.target.value)}
+              style={{ width: "200px" }}
+              allowClear
+            />
+
+            <Select
+              placeholder="Select Role"
+              onChange={(value) => setSelectedRole(value)}
+              style={{ width: "150px" }}
+              allowClear
+            >
+              <Option value="Super Admin">Super Admin</Option>
+              <Option value="Admin">Admin</Option>  
+            </Select>
+          </>
+        ):(
+          ""
+        )}
       </div>
 
       <ReusableTable
