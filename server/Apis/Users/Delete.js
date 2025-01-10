@@ -8,7 +8,7 @@ const logger = require("../../logger");
 
 router.post("/", (req, res) => {
 
-  const{id}=req.body.id;
+  const{id}=req.body;
   if(!id){
     return res.status(400).send(RESPONSE(false, "Missing required 'id' field", {}));
   }
