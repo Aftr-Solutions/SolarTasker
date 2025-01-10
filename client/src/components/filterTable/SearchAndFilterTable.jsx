@@ -239,7 +239,11 @@ const SearchAndFilterTable = ({
               <Option value="Admin">Admin</Option>  
             </Select>
           </>
-        ):(
+        ):  tableType === "tasks"? (
+          <>
+          </>
+        ):
+        (
           ""
         )}
       </div>

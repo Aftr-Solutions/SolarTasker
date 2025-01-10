@@ -499,12 +499,14 @@ export const taskColumn = [
     title: 'Created At',
     dataIndex: 'created_at',
     key: 'created_at',
+    width: 130,
     sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at), // Sort by date
   },
   {
     title: 'Service Date',
     dataIndex: 'service_date',
     key: 'service_date',
+    width: 140,
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
 
