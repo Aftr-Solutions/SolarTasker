@@ -3,6 +3,8 @@ const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
+const logger = require("../../logger");
+
 
 router.get("/", (req, res) => {
   // SQL query to join clients and area_region tables
@@ -19,7 +21,7 @@ router.get("/", (req, res) => {
   // Execute the query
   pool.query(query, (err, results) => {
     if (err) {
-      console.error("Error while fetching data from clients table:", err);
+      logger.error("Error while fetching data from clients table:", err);
       return res
         .status(500)
         .send(RESPONSE(false, "Database error while fetching data", err));

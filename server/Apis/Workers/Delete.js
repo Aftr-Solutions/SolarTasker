@@ -4,6 +4,8 @@ const tableName = require("../../Utils/allTableNames");
 const { GlobalDelete } = require("../../GlobalFunctions/GlobalDelete");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db"); 
+const logger = require("../../logger");
+
 
 router.post("/", (req, res) => {
     const { id } = req.body;
@@ -23,7 +25,7 @@ router.post("/", (req, res) => {
     // Check for references in the team table
     pool.query(query, [id, id, id], (err, results) => {
         if (err) {
-            console.error("Error checking ID in team table:", err);
+            logger.error("Error checking ID in team table:", err);
             return res.status(500).send(RESPONSE(false, "Database error while checking references", err));
         }
 
@@ -43,7 +45,7 @@ router.post("/", (req, res) => {
             },
         };
 
-        console.log("Payload for deletion:", payload);
+        logger.info("Payload for deletion:", payload);
 
         // Proceed with deletion
         GlobalDelete(payload, res);

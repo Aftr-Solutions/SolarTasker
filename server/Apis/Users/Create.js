@@ -5,6 +5,8 @@ const tableNames = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
 const sendUserCredentials = require("../../middleware/sendMail");
+const logger = require("../../logger");
+
 
 router.post("/", (req, res) => {
   let email = req.body.email;
@@ -18,7 +20,7 @@ router.post("/", (req, res) => {
     else {
       pool.getConnection(async (err, connection) => {
         if (err) {
-          console.log("eror while creating connection", err);
+          logger.info("eror while creating connection", err);
           return res.send(RESPONSE(false, "database error", {}));
         }
         let payload = {

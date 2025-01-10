@@ -5,11 +5,13 @@ const tableNames = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
 const sendUserCredentials = require("../../middleware/sendMail"); // Assuming you have this function for sending emails
+const logger = require("../../logger");
+
 
 router.post("/", (req, res) => {
   const user_id = req.body.id;
   const newPassword = req.body.password;
-  //console.log(user_id,newPassword);
+  //logger.info(user_id,newPassword);
   // Hash the new password
   bcrypt.hash(newPassword, 14, function (err, hash) {
     if (err) {

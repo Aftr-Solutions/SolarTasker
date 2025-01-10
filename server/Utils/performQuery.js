@@ -1,3 +1,4 @@
+const logger = require("../logger");
 
 // Wraps the pool.getConnection() function
 function getConnection({ pool }) {
@@ -41,7 +42,7 @@ async function performQuery({ sql, params, pool, retries = 3 }) {
       return results;
     } catch (error) {
       if (error.code === 'ECONNRESET' && attempt < retries - 1) {
-        console.warn(`ECONNRESET encountered. Retrying... (${attempt + 1}/${retries})`);
+        logger.warn(`ECONNRESET encountered. Retrying... (${attempt + 1}/${retries})`);
         attempt++;
         await new Promise(res => setTimeout(res, 1000 * attempt)); // Exponential backoff
       } else {

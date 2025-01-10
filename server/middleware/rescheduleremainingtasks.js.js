@@ -5,7 +5,7 @@ const moment = require("moment-timezone");
 const rescheduling = async () => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    console.log("today==>", todayDate);
+    logger.info("today==>", todayDate);
 
     const query = `
       SELECT * 
@@ -17,16 +17,16 @@ const rescheduling = async () => {
 
     pool.query(query, [todayDate], (err, results) => {
       if (err) {
-        console.error("Error fetching data from tasks table:", err);
+        logger.error("Error fetching data from tasks table:", err);
         return;
       }
 
       if (results.length > 0) {
-        console.log(`Found ${results.length} tasks to be rescheduled.`);
+        logger.info(`Found ${results.length} tasks to be rescheduled.`);
 
         results.forEach((item) => {
           const rescheduledate = moment(item.service_date).add(7, "days").format("YYYY-MM-DD");
-          console.log(`Task ${item.id} rescheduled to ${rescheduledate}`);
+          logger.info(`Task ${item.id} rescheduled to ${rescheduledate}`);
 
           const updateQuery = `
             UPDATE ${tableName.clients} 
@@ -42,26 +42,26 @@ const rescheduling = async () => {
 
           pool.query(updateQuery, [rescheduledate, item.client_id], (updateErr) => {
             if (updateErr) {
-              console.error(`Error updating client ${item.client_id}:`, updateErr);
+              logger.error(`Error updating client ${item.client_id}:`, updateErr);
             } else {
-              console.log(`Client ${item.client_id} successfully rescheduled.`);
+              logger.info(`Client ${item.client_id} successfully rescheduled.`);
             }
           });
 
           pool.query(updateTaskQuery, [item.id], (taskUpdateErr) => {
             if (taskUpdateErr) {
-              console.error(`Error updating task ${item.id} to inactive:`, taskUpdateErr);
+              logger.error(`Error updating task ${item.id} to inactive:`, taskUpdateErr);
             } else {
-              console.log(`Task ${item.id} marked as inactive.`);
+              logger.info(`Task ${item.id} marked as inactive.`);
             }
           });
         });
       } else {
-        console.log("No tasks to be rescheduled.");
+        logger.info("No tasks to be rescheduled.");
       }
     });
   } catch (error) {
-    console.error("Error in rescheduling function:", error.message);
+    logger.error("Error in rescheduling function:", error.message);
   }
 };
 
@@ -70,11 +70,12 @@ module.exports = { rescheduling };*/
 const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
 const moment = require("moment-timezone");
+const logger = require("../logger");
 
 const rescheduling = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    console.log("today==>", todayDate);
+    logger.info("today==>", todayDate);
 
     const selectQuery = `
       SELECT * 
@@ -92,13 +93,13 @@ const rescheduling = async (pool) => {
     });
 
     if (results.length > 0) {
-      console.log(`Found ${results.length} tasks to be rescheduled.`);
+      logger.info(`Found ${results.length} tasks to be rescheduled.`);
 
       for (const item of results) {
         const rescheduledate = moment(item.service_date)
           .add(7, "days")
           .format("YYYY-MM-DD");
-        console.log(`Task ${item.id} rescheduled to ${rescheduledate}`);
+          logger.info(`Task ${item.id} rescheduled to ${rescheduledate}`);
 
         // Update client's upcoming service date
         const updateClientQuery = `
@@ -111,7 +112,7 @@ const rescheduling = async (pool) => {
           params: [rescheduledate, item.client_id],
           pool,
         });
-        console.log(`Client ${item.client_id} successfully rescheduled.`);
+        logger.info(`Client ${item.client_id} successfully rescheduled.`);
 
         // Mark task as inactive
         const updateTaskQuery = `
@@ -124,13 +125,13 @@ const rescheduling = async (pool) => {
           params: [item.id],
           pool,
         });
-        console.log(`Task ${item.id} marked as inactive.`);
+        logger.info(`Task ${item.id} marked as inactive.`);
       }
     } else {
-      console.log("No tasks to be rescheduled.");
+      logger.info("No tasks to be rescheduled.");
     }
   } catch (error) {
-    console.error("Error in rescheduling function:", error.message);
+    logger.error("Error in rescheduling function:", error.message);
   }
 };
 

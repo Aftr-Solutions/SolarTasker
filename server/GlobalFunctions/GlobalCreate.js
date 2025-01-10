@@ -1,12 +1,14 @@
 const pool = require("../Utils/db");
 const response = require("../GlobalResponse/RESPONSE");
+const logger = require("../logger");
+
 // this function is for create global
 
 const GlobalInsert = (payload, res) => {
   try {
     pool.getConnection(async (err, connection) => {
       if (err) {
-        console.log("eror while creating connection", err);
+        logger.info("eror while creating connection", err);
         return res.send(response(false, "database error", {}));
       }
       connection.query(
@@ -17,11 +19,11 @@ const GlobalInsert = (payload, res) => {
           connection.release();
 
           if (err) {
-            // // console.log("database");
-            console.log(err);
+            // // logger.info("database");
+            logger.info(err);
             return res.send(response(false, "error while inserting", {}));
           } else {
-            // // console.log("result");
+            // // logger.info("result");
 
             return res.send(response(true, "succesfully added", result));
           }

@@ -5,6 +5,8 @@
   const RESPONSE = require("../../GlobalResponse/RESPONSE");
   const tableNames = require("../../Utils/allTableNames");
   const pool = require("../../Utils/db");
+  const logger = require("../../logger");
+
 
   router.post("/", (req, res) => {
     let user_name = req.body.username;

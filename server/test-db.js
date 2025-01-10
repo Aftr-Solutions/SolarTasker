@@ -17,12 +17,12 @@ const connection = mysql.createConnection(dbConfig);
 // Test the connection
 connection.connect((err) => {
   if (err) {
-    console.error("Database connection failed!");
-    console.error("Error Code:", err.code);
-    console.error("Error Message:", err.message);
-    console.error("Error Stack:", err.stack);
+    logger.error("Database connection failed!");
+    logger.error("Error Code:", err.code);
+    logger.error("Error Message:", err.message);
+    logger.error("Error Stack:", err.stack);
     return; // Exit without attempting to end the connection
   }
-  console.log("Database connection successful!");
+  logger.info("Database connection successful!");
   connection.end(); // Close the connection if successful
 });

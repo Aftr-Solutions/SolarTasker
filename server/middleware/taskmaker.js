@@ -5,7 +5,7 @@ const moment = require("moment-timezone");
 const mytask = async () => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    console.log("today==>", todayDate);
+    logger.info("today==>", todayDate);
 
     const query = `
       SELECT id, upcoming_service_date, plan 
@@ -19,7 +19,7 @@ const mytask = async () => {
       const [results] = await connection.query(query, [todayDate]);
 
       if (results.length > 0) {
-        console.log(`Found ${results.length} clients with upcoming services.`);
+        logger.info(`Found ${results.length} clients with upcoming services.`);
 
         const tasks = results.map((item) => ([
           item.id,
@@ -32,17 +32,17 @@ const mytask = async () => {
         `;
         const [insertResults] = await connection.query(insertQuery, [tasks]);
 
-        console.log(
+        logger.info(
           `Successfully created ${insertResults.affectedRows} tasks.`
         );
       } else {
-        console.log("No clients with upcoming services within 2 days.");
+        logger.info("No clients with upcoming services within 2 days.");
       }
     } finally {
       connection.release();
     }
   } catch (error) {
-    console.error("Error in mytask cron job:", error.message);
+    logger.error("Error in mytask cron job:", error.message);
   }
 };
 
@@ -51,11 +51,13 @@ module.exports = { mytask };*/
 const { performQuery } = require("../Utils/performQuery"); // Import the performQuery utility
 const tableName = require("../Utils/allTableNames");
 const moment = require("moment-timezone");
+const logger = require("../logger");
+
 
 const mytask = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    console.log("today==>", todayDate);
+    logger.info("today==>", todayDate);
 
     // Query to select clients with upcoming services
     const selectQuery = `
@@ -71,7 +73,7 @@ const mytask = async (pool) => {
     });
 
     if (results.length > 0) {
-      console.log(`Found ${results.length} clients with upcoming services.`);
+      logger.info(`Found ${results.length} clients with upcoming services.`);
 
       // Prepare tasks data for insertion
       const tasks = results.map((item) => [
@@ -91,12 +93,12 @@ const mytask = async (pool) => {
         pool:pool,
       });
 
-      console.log(`Successfully created ${insertResults.affectedRows} tasks.`);
+      logger.info(`Successfully created ${insertResults.affectedRows} tasks.`);
     } else {
-      console.log("No clients with upcoming services within 2 days.");
+      logger.info("No clients with upcoming services within 2 days.");
     }
   } catch (error) {
-    console.error("Error in mytask cron job:", error.message);
+    logger.error("Error in mytask cron job:", error.message);
   }
 };
 

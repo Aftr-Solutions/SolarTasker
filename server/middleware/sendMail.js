@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const RESPONSE = require("../GlobalResponse/RESPONSE");
+const logger = require("../logger");
 
 module.exports = function sendUserCredentials(email, username, password,call, req, res) {
     try {
@@ -52,15 +53,15 @@ module.exports = function sendUserCredentials(email, username, password,call, re
         // Send the email
         transporter.sendMail(mailOptions, (err, data) => {
             if (err) {
-                console.error("Error sending email:", err);
+                logger.error("Error sending email:", err);
                 return res.status(500).send(RESPONSE(false, "Error sending email", err));
             } else {
-                console.log("Email sent successfully:", data.response);
+                logger.info("Email sent successfully:", data.response);
                 return res.status(200).send(RESPONSE(true, "Email sent successfully", {}));
             }
         });
     } catch (err) {
-        console.error("Catch Error (Email Error):", err);
+        logger.error("Catch Error (Email Error):", err);
         return res.status(500).send(RESPONSE(false, "Unexpected error while sending email", err));
     }
 };

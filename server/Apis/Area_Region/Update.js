@@ -2,7 +2,9 @@ const express=require("express");
 const router=express.Router();
 const tableName=require("../../Utils/allTableNames");
 const {GlobalUpdate}=require("../../GlobalFunctions/GlobalUpdate");
-const RESPONSE=require("../../GlobalResponse/RESPONSE")
+const RESPONSE=require("../../GlobalResponse/RESPONSE");
+const logger = require("../../logger");
+
 
 router.post("/",(req,res)=>{
     if(!req.body.id||!req.body.area||!req.body.region){
@@ -16,7 +18,7 @@ router.post("/",(req,res)=>{
             region:req.body.region,
         },
     };
-    console.log("Payload for update:", payload);
+    logger.info("Payload for update:", payload);
 
     GlobalUpdate(payload,res);
 });
