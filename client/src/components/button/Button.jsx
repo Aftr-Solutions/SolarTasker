@@ -26,7 +26,16 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
     }
   `,
 }));
-const Buttons = ({ text, type, size, icon, styling, onClick, className }) => {
+const Buttons = ({
+  text,
+  type,
+  size,
+  icon,
+  styling,
+  disabled,
+  onClick,
+  className,
+}) => {
   const { styles } = useStyle();
   return (
     <ConfigProvider
@@ -42,6 +51,7 @@ const Buttons = ({ text, type, size, icon, styling, onClick, className }) => {
         type={type}
         size={size}
         icon={icon}
+        disabled={disabled}
         onClick={onClick}
         className={className}
       >

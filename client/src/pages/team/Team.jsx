@@ -1,9 +1,10 @@
 import React from 'react'
+import Header from '../../components/Header/Header'
 
 const Team = () => {
   return (
     <div>
-      Team
+      <Header />
     </div>
   )
 }
