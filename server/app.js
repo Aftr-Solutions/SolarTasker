@@ -14,7 +14,7 @@ const { assignteam } = require("./middleware/teamassign");
 const { rescheduling } = require("./middleware/rescheduleremainingtasks.js");
 const { processTasks } =require("./middleware/reschedulecompletetasks.js");
 const logger = require("./logger");
-
+const cronpool=require("./Utils/crondb.js");
 
 const app = express();
 
@@ -42,7 +42,7 @@ app.use("/", appRouter);
 cron.schedule("2 0 * * *", async () => {
   logger.info("Running cron job for task creation at 12:02 AM....");
   try {
-    await mytask(pool);
+    await mytask(cronpool);
   } catch (error) {
     logger.error("Error in mytask cron job:", error.message);
   }
@@ -51,7 +51,7 @@ cron.schedule("2 0 * * *", async () => {
 cron.schedule("10 0 * * *", async () => {
   logger.info("Running cron job for assigning tasks at 12:10 AM....");
   try {
-    await assignteam(pool);
+    await assignteam(cronpool);
   } catch (error) {
     logger.error("Error in assignteam cron job:", error.message);
   }
@@ -60,7 +60,7 @@ cron.schedule("10 0 * * *", async () => {
 cron.schedule("45 23 * * *", async () => {
   logger.info("Running cron job for rescheduling pending tasks at 11:45 PM....");
   try {
-    await rescheduling(pool);
+    await rescheduling(cronpool);
   } catch (error) {
     logger.error("Error in rescheduling cron job:", error.message);
   }
@@ -69,7 +69,7 @@ cron.schedule("45 23 * * *", async () => {
 cron.schedule("50 23 * * *", async () => {
   logger.info("Running cron job for rescheduling complete tasks at 11:50 PM....");
   try {
-    await processTasks(pool);
+    await processTasks(cronpool);
   } catch (error) {
     logger.error("Error in processTasks cron job:", error.message);
   }

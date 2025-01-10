@@ -66,3 +66,117 @@
 2025-01-10 14:49:50 [INFO]: Fetched hashed password for user AdminOfSolar: $2a$14$uYi2nR4mJ5yR1bBSj7QsGuNOme1z9Sbbhf3khAT5LpczTRxe5x9vy
 2025-01-10 14:49:51 [INFO]: User AdminOfSolar logged in successfully.
 2025-01-10 14:50:24 [INFO]: Server is running on: localhost:
+2025-01-10 14:50:31 [INFO]: Server is running on: localhost:
+2025-01-10 14:50:38 [INFO]: User AdminOfSolar logged in successfully
+2025-01-10 16:10:03 [INFO]: Server is running on: localhost:
+2025-01-10 16:10:43 [INFO]: Server is running on: localhost:
+2025-01-10 16:11:03 [INFO]: Server is running on: localhost:
+2025-01-10 16:11:04 [INFO]: Database connection successful
+2025-01-10 16:11:43 [INFO]: Server is running on: localhost:
+2025-01-10 16:11:44 [INFO]: Database connection successful
+2025-01-10 16:12:28 [INFO]: Server is running on: localhost:
+2025-01-10 16:12:29 [INFO]: Database connection successful
+2025-01-10 16:12:53 [INFO]: Server is running on: localhost:
+2025-01-10 16:12:54 [INFO]: Database connection successful
+2025-01-10 16:16:25 [INFO]: Server is running on: localhost:
+2025-01-10 16:16:26 [INFO]: Database connection successful
+2025-01-10 16:17:47 [INFO]: Server is running on: localhost:
+2025-01-10 16:17:48 [INFO]: Database connection successful
+2025-01-10 23:45:00 [INFO]: Running cron job for rescheduling pending tasks at 11:45 PM....
+2025-01-10 23:45:00 [INFO]: today==>
+2025-01-10 23:45:01 [INFO]: Found 1 tasks to be rescheduled.
+2025-01-10 23:45:01 [INFO]: Task 73 rescheduled to 2025-01-17
+2025-01-10 23:45:01 [INFO]: Client 35 successfully rescheduled.
+2025-01-10 23:45:02 [INFO]: Task 73 marked as inactive.
+2025-01-10 23:50:00 [INFO]: Running cron job for rescheduling complete tasks at 11:50 PM....
+2025-01-10 23:50:00 [INFO]: today==>
+2025-01-10 23:50:33 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-10 23:50:36 [INFO]: No tasks found for rescheduling.
+2025-01-11 00:02:00 [INFO]: Running cron job for task creation at 12:02 AM....
+2025-01-11 00:02:00 [INFO]: today==>
+2025-01-11 00:03:38 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-11 00:03:41 [INFO]: No clients with upcoming services within 2 days.
+2025-01-11 00:06:54 [INFO]: Server is running on: localhost:
+2025-01-11 00:06:55 [INFO]: Database connection successful
+2025-01-11 00:10:00 [INFO]: Running cron job for assigning tasks at 12:10 AM....
+2025-01-11 00:10:02 [INFO]: No tasks with upcoming services.
+2025-01-11 00:14:59 [INFO]: Server is running on: localhost:
+2025-01-11 00:15:00 [INFO]: Database connection successful
+2025-01-11 00:15:52 [INFO]: Server is running on: localhost:
+2025-01-11 00:15:53 [INFO]: Database connection successful
+2025-01-11 00:17:32 [INFO]: Server is running on: localhost:
+2025-01-11 00:17:33 [INFO]: Database connection successful
+2025-01-11 00:19:09 [INFO]: Server is running on: localhost:
+2025-01-11 00:19:10 [INFO]: Database connection successful
+2025-01-11 00:25:42 [INFO]: Server is running on: localhost:
+2025-01-11 00:25:43 [INFO]: Database connection successful
+2025-01-11 00:25:44 [INFO]: Server is running on: localhost:
+2025-01-11 00:25:45 [INFO]: Database connection successful
+2025-01-11 00:28:08 [INFO]: Server is running on: localhost:
+2025-01-11 00:28:09 [INFO]: Database connection successful
+2025-01-11 00:28:58 [INFO]: Server is running on: localhost:
+2025-01-11 00:28:59 [INFO]: Database connection successful
+2025-01-11 00:34:33 [INFO]: Server is running on: localhost:
+2025-01-11 00:34:34 [INFO]: Database connection successful
+2025-01-11 00:35:25 [INFO]: Server is running on: localhost:
+2025-01-11 00:35:26 [INFO]: Database connection successful
+2025-01-11 00:35:53 [INFO]: Server is running on: localhost:
+2025-01-11 00:35:55 [INFO]: Database connection successful
+2025-01-11 00:36:17 [INFO]: Server is running on: localhost:
+2025-01-11 00:36:18 [INFO]: Database connection successful
+2025-01-11 00:39:10 [INFO]: Server is running on: localhost:
+2025-01-11 00:39:11 [INFO]: Database connection successful
+2025-01-11 00:39:35 [INFO]: Server is running on: localhost:
+2025-01-11 00:39:37 [INFO]: Database connection successful
+2025-01-11 00:41:58 [INFO]: Server is running on: localhost:
+2025-01-11 00:41:59 [INFO]: Database connection successful
+2025-01-11 00:44:38 [INFO]: Server is running on: localhost:
+2025-01-11 00:44:39 [INFO]: Database connection successful
+2025-01-11 00:45:32 [INFO]: Server is running on: localhost:
+2025-01-11 00:45:33 [INFO]: Database connection successful
+2025-01-11 00:46:02 [INFO]: Server is running on: localhost:
+2025-01-11 00:46:03 [INFO]: Database connection successful
+2025-01-11 00:47:00 [INFO]: Server is running on: localhost:
+2025-01-11 00:47:02 [INFO]: Database connection successful
+2025-01-11 00:49:51 [INFO]: Server is running on: localhost:
+2025-01-11 00:49:52 [INFO]: Database connection successful
+2025-01-11 00:51:46 [INFO]: Server is running on: localhost:
+2025-01-11 00:51:47 [INFO]: Database connection successful
+2025-01-11 00:51:53 [INFO]: Successfully fetched tasks:
+2025-01-11 00:55:39 [INFO]: Server is running on: localhost:
+2025-01-11 00:55:40 [INFO]: Database connection successful
+2025-01-11 00:55:47 [INFO]: Successfully fetched tasks:
+2025-01-11 00:57:20 [INFO]: Server is running on: localhost:
+2025-01-11 00:57:21 [INFO]: Database connection successful
+2025-01-11 00:57:23 [INFO]: Successfully fetched tasks:
+2025-01-11 00:57:41 [INFO]: Server is running on: localhost:
+2025-01-11 00:57:43 [INFO]: Database connection successful
+2025-01-11 00:57:47 [INFO]: Server is running on: localhost:
+2025-01-11 00:57:48 [INFO]: Database connection successful
+2025-01-11 00:57:55 [INFO]: Successfully fetched tasks:
+2025-01-11 00:58:06 [INFO]: Server is running on: localhost:
+2025-01-11 00:58:09 [INFO]: Database connection successful
+2025-01-11 00:58:14 [INFO]: Successfully fetched tasks:
+2025-01-11 00:58:34 [INFO]: Server is running on: localhost:
+2025-01-11 00:58:35 [INFO]: Database connection successful
+2025-01-11 00:58:37 [INFO]: Successfully fetched tasks:
+2025-01-11 01:01:19 [INFO]: Server is running on: localhost:
+2025-01-11 01:01:20 [INFO]: Database connection successful
+2025-01-11 01:01:24 [INFO]: Successfully fetched tasks:
+2025-01-11 01:01:44 [INFO]: Server is running on: localhost:
+2025-01-11 01:01:45 [INFO]: Database connection successful
+2025-01-11 01:01:47 [INFO]: Successfully fetched tasks:
+2025-01-11 01:03:00 [INFO]: Server is running on: localhost:
+2025-01-11 01:03:01 [INFO]: Database connection successful
+2025-01-11 01:03:05 [INFO]: Successfully fetched tasks:
+2025-01-11 01:03:32 [INFO]: Server is running on: localhost:
+2025-01-11 01:03:33 [INFO]: Database connection successful
+2025-01-11 01:06:27 [INFO]: Server is running on: localhost:
+2025-01-11 01:06:28 [INFO]: Database connection successful
+2025-01-11 01:06:31 [ERROR]: Error while executing query: Column 'id' in order clause is ambiguous
+2025-01-11 01:06:44 [INFO]: Server is running on: localhost:
+2025-01-11 01:06:44 [INFO]: Database connection successful
+2025-01-11 01:06:47 [INFO]: Successfully fetched tasks:
+2025-01-11 01:07:55 [INFO]: Server is running on: localhost:
+2025-01-11 01:07:56 [INFO]: Database connection successful
+2025-01-11 01:08:15 [INFO]: Successfully fetched tasks:

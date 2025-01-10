@@ -4,7 +4,7 @@ const tableNames = {
     workers: "workers",
     team: "team",
     area_region:"area_region",
-    tasks:"tasks"
+    tasks:"tasks",
   };
   
   module.exports = tableNames;

@@ -41,10 +41,10 @@ const GlobalSelectWithWhereClause = (payload, res) => {
         return res.send(reponse(false, "database error", {}));
       }
       connection.query(
-        `SELECT ${payload.select} FROM ${payload.tableName} where ${payload.key}="${payload.value}" ORDER BY id DESC`,
+        `SELECT ${payload.select} FROM ${payload.tableName} WHERE ${payload.key} = ? ORDER BY id DESC;`,[payload.value],
         (err, result) => {
           connection.release();
-
+          console.log(payload.select,payload.tableName,payload.key,payload.value,result);
           if (err) {
             // logger.info(err);
             return res.send(reponse(false, "error while selecting", err));
@@ -67,11 +67,12 @@ const GlobalSelecthWhereCondition = (payload, res) => {
         // // logger.info("eror while creating connection", err);
         return res.send(reponse(false, "database error", {}));
       }
+      
       connection.query(
-        `SELECT ${payload.select} FROM ${payload.tableName} where ${payload.key}="${payload.value}"`,
+        `SELECT ${payload.select} FROM ${payload.tableName} where ${payload.key}=${payload.value}`,
         (err, result) => {
           connection.release();
-
+          
           if (err) {
             // // logger.info(err);
             return res.send(reponse(false, "error while selecting", err));
