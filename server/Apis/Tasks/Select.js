@@ -45,7 +45,7 @@ router.get("/", (req, res) => {
         logger.info("Successfully fetched tasks:", result);
         result.forEach(item=>{
           item.service_date=moment(item.service_date).format('DD/MM/YYYY');
-          item.created_at=moment(item.created_at).format("DD//MM/YYYY")
+          item.created_at=moment(item.created_at).format("DD/MM/YYYY")
         });
 
         return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
