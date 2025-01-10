@@ -25,11 +25,17 @@ const regions = [
   "Region 6",
 ];
 
-const RegionForm = ({ close }) => {
+const RegionForm = ({ close, handleDialogClose }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
+
+  // state to stored input data
   const [area, setArea] = useState("");
   const [region, setRegion] = useState("");
+
+  // state to avoid special character (for text field only)
   const [isAreaValid, setIsAreaValid] = useState(true);
+
+  // state to show loader on submit button after submit clicked
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
 
@@ -49,6 +55,7 @@ const RegionForm = ({ close }) => {
       });
       await dispatch(fetchRegions());
       emptyStates();
+      handleDialogClose();
     } else {
       notification.error({
         message: "Region Not Added!",
@@ -63,6 +70,7 @@ const RegionForm = ({ close }) => {
   const emptyStates = () => {
     setArea("");
     setRegion("");
+    setIsAreaValid(true);
   };
 
   // function to check input field is valid
@@ -77,10 +85,10 @@ const RegionForm = ({ close }) => {
   }, [close]);
 
   return (
-    <div className="my-3">
+    <div className="my-5">
       <Box sx={{ minWidth: isMobile ? 270 : 420 }}>
         {/* area field */}
-        <FormControl fullWidth sx={{ my: 2 }}>
+        <FormControl fullWidth sx={{ mb: isAreaValid ? 3 : 2 }}>
           <TextField
             label="Enter Area"
             variant="outlined"
@@ -91,7 +99,7 @@ const RegionForm = ({ close }) => {
           />
         </FormControl>
         {/* region field */}
-        <FormControl fullWidth sx={{ my: 2 }}>
+        <FormControl fullWidth sx={{ mb: 3 }}>
           <InputLabel id="demo-simple-select-label">Select Region</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -120,7 +128,7 @@ const RegionForm = ({ close }) => {
           type="primary"
           size="large"
           styling={"linearGradient"}
-          disabled={isSubmitting || !isAreaValid || !area || !region} // disabled untill all fields filled and textfield is valid
+          disabled={isSubmitting || !(isAreaValid && area && region)} // disabled untill all fields filled and textfield is valid
           onClick={() => handleSubmit()}
         />
       </div>

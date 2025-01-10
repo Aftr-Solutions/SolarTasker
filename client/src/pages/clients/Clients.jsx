@@ -1,22 +1,33 @@
-import React, { useState } from 'react'
-import {message} from 'antd'
-import { clientColumns } from '../../components/columns/Columns';
-import SearchAndFilterTable from '../../components/filterTable/SearchAndFilterTable';
+import React, { useEffect, useState } from "react";
+import { message } from "antd";
+import { clientColumns } from "../../components/columns/Columns";
+import SearchAndFilterTable from "../../components/filterTable/SearchAndFilterTable";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchClients } from '../../store/ActionApis/clientApi';
 
 const Clients = () => {
-  const [data, setData] = useState(
-    Array.from({ length: 100 }, (_, index) => ({
-      id: index + 1,
-      name: `User ${index + 1}`,
-      email: `user${index + 1}@example.com`,
-      address: `Address ${index + 1}`,
-      amount: Math.floor(Math.random() * 10000) + 100, // Random amount between 100 and 10000
-      plan: index % 2 === 0 ? 'Premium' : 'Basic', // Alternating between 'Premium' and 'Basic'
-      servicePlanDuration: `${Math.floor(Math.random() * 12) + 1} months`, // Random duration between 1 and 12 months
-      regionPreference: index % 3 === 0 ? 'North America' : index % 3 === 1 ? 'Europe' : 'Asia', // Alternating regions
-    }))
-  );
+  const dispatch = useDispatch();
 
+  const { clients } = useSelector((state) => state.client);
+
+  console.log(clients);
+
+  useEffect(() => {
+    dispatch(fetchClients());
+  }, []);
+
+  // const [data, setData] = useState(
+  //   Array.from({ length: 100 }, (_, index) => ({
+  //     id: index + 1,
+  //     name: `User ${index + 1}`,
+  //     email: `user${index + 1}@example.com`,
+  //     address: `Address ${index + 1}`,
+  //     amount: Math.floor(Math.random() * 10000) + 100, // Random amount between 100 and 10000
+  //     plan: index % 2 === 0 ? 'Premium' : 'Basic', // Alternating between 'Premium' and 'Basic'
+  //     servicePlanDuration: `${Math.floor(Math.random() * 12) + 1} months`, // Random duration between 1 and 12 months
+  //     regionPreference: index % 3 === 0 ? 'North America' : index % 3 === 1 ? 'Europe' : 'Asia', // Alternating regions
+  //   }))
+  // );
 
   // const columns = [
   //   { title: 'Name', dataIndex: 'name', key: 'name',  width: 200,
@@ -28,9 +39,9 @@ const Clients = () => {
   // ];
 
   const handleDelete = (record) => {
-    console.log(record)
+    console.log(record);
     setData((prevData) => prevData.filter((item) => item.id !== record.id));
-    message.success('Record deleted successfully!');
+    message.success("Record deleted successfully!");
   };
 
   const handleEdit = (updatedRecord) => {
@@ -41,10 +52,15 @@ const Clients = () => {
     );
   };
   return (
-    <div className=''>
-      <SearchAndFilterTable data = {data} columns={clientColumns} handleDelete={handleDelete} handleEdit={handleEdit} />
-  </div>
-  )
-}
+    <div className="">
+      <SearchAndFilterTable
+        data={clients}
+        columns={clientColumns}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
+    </div>
+  );
+};
 
-export default Clients
+export default Clients;

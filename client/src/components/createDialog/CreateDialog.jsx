@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import RegionForm from "../createForm/RegionForm";
 import { Grow, Slide } from "@mui/material";
+import WorkerForm from "../createForm/WorkerForm";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -65,7 +66,9 @@ export default function CreateDialog({
           </IconButton>
           <DialogContent dividers>
             {path === "/region" ? (
-              <RegionForm close={close} />
+              <RegionForm close={close} handleDialogClose={handleDialogClose} />
+            ) : path === "/worker" ? (
+              <WorkerForm close={close} handleDialogClose={handleDialogClose} />
             ) : (
               <Typography gutterBottom>
                 Cras mattis consectetur purus sit amet fermentum. Cras justo
