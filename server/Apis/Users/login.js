@@ -1,92 +1,88 @@
-  const express = require("express");
-  const router = express.Router();
-  const bcrypt = require("bcryptjs");
-  const jwt = require("jsonwebtoken");
-  const RESPONSE = require("../../GlobalResponse/RESPONSE");
-  const tableNames = require("../../Utils/allTableNames");
-  const pool = require("../../Utils/db");
-  const logger = require("../../logger");
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const RESPONSE = require("../../GlobalResponse/RESPONSE");
+const tableNames = require("../../Utils/allTableNames");
+const pool = require("../../Utils/db");
+const logger = require("../../logger");
 
+router.post("/", (req, res) => {
+  let user_name = req.body.username;
+  let password = req.body.password;
 
-  router.post("/", (req, res) => {
-    let user_name = req.body.username;
-    let password = req.body.password;
+  if (!user_name || !password) {
+    return res.status(400).send(RESPONSE(false, "Username and password are required", {}));
+  }
 
-    let payload = {
-      tableName: tableNames.owners,
-      select: "*",
-      key: "user_name",
-      value: user_name,
-    };
-    try {
-      pool.getConnection((err, connection) => {
+  let payload = {
+    tableName: tableNames.owners,
+    select: "*",
+    key: "user_name",
+    value: user_name,
+  };
+
+  try {
+    console.log("Going for pool connection...");
+    pool.getConnection((err, connection) => {
+      if (err) {
+        console.error("Database connection error:", err);
+        logger.error("Database connection error:", err);
+        return res.status(500).send(RESPONSE(false, "Database connection error", {}));
+      }
+
+      const query = `SELECT ${payload.select} FROM ${payload.tableName} WHERE ${payload.key}="${payload.value}"`;
+      console.log("Executing query:", query);
+
+      connection.query(query, (err, data) => {
+        connection.release();
+
         if (err) {
-          return res.send(RESPONSE(false, "database error", {}));
+          console.error("Query execution error:", err);
+          logger.error("Query execution error:", err);
+          return res.status(500).send(RESPONSE(false, "Error while selecting", err));
         }
-        connection.query(
-          `SELECT ${payload.select} FROM ${payload.tableName} where ${payload.key}="${payload.value}"`,
-          (err, data) => {
-            connection.release();
 
-            if (err) {
-              return res.send(RESPONSE(false, "error while selecting", err));
-            } else {
-              if (data.length < 1) {
-                return res
-                  .status(404)
-                  .send(
-                    RESPONSE(
-                      false,
-                      "user not found some issues in authentication",
-                      {}
-                    )
-                  );
-              } else {
-                bcrypt.compare(
-                  password,
-                  data[0].password,(error, result) => {
-                    if (result === false) {
-                      return res
-                        .status(401)
-                        .send(
-                          RESPONSE(false, "Auth failed because wrong password", err)
-                        );
-                    }
-                    if (error) {
-                      return res
-                        .status(401)
-                        .send(
-                          RESPONSE(false, "Auth failed, bcr wrong password", err)
-                        );
-                    }
-                    if (result) {
-                      let token = jwt.sign(
-                        {
-                          id: data[0].id,
-                          username: data[0].user_name,
-                          email: data[0].email,
-                        },
-                        "pksectret",
-                        {
-                          expiresIn: "100h",
-                        }
-                      );
-                      res.status(200).json({
-                        message: "Login Successfully",
-                        token: token,
-                        user: data,
-                      });
-                    }
-                  }
-                );
-              }
-            }
+        if (data.length < 1) {
+          return res.status(404).send(RESPONSE(false, "User not found", {}));
+        }
+
+        console.log("Fetched hashed password from DB:", data[0].password);
+        bcrypt.compare(password, data[0].password, (error, result) => {
+          if (error) {
+            console.error("Bcrypt comparison error:", error);
+            return res.status(401).send(RESPONSE(false, "Authentication failed", {}));
           }
-        );
-      });
-    } catch (err) {
-      return res.send(RESPONSE(false, err.message, err));
-    }
-  });
 
-  module.exports = router;
+          if (!result) {
+            console.log("Incorrect password");
+            return res.status(401).send(RESPONSE(false, "Incorrect password", {}));
+          }
+
+          const token = jwt.sign(
+            {
+              id: data[0].id,
+              username: data[0].user_name,
+              email: data[0].email,
+            },
+              "pksectret",
+            { expiresIn: "100h" }
+          );
+
+          logger.info(`User ${user_name} logged in successfully`);
+          res.status(200).json({
+            message: "Login Successful",
+            token,
+            user: data,
+          });
+        });
+      });
+    });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    logger.error("Unexpected error:", err);
+    return res.status(500).send(RESPONSE(false, "Unexpected error", err));
+  }
+});
+
+module.exports = router;

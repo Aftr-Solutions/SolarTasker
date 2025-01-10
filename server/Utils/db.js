@@ -1,4 +1,4 @@
-const mysql = require("mysql2/promise");
+const mysql = require("mysql2");
 
 const pool = mysql.createPool({
   // host: "148.163.69.162" || process.env.DB_HOST, //"s13.hosterpk.com", // Shared IP from cPanel
@@ -12,15 +12,22 @@ const pool = mysql.createPool({
   // //idleTimeout: 60000, // 60 seconds (adjust as needed)
 
   // hosterpk
-  host: "s13.hosterpk.com" || process.env.DB_HOST,
-  user: "digita87_muddassir" || process.env.DB_UDER,
-  password: "Developers000$$$" || process.env.DB_PASSWORD,
-  database: "digita87_SolarTasker" || process.env.DB_NAME,
-  connectionLimit: 10, // Maximum number of connections in the pool
+  host:"s13.hosterpk.com" || process.env.DB_HOST,
+  user:"digita87_muddassir" || process.env.DB_UDER,
+  password:"Developers000$$$" || process.env.DB_PASSWORD,
+  database:"digita87_SolarTasker" || process.env.DB_NAME,
+  //connectionLimit: 10, // Maximum number of connections in the pool
   //connectTimeout: 10000,      // Connection timeout in milliseconds
-  waitForConnections: true, // Wait for available connections in the pool
-  queueLimit: 0, // No limit on the number of queued requests
+  //waitForConnections: true, // Wait for available connections in the pool
+  //queueLimit: 0, // No limit on the number of queued requests
   //idleTimeout: 60000, // 60 seconds (adjust as needed)
 });
-
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error("Database connection error:", err);
+    logger.error("Database connection error:", err);
+    return res.status(500).send(RESPONSE(false, "database error", {}));
+  }
+  console.log("Database connection successful");
+});
 module.exports = pool;
