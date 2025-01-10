@@ -17,7 +17,7 @@
     const [isCollapse, setIsCollapse] = useState(false);
  
     return (
-      <div className="flex">
+      <div className="flex ">
         <div className=" h-screen bg-white border side-bar my-scrollable-element  ">
           <Sidebar
             isCollapse={isCollapse}

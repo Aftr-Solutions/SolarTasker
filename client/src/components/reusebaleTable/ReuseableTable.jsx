@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Table, Button, Modal, Form, Input, Pagination, message } from 'antd';
+import DriveFileRenameOutlineRoundedIcon from '@mui/icons-material/DriveFileRenameOutlineRounded';
+import DeleteSweepRoundedIcon from '@mui/icons-material/DeleteSweepRounded';
+import { Tooltip } from "antd";
 
-const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, scrollHeight = 350  }) => {
+const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, }) => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(7);
+  const [pageSize, setPageSize] = useState(10);
 
   // Pagination logic
   const handlePageChange = (page, pageSize) => {
@@ -31,41 +34,57 @@ const ReusableTable = ({ columns, data, onDelete, onEdit, paginationConfig, scro
     setDeleteModalOpen(true);
   };
 
+
+
   // Add Edit and Delete buttons to columns
   const enhancedColumns = [
     ...columns,
     {
-      title: 'Actions',
+      title: 'Action',
       key: 'actions',
+      width: 150,
+      fixed: "right",
       render: (_, record) => (
-        <>
-          <Button type="link" onClick={() => handleEdit(record)}>
-            Edit
-          </Button>
-          <Button type="link" danger onClick={() => handleDelete(record)}>
-            Delete
-          </Button>
-        </>
+        <div className="flex space-x-3">
+          {/* View Action */}
+          <Tooltip title="Edit">
+            <button
+              onClick={() => handleEdit(record)}
+              className="flex items-center justify-center two-icons w-10 h-10 rounded-full transition duration-300 hover:bg-[#13DEB9] hover:text-white"
+            >
+              <DriveFileRenameOutlineRoundedIcon className='icons' style={{fontSize:"20px", color: "#13DEB9"}} />
+            </button>
+          </Tooltip>
+    
+          {/* Delete Action */}
+          <Tooltip title="Delete">
+            <button
+              onClick={() => handleDelete(record)}
+              className="flex items-center justify-center w-10 h-10 two-icons  rounded-full transition duration-300 hover:bg-[#FA896B] hover:text-white"
+            >
+              <DeleteSweepRoundedIcon className='icons' style={{fontSize:"20px", color: "#FA896B"}} />
+            </button>
+          </Tooltip>
+        </div>
       ),
     },
   ];
 
   return (
     <>
-    <div className=''>
+    <div>
+
 
       <Table
-      className=' table-height  mt-5 '
+      className=' table-height custom-scroll-table mt-5 '
         columns={enhancedColumns}
         dataSource={paginatedData}
-        rowKey="id"
         pagination={false} // Disable built-in pagination
-        // scroll={{
-        //     y: scrollHeight, // Vertical scrolling with fixed height
-        //     x: '100%', // Horizontal scrolling for larger tables
-        //   }}
-        
         rowClassName={() => 'small-row'} // Custom class for small row height
+        scroll={{
+          x: 'max-content', // Set horizontal scrolling width
+          y: 380, // Set vertical scrolling height
+        }}
         />
         
       

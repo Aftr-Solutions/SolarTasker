@@ -69,13 +69,12 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
   }, [location]);
 
   return (
-    <div className="w-full">
+    <div className="min-w-[800px]">
   
     <AppBar
       position="static"
       className="bg-white shadow-sm w-full nav-bar"
       elevation={0}
-      // style={{ background: "white" }}
     >
       <Toolbar className="flex justify-between w-full">
         {/* Left Section */}
@@ -101,14 +100,14 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           {/* only this pages should display below section */}
-          {["/clients", "/region", "/worker", "/team", "/user"].includes(
+          {["/", "/region", "/worker", "/team", "/user"].includes(
             location.pathname
           ) && (
             <>
               {/* Create button to open dialog */}
               <Buttons
                 text={`Add New ${
-                  location.pathname === "/clients" ? "Client" : btnName
+                  location.pathname === "/" ? "Client" : btnName
                 }`}
                 type="primary"
                 size={isMobile ? "medium" : "large"}
@@ -119,7 +118,7 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
               {/* Dialog */}
               <CreateDialog
                 title={`Add New ${
-                  location.pathname === "/clients" ? "Client" : btnName
+                  location.pathname === "/" ? "Client" : btnName
                 }`}
                 isDialogOpen={isDialogOpen}
                 handleDialogClose={() => setIsDialogOpen(false)}
