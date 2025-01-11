@@ -1,11 +1,7 @@
 import React from "react";
 import { Avatar, Tag } from "antd";
 
-
-
-
 // Clients Columns
-
 
 // Function to generate a random light color
 const getRandomLightColor = () => {
@@ -46,7 +42,7 @@ const getPlanTagColor = (plan) => {
   switch (plan) {
     case 0:
       return "#5D87FF"; // Shipped-like color
-      
+
     case 1:
       return "#13DEB9"; // Delivered-like color
 
@@ -57,21 +53,17 @@ const getPlanTagColor = (plan) => {
   }
 };
 
-
 // Function to assign colors to different Response status
 const getResponseTagColor = (response) => {
   switch (response) {
     case 1:
-      return "#F9886A"; // RED-like color  
+      return "#F9886A"; // RED-like color
     case 2:
       return "#13DEB9"; // Delivered-like color
     default:
       return "default"; // Default color for undefined plans
   }
 };
-
-
-
 
 export const clientColumns = [
   {
@@ -103,8 +95,7 @@ export const clientColumns = [
               .toUpperCase()}
           </Avatar>
           <div>
-            <div className="text-black font-semibold text-xs"
-            >
+            <div className="text-black font-semibold text-xs">
               {record.name}
             </div>
           </div>
@@ -157,7 +148,6 @@ export const clientColumns = [
           width: "100px",
           color: "white",
         }}
-        
       >
         {plan === 0 ? "Basic" : "Premium"}
       </Tag>
@@ -168,8 +158,7 @@ export const clientColumns = [
     dataIndex: "service_plan_duration",
     key: "service_plan_duration",
     width: 200,
-    sorter: (a, b) =>
-      a.service_plan_duration - b.service_plan_duration,
+    sorter: (a, b) => a.service_plan_duration - b.service_plan_duration,
     render: (row) => <span className="">{row}</span>,
   },
   {
@@ -182,38 +171,31 @@ export const clientColumns = [
   },
 ];
 
-
-// Region Columns 
-
+// Region Columns
 
 export const regionColumns = [
-  
-    {
-      title: "Area",
-      dataIndex: "area",
-      key: "area",
-      width: 200,
-      sorter: (a, b) => a.area.length - b.area.length,
-      render: (row) => <span className="">{row}</span>,
-    },
+  {
+    title: "Area",
+    dataIndex: "area",
+    key: "area",
+    width: 200,
+    sorter: (a, b) => a.area.length - b.area.length,
+    render: (row) => <span className="">{row}</span>,
+  },
 
-    {
-      title: "Region",
-      dataIndex: "region",
-      key: "region",
-      width: 200,
-      sorter: (a, b) => a.region.length - b.region.length,
-      render: (row) => <span className="">{row}</span>,
-    },
-  
-  
-]
+  {
+    title: "Region",
+    dataIndex: "region",
+    key: "region",
+    width: 200,
+    sorter: (a, b) => a.region.length - b.region.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+];
 
-
-// workers Column 
+// workers Column
 
 export const workerColumns = [
-  
   {
     title: "Name",
     key: "name",
@@ -263,8 +245,13 @@ export const workerColumns = [
     dataIndex: "cnic_number",
     key: "cnic_number",
     width: 200,
-    sorter: (a, b) => a.cnic_number.length - b.cnic_number.length,
-    render: (row) => <span className="">{row}</span>,
+    sorter: (a, b) => a.cnic_number - b.cnic_number,
+    render: (row) => {
+      const nic1 = row.substring(0, 5);
+      const nic2 = row.substring(5, 12);
+      const nic3 = row.substring(12);
+      return row.length > 12 ? `${nic1}-${nic2}-${nic3}` : row;
+    },
   },
 
   {
@@ -272,8 +259,12 @@ export const workerColumns = [
     dataIndex: "number",
     key: "number",
     width: 200,
-    sorter: (a, b) => a.number.length - b.number.length,
-    render: (row) => <span className="">{row}</span>,
+    sorter: (a, b) => a.number - b.number,
+    render: (row) => {
+      const numb1 = row.substring(0, 4);
+      const numb2 = row.substring(4);
+      return `${numb1}-${numb2}`;
+    },
   },
 
   {
@@ -284,11 +275,9 @@ export const workerColumns = [
     sorter: (a, b) => a.address.length - b.address.length,
     render: (row) => <span className="">{row}</span>,
   },
+];
 
-
-]
-
-// Teams Column 
+// Teams Column
 
 export const teamColumn = [
   {
@@ -323,11 +312,9 @@ export const teamColumn = [
     sorter: (a, b) => a.member2.length - b.member2.length,
     render: (row) => <span className="">{row}</span>,
   },
- 
+];
 
-]
-
-// User Column 
+// User Column
 
 export const userColumn = [
   {
@@ -359,8 +346,7 @@ export const userColumn = [
               .toUpperCase()}
           </Avatar>
           <div>
-            <div className="text-black font-semibold text-xs"
-            >
+            <div className="text-black font-semibold text-xs">
               {record.user_name}
             </div>
           </div>
@@ -376,7 +362,7 @@ export const userColumn = [
     sorter: (a, b) => a.email.length - b.email.length,
     render: (row) => <span className="">{row}</span>,
   },
- 
+
   {
     title: "User Role",
     dataIndex: "role",
@@ -385,81 +371,78 @@ export const userColumn = [
     sorter: (a, b) => a.role.length - b.role.length,
     render: (row) => <span className="">{row}</span>,
   },
+];
 
-]
-
-// Task Column 
-
+// Task Column
 
 export const taskColumn = [
-
   {
-    title: 'Team Name',
-    dataIndex: 'team_name',
-    key: 'team_name',
+    title: "Team Name",
+    dataIndex: "team_name",
+    key: "team_name",
     render: (row) => <span className="text-sm font-medium">{row}</span>,
     sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
-    width: 130
+    width: 130,
   },
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
     render: (row) => <span className="">{row}</span>,
     sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
   },
   {
-    title: 'Number',
-    dataIndex: 'number',
-    key: 'number',
+    title: "Number",
+    dataIndex: "number",
+    key: "number",
     sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
   },
   {
-    title: 'Task Status',
-    dataIndex: 'task_status',
-    key: 'task_status',
+    title: "Task Status",
+    dataIndex: "task_status",
+    key: "task_status",
     width: 130,
     render: (task_status) => {
       const getTaskStatusTagColor = (task_status) => {
         switch (task_status) {
           case 0:
-            return '#F5BC00'; // Red for Pending
+            return "#F5BC00"; // Red for Pending
           case 1:
-            return '#D4C3A7'; // Black for On The Way
+            return "#D4C3A7"; // Black for On The Way
           case 2:
-            return '#5D87FF'; // Blue for Working
+            return "#5D87FF"; // Blue for Working
           case 3:
-            return '#13DEB9'; // Green for Completed
+            return "#13DEB9"; // Green for Completed
           default:
-            return '#d9d9d9'; // Gray for Unknown
+            return "#d9d9d9"; // Gray for Unknown
         }
       };
-  
+
       const getTaskStatusText = (task_status) => {
         switch (task_status) {
           case 0:
-            return 'Pending';
+            return "Pending";
           case 1:
-            return 'On The Way';
+            return "On The Way";
           case 2:
-            return 'Working';
+            return "Working";
           case 3:
-            return 'Completed';
+            return "Completed";
           default:
-            return 'Unknown';
+            return "Unknown";
         }
       };
-  
+
       return (
         <Tag
           color={getTaskStatusTagColor(task_status)}
           style={{
-            fontSize: '12px',
-            padding: '2px 2px',
-            borderRadius: '10px',
-            textAlign: 'center',
-            width: '100px',
-            color: 'white',
+            fontSize: "12px",
+            padding: "2px 2px",
+            borderRadius: "10px",
+            textAlign: "center",
+            width: "100px",
+            color: "white",
           }}
         >
           {getTaskStatusText(task_status)}
@@ -468,12 +451,11 @@ export const taskColumn = [
     },
     sorter: (a, b) => a.task_status - b.task_status, // Sort numerically by status
   },
-  
-  
+
   {
-    title: 'Response',
-    dataIndex: 'response',
-    key: 'response',
+    title: "Response",
+    dataIndex: "response",
+    key: "response",
     // render: (response) => (response === 1 ? 'YES' : 'NO'), // Conditional rendering
     render: (response) => (
       <Tag
@@ -486,29 +468,25 @@ export const taskColumn = [
           width: "100px",
           color: "white",
         }}
-        
       >
         {response === 2 ? "YES" : "NO"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
     width: 120,
-
   },
   {
-    title: 'Created At',
-    dataIndex: 'created_at',
-    key: 'created_at',
+    title: "Created At",
+    dataIndex: "created_at",
+    key: "created_at",
     width: 130,
     sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at), // Sort by date
   },
   {
-    title: 'Service Date',
-    dataIndex: 'service_date',
-    key: 'service_date',
+    title: "Service Date",
+    dataIndex: "service_date",
+    key: "service_date",
     width: 140,
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
-
 ];
-
