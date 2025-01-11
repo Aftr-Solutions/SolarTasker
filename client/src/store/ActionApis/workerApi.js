@@ -7,7 +7,7 @@ export const fetchWorkers = createAsyncThunk(
   "worker/fetchWorkers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await userRequest.get("selectworkers");
+      const response = await userRequest.get("selectworker");
       return response.data.payload;
     } catch (error) {
       return rejectWithValue("Error occurred while fetching workers");
