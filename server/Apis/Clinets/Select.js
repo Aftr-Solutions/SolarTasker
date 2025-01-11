@@ -15,7 +15,8 @@ router.get("/", (req, res) => {
       a.region AS region_name 
     FROM ${tableName.clients} AS c 
     LEFT JOIN ${tableName.area_region} AS a 
-    ON c.area_region_id = a.id
+      ON c.area_region_id = a.id
+    ORDER BY c.id DESC;  
   `;
 
   // Execute the query
