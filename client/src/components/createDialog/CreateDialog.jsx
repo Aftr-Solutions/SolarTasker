@@ -11,6 +11,7 @@ import { Grow, Slide } from "@mui/material";
 import WorkerForm from "../createForm/WorkerForm";
 import TeamForm from "../createForm/TeamForm";
 import UserForm from "../createForm/UserForm";
+import ClientForm from "../createForm/ClientForm";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -67,7 +68,9 @@ export default function CreateDialog({
             <CloseIcon />
           </IconButton>
           <DialogContent dividers>
-            {path === "/region" ? (
+            {path === "/" ? (
+              <ClientForm close={close} handleDialogClose={handleDialogClose} />
+            ) : path === "/region" ? (
               <RegionForm close={close} handleDialogClose={handleDialogClose} />
             ) : path === "/worker" ? (
               <WorkerForm close={close} handleDialogClose={handleDialogClose} />
