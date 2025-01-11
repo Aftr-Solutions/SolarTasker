@@ -39,6 +39,8 @@ const TeamForm = ({ close, handleDialogClose }) => {
   // get member data from worker api
   const { workers } = useSelector((state) => state.worker);
 
+  console.log(workers);
+
   // function for submit
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -50,7 +52,7 @@ const TeamForm = ({ close, handleDialogClose }) => {
     };
 
     const response = await dispatch(createTeam(dataToSend));
-    
+
     if (response.payload.success) {
       notification.success({
         message: "Team Added!",
@@ -111,7 +113,7 @@ const TeamForm = ({ close, handleDialogClose }) => {
 
         {/* all three members fields */}
         {membersFields.map(({ label }, index) => (
-          <FormControl fullWidth sx={{ mb: 3 }}>
+          <FormControl fullWidth sx={{ mb: 3 }} key={index}>
             <InputLabel id={`member${index}`}>Select {label}</InputLabel>
             <Select
               labelId={`member${index}`}
@@ -123,8 +125,10 @@ const TeamForm = ({ close, handleDialogClose }) => {
               }}
               label={`Select ${label}`}
             >
-              {workers.map((idx , memb) => (
-                <MenuItem key={idx} value={memb.id}>{memb.name}</MenuItem>
+              {workers.map((memb, idx) => (
+                <MenuItem key={idx} value={memb.id}>
+                  {memb.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
