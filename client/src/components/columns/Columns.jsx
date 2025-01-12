@@ -115,7 +115,7 @@ export const clientColumns = [
     dataIndex: "amount",
     key: "amount",
     width: 120,
-    sorter: (a, b) => a.amount.length - b.amount.length,
+    sorter: (a, b) => a.amount - b.amount,
     render: (value) => `$${value}`,
   }, // Format as currency
 
@@ -124,7 +124,7 @@ export const clientColumns = [
     dataIndex: "plan",
     key: "plan",
     width: 150,
-    sorter: (a, b) => a.plan.length - b.plan.length,
+    sorter: (a, b) => a.plan - b.plan,
     render: (plan) => (
       <Tag
         color={getPlanTagColor(plan)}
@@ -147,7 +147,7 @@ export const clientColumns = [
     key: "service_plan_duration",
     width: 200,
     sorter: (a, b) =>
-      a.service_plan_duration.length - b.service_plan_duration.length,
+      a.service_plan_duration - b.service_plan_duration,
     render: (row) => <span className="">{row}</span>,
   },
   {
@@ -155,7 +155,7 @@ export const clientColumns = [
     dataIndex: "region_preference",
     key: "region_preference",
     width: 180,
-    sorter: (a, b) => a.region_preference.length - b.region_preference.length,
+    sorter: (a, b) => a.region_preference - b.region_preference,
     render: (row) => <span className="">{row}</span>,
   },
 ];

@@ -102,7 +102,7 @@ const WorkerForm = ({ close,handleDialogClose }) => {
         <FormControl fullWidth sx={{ mb: 3 }}>
           <TextField
             type="number"
-            label="Enter Number"
+            label="Enter Phone Number"
             variant="outlined"
             value={number}
             onChange={(e) => setNumber(e.target.value)}
