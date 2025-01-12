@@ -95,6 +95,7 @@ body {
 .MuiInputLabel-outlined {
   top: -4px !important;
 }
+.MuiMenu-list > li:hover,
 .Mui-focused > input,
 .Mui-focused > div {
   color: #1976d2 !important;
