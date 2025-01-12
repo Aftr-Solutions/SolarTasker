@@ -18,6 +18,7 @@ router.post("/",(req,res)=>{
 
     let payload={
         tableName:tableName.team,
+        table:"Teams",
         databaseFields:{
             member1,
             member2,

@@ -21,11 +21,11 @@ const GlobalInsert = (payload, res) => {
           if (err) {
             // // logger.info("database");
             logger.info(err);
-            return res.send(response(false, "error while inserting", {}));
+            return res.send(response(false, `error while inserting in ${payload.table}`, {}));
           } else {
             // // logger.info("result");
 
-            return res.send(response(true, "succesfully added", result));
+            return res.send(response(true, `succesfully added record in ${payload.table}`, result));
           }
         }
       );

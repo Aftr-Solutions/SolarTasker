@@ -17,11 +17,11 @@ const GlobalDelete = (payload, res) => {
 
           if (err) {
             // // logger.info(err);
-            return res.send(response(false, "error while deleting", err));
+            return res.send(response(false, `error while deleting in ${payload.table}`, err));
           } else {
 
             // // // logger.info(result);
-            return res.send(response(true, "succesfully deleted", {}));
+            return res.send(response(true, `succesfully deleted in ${payload.table}`, {}));
           }
         }
       );

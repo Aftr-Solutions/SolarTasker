@@ -13,6 +13,7 @@ router.post("/",(req,res)=>{
     let payload={
         id:req.body.id,
         tableName:tableName.area_region,
+        table:"Area Region Table",
         databaseFields:{
             area:req.body.area,
             region:req.body.region,

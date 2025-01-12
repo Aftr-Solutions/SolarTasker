@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
               } else if (err.code === "ER_DUP_ENTRY") {
                 return res
                   .status(409)
-                  .send(RESPONSE(false, "Duplicate User", err));
+                  .send(RESPONSE(false, "Duplicate user name,user exist with this user name", err));
               } else {
                 return res
                   .status(401)
@@ -55,7 +55,7 @@ router.post("/", (req, res) => {
               }
             } else {
               sendUserCredentials(email, username, password, "create" , req, res);
-              return res.send(RESPONSE(true, "Succesfully Created", result));
+              return res.send(RESPONSE(true, "User Succesfully Created", result));
             }
           }
         );

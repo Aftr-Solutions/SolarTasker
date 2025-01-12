@@ -20,10 +20,10 @@ const GlobalSelect = (payload, res) => {
 
           if (err) {
             // logger.info(err);
-            return res.send(reponse(false, "error while selecting", err));
+            return res.send(reponse(false, `error while selecting in ${payload.table}`, err));
           } else {
             // logger.info(result);
-            return res.send(reponse(true, "succesfully selected", result));
+            return res.send(reponse(true, `succesfully selected from ${payload.table}`, result));
           }
         }
       );
@@ -47,10 +47,10 @@ const GlobalSelectWithWhereClause = (payload, res) => {
           console.log(payload.select,payload.tableName,payload.key,payload.value,result);
           if (err) {
             // logger.info(err);
-            return res.send(reponse(false, "error while selecting", err));
+            return res.send(reponse(false, `error while selecting from ${payload.table}`, err));
           } else {
             // logger.info(result);
-            return res.send(reponse(true, "succesfully selected", result));
+            return res.send(reponse(true, `succesfully selected from ${payload.table}`, result));
           }
         }
       );
@@ -75,10 +75,10 @@ const GlobalSelecthWhereCondition = (payload, res) => {
           
           if (err) {
             // // logger.info(err);
-            return res.send(reponse(false, "error while selecting", err));
+            return res.send(reponse(false, `error while selecting from ${payload.table}`, err));
           } else {
             // // // logger.info(result);
-            return res.send(reponse(true, "succesfully selected", result));
+            return res.send(reponse(true, `succesfully selected from ${payload.table}`, result));
           }
         }
       );

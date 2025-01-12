@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
     }
 
     // Send the successful response
-    return res.status(200).send(RESPONSE(true, "Data fetched successfully", results));
+    return res.status(200).send(RESPONSE(true, "Data fetched successfully form Clients", results));
   });
 });
 

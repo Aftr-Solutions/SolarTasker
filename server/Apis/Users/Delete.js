@@ -15,6 +15,7 @@ router.post("/", (req, res) => {
 
   let payload = {
     tableName: tableNames.owners,
+    table:"Owners",
     databaseFields: {
       id: req.body.id,
     },

@@ -15,6 +15,7 @@ router.post("/",(req,res)=>{
 
     let payload={
         tableName:tableName.clients,
+        table:"Clients",
         databaseFields:{
             id:id,
         },
