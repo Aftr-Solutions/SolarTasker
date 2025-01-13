@@ -11,7 +11,8 @@ router.post("/",(req,res)=>{
         id,
         name,
         number,
-        address
+        address,
+        cnic
     }=req.body;
     if(!id || !name ||!number){
         return res.status(400).send(RESPONSE(false,"Please Fill All Fields",{}));
@@ -24,6 +25,7 @@ router.post("/",(req,res)=>{
             name:name,
             number:number,
             address:address,
+            cnic_number:cnic,
         },
     };
     logger.info("Payload for update:", payload);

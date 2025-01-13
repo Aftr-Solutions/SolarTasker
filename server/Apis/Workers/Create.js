@@ -9,7 +9,8 @@ router.post("/",(req,res)=>{
     const{
         name,
         number,
-        address
+        address,
+        cnic,
     }=req.body;
     if(!name || !number){
         return res.status(400).send(RESPONSE(false, "Missing required fields", {}));
@@ -22,6 +23,7 @@ router.post("/",(req,res)=>{
             name,
             number,
             address,
+            cnic_number:cnic,
         },
         
     };
