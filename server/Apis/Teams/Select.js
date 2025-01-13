@@ -4,6 +4,7 @@ const tableName = require("../../Utils/allTableNames");
 const {GlobalSelect}=require("../../GlobalFunctions/GlobalSelect");
 const RESPONSE=require("../../GlobalResponse/RESPONSE");
 const logger = require("../../logger");
+const pool=require("../../Utils/db");
 
 
 router.get("/",(req,res)=>{
@@ -22,30 +23,30 @@ router.get("/",(req,res)=>{
           w.name As member2,
           t.team_name
       FROM ${tableName.team} t
-      INNER JOIN ${tableName.workers} w ON w.id = t.member1_id INNER JOIN ${tableName.workers} w1 ON w1.id=t.member2_id INNER JOIN ${tableName.workers} w2 ON w2.id=t.member3_id  
-      WHERE t.isactive = 1
+      LEFT JOIN ${tableName.workers} w ON w.id = t.member1_id LEFT JOIN ${tableName.workers} w1 ON w1.id=t.member2_id LEFT JOIN ${tableName.workers} w2 ON w2.id=t.member3_id  
+      WHERE t.isactive = 0
       ORDER BY t.id DESC;
     `;
     
-          connection.query(query, (err, result) => {
-            connection.release(); // Ensure the connection is released
+    connection.query(query, (err, result) => {
+    connection.release(); // Ensure the connection is released
     
-            if (err) {
-              // Log the error and send a proper response
-              logger.error("Error while executing query:", err);
-              return res.send(RESPONSE(false, "Error while selecting data from Tasks", err));
-            }
+    if (err) {
+      // Log the error and send a proper response
+      logger.error("Error while executing query:", err);
+      return res.send(RESPONSE(false, "Error while selecting data from Teams", err));
+    }
     
-            // Log the result and send a success response
-            logger.info("Successfully fetched tasks:", result);
-            return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
-          });
+    // Log the result and send a success response
+        logger.info("Successfully fetched tasks:", result);
+        return res.send(RESPONSE(true, "Successfully selected record from Teams", result));
         });
-      } catch (err) {
+    });
+    }catch (err) {
         // Log any unexpected errors
         logger.error("Unexpected error in route handler:", err);
         return res.send(RESPONSE(false, err.message, err));
-      }
+    }
 });
     
 

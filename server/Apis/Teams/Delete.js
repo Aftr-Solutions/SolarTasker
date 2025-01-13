@@ -38,18 +38,17 @@ router.post("/", (req, res) => {
         }
 
         // Prepare payload for deletion
-        let payload = {
-            tableName: tableName.team,
+        let payload={
+            id:id,
+            tableName:tableName.team,
             table:"Teams",
-            databaseFields: {
-                id: id,
+            databaseFields:{
+                isactive:isactive,
             },
         };
-
-        logger.info("Payload for deletion:", payload);
-
-        // Proceed with deletion
-        GlobalDelete(payload, res);
+        logger.info("Payload for update:", payload);
+    
+        GlobalUpdate(payload,res);
     });
 });
 
