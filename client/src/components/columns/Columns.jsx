@@ -194,3 +194,142 @@ export const regionColumns = [
   
   
 ]
+
+
+// Workers Column 
+
+export const workerColumns = [
+  
+  {
+    title: "Name",
+    key: "name",
+    dataIndex: "name",
+    width: 150,
+    fixed: "left",
+    sorter: (a, b) => a.name.length - b.name.length,
+    render: (_, record) => {
+      const backgroundColor = getRandomLightColor();
+      const textColor = getRandomDarkColor();
+
+      return (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Avatar
+            style={{
+              backgroundColor,
+              color: textColor, // Apply random dark text color
+              verticalAlign: "middle",
+              marginRight: "10px",
+            }}
+            size="large"
+          >
+            {record.name
+              .split(" ")
+              .map((word) => word[0])
+              .join("")
+              .toUpperCase()}
+          </Avatar>
+          <div>
+            <div
+              style={{
+                fontWeight: "600",
+                fontSize: "12px",
+                color: "black", // Apply random dark text color
+              }}
+            >
+              {record.name}
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
+
+  {
+    title: "CNIC",
+    dataIndex: "cnic_number",
+    key: "cnic_number",
+    width: 200,
+    sorter: (a, b) => a.cnic_number.length - b.cnic_number.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+
+  {
+    title: "Number",
+    dataIndex: "number",
+    key: "number",
+    width: 200,
+    sorter: (a, b) => a.number.length - b.number.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+    width: 200,
+    sorter: (a, b) => a.address.length - b.address.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+
+
+]
+
+
+export const teamColumn = [
+  {
+    title: "Team Name",
+    dataIndex: "team_name",
+    key: "team_name",
+    width: 200,
+    sorter: (a, b) => a.team_name.length - b.team_name.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Member 1",
+    dataIndex: "member1_id",
+    key: "member1_id",
+    width: 200,
+    sorter: (a, b) => a.member1_id.length - b.member1_id.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Member 2",
+    dataIndex: "member2_id",
+    key: "member2_id",
+    width: 200,
+    sorter: (a, b) => a.member2_id.length - b.member2_id.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Member 3",
+    dataIndex: "member3_id",
+    key: "member3_id",
+    width: 200,
+    sorter: (a, b) => a.member3_id.length - b.member3_id.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "Team Status",
+    dataIndex: "isactive",
+    key: "isactive",
+    width: 200,
+    sorter: (a, b) => a.isactive.length - b.isactive.length,
+    render: (plan) => (
+      <Tag
+        color={getPlanTagColor(plan)}
+        style={{
+          fontSize: "12px",
+          padding: "2px 2px",
+          borderRadius: "10px",
+          textAlign: "center",
+          width: "100px",
+          color: "white",
+        }}
+        
+      >
+        {plan === 0 ? "Offline" : "Active"}
+      </Tag>
+    )
+  },  
+
+]
