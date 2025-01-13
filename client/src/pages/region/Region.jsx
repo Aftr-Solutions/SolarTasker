@@ -1,18 +1,46 @@
 import React, { useEffect } from 'react'
-import Header from '../../components/Header/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRegions } from '../../store/ActionApis/regionApi';
+import SearchAndFilterTable from '../../components/filterTable/SearchAndFilterTable';
+import { clientColumns, regionColumns } from '../../components/columns/Columns';
 
 const Region = () => {
   const dispatch = useDispatch();
 
   const { regions } = useSelector((state) => state.region);
+  console.log(regions)
 
   useEffect(() => {
     dispatch(fetchRegions());
   }, []);
 
-  return <div><Header /></div>;
+  const handleDelete = (record) => {
+    console.log(record);
+    setData((prevData) => prevData.filter((item) => item.id !== record.id));
+    message.success("Record deleted successfully!");
+  };
+
+  const handleEdit = (updatedRecord) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === updatedRecord.id ? updatedRecord : item
+      )
+    );
+  };
+
+  return (
+    <>
+    <div className="">
+      <SearchAndFilterTable
+        data={regions}
+        columns={regionColumns}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        tableType="regions"
+      />
+    </div>
+    </>
+  )
 };
 
 export default Region;
