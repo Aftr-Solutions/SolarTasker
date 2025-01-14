@@ -12,12 +12,13 @@ import { useDispatch } from "react-redux";
 import { notification } from "antd";
 import { createWorker, fetchWorkers } from "../../store/ActionApis/workerApi";
 
-const WorkerForm = ({ close,handleDialogClose }) => {
+const WorkerForm = ({ close, handleDialogClose }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const [nic, setNic] = useState("");
   const [address, setAddress] = useState("");
 
   // state to avoid special character (for text field only)
@@ -34,9 +35,11 @@ const WorkerForm = ({ close,handleDialogClose }) => {
     const dataToSend = {
       name: name,
       number: number,
+      cnic: nic,
       address: address,
     };
     const response = await dispatch(createWorker(dataToSend));
+    
     if (response.payload.success) {
       notification.success({
         message: "Worker Added!",
@@ -60,6 +63,7 @@ const WorkerForm = ({ close,handleDialogClose }) => {
   const emptyStates = () => {
     setName("");
     setNumber("");
+    setNic("");
     setAddress("");
     setIsNameValid(true);
     setIsAddressValid(true);
@@ -109,6 +113,16 @@ const WorkerForm = ({ close,handleDialogClose }) => {
             onChange={(e) => setNumber(e.target.value)}
           />
         </FormControl>
+        {/* cnic field */}
+        <FormControl fullWidth sx={{ mb: 3 }}>
+          <TextField
+            type="number"
+            label="Enter CNIC"
+            variant="outlined"
+            value={nic}
+            onChange={(e) => setNic(e.target.value)}
+          />
+        </FormControl>
         {/* addres field */}
         <FormControl fullWidth sx={{ mb: isAddressValid ? 3 : 2 }}>
           <TextField
@@ -139,7 +153,7 @@ const WorkerForm = ({ close,handleDialogClose }) => {
           styling={"linearGradient"}
           disabled={
             isSubmitting ||
-            !(isNameValid && isAddressValid && name && number && address)
+            !(isNameValid && isAddressValid && name && number && nic && address)
           } // disabled untill all fields filled and textfield is valid
           onClick={() => handleSubmit()}
         />

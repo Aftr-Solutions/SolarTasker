@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchWorkers } from '../../store/ActionApis/workerApi';
-import SearchAndFilterTable from '../../components/filterTable/SearchAndFilterTable';
-import { workerColumns } from '../../components/columns/Columns';
-import Header from '../../components/Header/Header';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWorkers } from "../../store/ActionApis/workerApi";
+import SearchAndFilterTable from "../../components/filterTable/SearchAndFilterTable";
+import { workerColumns } from "../../components/columns/Columns";
+import Header from "../../components/Header/Header";
 
 const Workers = () => {
   const dispatch = useDispatch();
-  
-  const { workers, loading } = useSelector((state) => state.worker);
 
-  console.log(workers);
+  const { workers } = useSelector((state) => state.worker);
 
   const handleDelete = (record) => {
-    console.log(record);
     setData((prevData) => prevData.filter((item) => item.id !== record.id));
     message.success("Record deleted successfully!");
   };
@@ -32,20 +29,20 @@ const Workers = () => {
 
   return (
     <>
-    <div>
+      <div>
         <Header />
       </div>
-    <div className="">
-      <SearchAndFilterTable
-        data={workers}
-        columns={workerColumns}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-        tableType="workers"
-      />
-    </div>
+      <div className="">
+        <SearchAndFilterTable
+          data={workers}
+          columns={workerColumns}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          tableType="workers"
+        />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Workers
+export default Workers;

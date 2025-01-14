@@ -196,7 +196,7 @@ export const regionColumns = [
 ]
 
 
-// Workers Column 
+// Users Column 
 
 export const workerColumns = [
   
@@ -309,5 +309,35 @@ export const teamColumn = [
     render: (row) => <span className="">{row}</span>,
   },
  
+
+]
+
+
+export const userColumn = [
+  {
+    title: "User Name",
+    dataIndex: "user_name",
+    key: "user_name",
+    width: 200,
+    sorter: (a, b) => a.user_name.length - b.user_name.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+  {
+    title: "User Email",
+    dataIndex: "email",
+    key: "email",
+    width: 200,
+    sorter: (a, b) => a.email.length - b.email.length,
+    render: (row) => <span className="">{row}</span>,
+  },
+ 
+  {
+    title: "User Role",
+    dataIndex: "role",
+    key: "role",
+    width: 200,
+    sorter: (a, b) => a.role.length - b.role.length,
+    render: (row) => <span className="">{row}</span>,
+  },
 
 ]

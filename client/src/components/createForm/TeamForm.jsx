@@ -18,9 +18,9 @@ import { fetchWorkers } from "../../store/ActionApis/workerApi";
 import { createTeam, fetchTeams } from "../../store/ActionApis/teamApi";
 
 const membersFields = [
+  { label: "Team Lead" },
   { label: "First Member" },
   { label: "Second Member" },
-  { label: "Third Member" },
 ];
 
 const TeamForm = ({ close, handleDialogClose }) => {

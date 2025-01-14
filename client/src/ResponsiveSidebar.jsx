@@ -21,7 +21,7 @@ export default function ResponsiveSidebar({isCollapse, setIsCollapse}) {
 
   return (
     <>
-    <div className='flex '>
+    <div className='flex navbar-small-screens '>
       <button className='h-10 sticky top-0 ' onClick={toggleDrawer(true)}>    
               <MenuOutlinedIcon
           className=" p-1 cursor-pointer mt-5 mx-5 hover:  hover:bg-hoverbgGray rounded-full text-gray-700  hover:text-primary"
