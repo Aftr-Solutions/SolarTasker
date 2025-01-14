@@ -392,14 +392,3 @@
 2025-01-15 02:30:40 [INFO]: Database connection successful
 2025-01-15 02:30:59 [INFO]: Server is running on: localhost:
 2025-01-15 02:31:00 [INFO]: Database connection successful
-2025-01-15 02:31:54 [ERROR]: Authentication error:
-2025-01-15 02:31:59 [ERROR]: Authentication error:
-2025-01-15 02:32:44 [INFO]: Successfully fetched tasks:
-2025-01-15 02:48:31 [INFO]: Server is running on: localhost:
-2025-01-15 02:48:32 [INFO]: Database connection successful
-2025-01-15 02:49:58 [INFO]: Server is running on: localhost:
-2025-01-15 02:49:59 [INFO]: Database connection successful
-2025-01-15 02:52:16 [INFO]: Server is running on: localhost:
-2025-01-15 02:52:17 [INFO]: Database connection successful
-2025-01-15 02:52:44 [INFO]: Server is running on: localhost:
-2025-01-15 02:52:44 [INFO]: Database connection successful

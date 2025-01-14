@@ -196,7 +196,7 @@ export const regionColumns = [
 ]
 
 
-// Users Column 
+// workers Column 
 
 export const workerColumns = [
   
@@ -274,6 +274,7 @@ export const workerColumns = [
 
 ]
 
+// Teams Column 
 
 export const teamColumn = [
   {
@@ -312,6 +313,7 @@ export const teamColumn = [
 
 ]
 
+// User Column 
 
 export const userColumn = [
   {
@@ -341,3 +343,74 @@ export const userColumn = [
   },
 
 ]
+
+// Task Column 
+
+
+export const taskColumn = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
+  },
+  {
+    title: 'Team Name',
+    dataIndex: 'team_name',
+    key: 'team_name',
+    sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
+    width: 130
+  },
+  {
+    title: 'Number',
+    dataIndex: 'number',
+    key: 'number',
+    sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
+  },
+  {
+    title: 'Created At',
+    dataIndex: 'created_at',
+    key: 'created_at',
+    sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at), // Sort by date
+  },
+  {
+    title: 'Service Date',
+    dataIndex: 'service_date',
+    key: 'service_date',
+    sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
+  },
+  {
+    title: 'Response',
+    dataIndex: 'response',
+    key: 'response',
+    render: (response) => (response === 1 ? 'YES' : 'NO'), // Conditional rendering
+    sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
+    width: 120,
+
+  },
+  {
+    title: 'Task Status',
+    dataIndex: 'task_status',
+    key: 'task_status',
+    width: 130,
+
+    render: (task_status) => {
+      switch (task_status) {
+        case 0:
+          return 'Pending';
+        case 1:
+          return 'On The Way';
+        case 2:
+          return 'Working';
+        case 3:
+          return 'Completed';
+        default:
+          return 'Unknown'; // Default case for unexpected values
+      }
+      
+    },
+    sorter: (a, b) => a.task_status - b.task_status, // Sort numerically by status
+
+  },
+];
+
