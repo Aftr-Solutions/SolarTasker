@@ -19,7 +19,7 @@ const sendMessage = async (pool) => {
       SELECT c.name, c.number, c.address, t.service_date
       FROM ${tableName.clients} c
       INNER JOIN ${tableName.tasks} t ON c.id = t.client_id
-      WHERE DATEDIFF(t.service_date, ?) = 2
+      WHERE DATEDIFF(t.service_date, ?) = 2 AND t.response<> 1 ;
     `;
 
     const results = await performQuery({
@@ -49,7 +49,8 @@ const sendMessage = async (pool) => {
               type: "body",
               parameters: [
                 { type: "text", text: item.name }, // Client name
-                { type: "text", text: moment(item.service_date).format("YYYY-MM-DD") }, // Service date
+                { type: "text", text: moment(item.service_date).format("YYYY-MM-DD") },
+                { type: "text", text: item.address} // Service date
               ],
             },
           ],

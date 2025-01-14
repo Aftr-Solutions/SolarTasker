@@ -10,10 +10,10 @@ const cron = require("node-cron");
 const appRouter = require("./routes");
 const pool = require("./Utils/db.js");
 const { mytask } = require("./middleware/taskmaker");
-const { assignteam } = require("./middleware/teamassign");
+const { assignteam } = require("./middleware/teamassign.js");
 const { rescheduling } = require("./middleware/rescheduleremainingtasks.js");
 const { processTasks } =require("./middleware/reschedulecompletetasks.js");
-const { sendMessage }=require("./middleware/whatsapp.js");
+const { sendMessage }=require("./middleware/whatsappclient.js");
 const logger = require("./logger");
 const cronpool=require("./Utils/crondb.js");
 
