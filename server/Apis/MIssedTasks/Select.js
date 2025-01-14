@@ -23,6 +23,7 @@ router.get("/", (req, res) => {
       t.response,
       t.isactive,
       t.task_status,
+      t.re_task_done,
       c.name,
       c.number,
       c.upcoming_service_date,
