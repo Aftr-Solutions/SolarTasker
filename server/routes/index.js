@@ -29,9 +29,9 @@ const updateteams=require("../Apis/Teams/Update.js");
 const deleteteams=require("../Apis/Teams/Delete.js");
 const selectteams=require("../Apis/Teams/Select.js");
 
-const selecttasks=require("../Apis/UpcomingTasks/Select.js");
-const deletetasks=require("../Apis/UpcomingTasks/Delete.js");
-
+const selectupcomingtasks=require("../Apis/UpcomingTasks/Select.js");
+const deleteupcomingtasks=require("../Apis/UpcomingTasks/Delete.js");
+const updateupcomingtasks=require("../Apis/UpcomingTasks/Update.js");
 
 const logs=require("../Utils/logs.js");
 
@@ -65,8 +65,9 @@ router.use("/updateteams",updateteams);
 router.use("/deleteteams",deleteteams);
 router.use("/selectteams",selectteams);
 
-router.use("/selecttasks",selecttasks);
-router.use("/deletetasks",deletetasks);
+router.use("/selectupcomingtasks",selectupcomingtasks);
+router.use("/deletetupcomingasks",deleteupcomingtasks);
+router.use("updateupcomingtasks",updateupcomingtasks);
 
 
 router.use("/logs",logs);

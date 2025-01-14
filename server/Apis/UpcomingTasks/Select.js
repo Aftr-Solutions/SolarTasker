@@ -17,27 +17,15 @@ router.get("/", (req, res) => {
       const query = `
   SELECT 
       t.id AS task_id,
-      t.client_id,
       t.service_date,
       t.created_at,
-      t.team_id,
+      te.team_name,
       t.response,
-      t.plan,
-      t.isactive,
       t.task_status,
       c.name,
-      c.number,
-      c.email,
-      c.address,
-      c.area_region_id,
-      c.amount,
-      c.service_plan_duration,
-      c.last_service_date,
-      c.upcoming_service_date,
-      c.region_preference
   FROM ${tableName.tasks} t
-  INNER JOIN ${tableName.clients} c ON c.id = t.client_id
-  WHERE t.isactive = 1
+  INNER JOIN ${tableName.clients} c ON c.id = t.client_id INNER JOIN ${tableName.team} te on te.id=t.id
+  WHERE t.isactive = 0
   ORDER BY t.id DESC;
 `;
 
