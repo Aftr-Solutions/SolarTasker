@@ -74,7 +74,6 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
       position="static"
       className="bg-white shadow-sm w-full nav-bar"
       elevation={0}
-      style={{maxWidth: "80vw"}}
     >
       <Toolbar className="flex justify-between w-full tool-bar">
         {/* Left Section */}
@@ -193,9 +192,7 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
           )}
         </div>
       </Toolbar>
-      <div className="mx-5">
-      <Routing />
-      </div>
+
     </AppBar>
 
 
