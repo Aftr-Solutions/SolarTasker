@@ -4,8 +4,7 @@ const logger = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
 
-
-const ACCESS_TOKEN = "EAAItPCtNug4BO9MSmyItkRMO6LtPjFRcQnpeoGA6tYqq4aokmLym7GIiXAzyh4uxDH7vjyEzKuvZBu5LIRwnqB9LNJ7ijVQ6ofbRddZAfwYf4cUsY3MZBlUwj7eJv3AltupzBgMOcgjUVILsaxqTgqSxwBVWlY4cIMpFnlFguvsRUgCfae6XpwrvZAVDyt4RxZA1TxcruhFDhQpimPRywbJiBRgn6VjirUmHpoAdL79rm1rpaJZBMZD";
+const ACCESS_TOKEN = "EAAItPCtNug4BO5SV1NyZBuciZCd1IgwkO7EDUdTa2bSOXHZCktMESfRrjkt9a83O7DSl5AZAqG8agogEArN5SHPLznZACvXN1bW5mz39xiMCcbpC4txvGIMupYiZA8Dg4tnZAhZArIX8x8rDECgWgS1sIQmniqm2jTf80NMYusRZARnSdHf9V7xhaiRVKL48aY9ZCeBsisThU1XpSpm4vjNpGgtZAz94Lc39fMkMQUSP7v4";
 const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
 const API_URL = `https://graph.facebook.com/v16.0/${PHONE_NUMBER_ID}/messages`;
 
@@ -19,7 +18,7 @@ const sendMessage = async (pool) => {
       SELECT c.name, c.number, c.address, t.service_date
       FROM ${tableName.clients} c
       INNER JOIN ${tableName.tasks} t ON c.id = t.client_id
-      WHERE DATEDIFF(t.service_date, ?) = 2 AND t.response<> 1 ;
+      WHERE DATEDIFF(t.service_date, ?) = 2 ;
     `;
 
     const results = await performQuery({
@@ -29,9 +28,9 @@ const sendMessage = async (pool) => {
     });
 
     if (results.length > 0) {
-      logger.info(`Found ${results.length} clients with upcoming services.`);
+      logger.info(`Found ${results.length} clients with services in coming 2 days so sending messages to clients.`);
     } else {
-      logger.info("No clients with upcoming services.");
+      logger.info("No clients with upcoming services n 2 days.");
       return;
     }
 
