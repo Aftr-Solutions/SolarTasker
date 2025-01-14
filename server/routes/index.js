@@ -33,6 +33,10 @@ const selectupcomingtasks=require("../Apis/UpcomingTasks/Select.js");
 const deleteupcomingtasks=require("../Apis/UpcomingTasks/Delete.js");
 const updateupcomingtasks=require("../Apis/UpcomingTasks/Update.js");
 
+const selecttasks=require("../Apis/Tasks/Select.js");
+
+const selectmissedtasks=require("../Apis/MIssedTasks/Select.js");
+
 const logs=require("../Utils/logs.js");
 
 // Public route (no userAuth)
@@ -68,6 +72,10 @@ router.use("/selectteams",selectteams);
 router.use("/selectupcomingtasks",selectupcomingtasks);
 router.use("/deletetupcomingasks",deleteupcomingtasks);
 router.use("updateupcomingtasks",updateupcomingtasks);
+
+router.use("/selecttasks",selecttasks);
+
+router.use("/selectmissedtasks",selectmissedtasks);
 
 
 router.use("/logs",logs);
