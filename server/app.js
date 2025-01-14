@@ -13,6 +13,7 @@ const { mytask } = require("./middleware/taskmaker");
 const { assignteam } = require("./middleware/teamassign");
 const { rescheduling } = require("./middleware/rescheduleremainingtasks.js");
 const { processTasks } =require("./middleware/reschedulecompletetasks.js");
+const { sendMessage }=require("./middleware/whatsapp.js");
 const logger = require("./logger");
 const cronpool=require("./Utils/crondb.js");
 
@@ -75,6 +76,15 @@ cron.schedule("50 23 * * *", async () => {
   }
 });
 
+cron.schedule("0 9 * * *", async () => {
+  logger.info("Running cron job for rescheduling complete tasks at 9:00 AM....");
+  try {
+    await sendMessage(cronpool);
+  } catch (error) {
+    logger.error("Error in processTasks cron job:", error.message);
+  }
+});
+//await sendMessage(cronpool)
 //commeted
 //mytask();
 //assignteam();
