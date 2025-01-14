@@ -4,6 +4,7 @@ const tableName = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const logger = require("../../logger");
 const pool = require("../../Utils/db");
+const moment=require("moment-timezone");
 
 router.get("/", (req, res) => {
   try {
@@ -42,6 +43,11 @@ router.get("/", (req, res) => {
 
         // Log the result and send a success response
         logger.info("Successfully fetched tasks:", result);
+        result.forEach(item=>{
+          item.service_date=moment(item.service_date).format('DD/MM/YYYY');
+          item.created_at=moment(item.created_at).format("DD//MM/YYYY")
+        });
+
         return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
       });
     });

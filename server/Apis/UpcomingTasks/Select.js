@@ -39,7 +39,12 @@ router.get("/", (req, res) => {
           logger.error("Error while executing query:", err);
           return res.send(RESPONSE(false, "Error while selecting data from Tasks", err));
         }
-
+        
+        result.forEach(item=>{
+          item.service_date=moment(item.service_date).format('DD/MM/YYYY');
+          item.created_at=moment(item.created_at).format("DD//MM/YYYY")
+        });
+        
         // Log the result and send a success response
         logger.info("Successfully fetched tasks:", result);
         return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
