@@ -19,7 +19,8 @@ function App() {
        </div> 
        <div className={`${!isCollapse? `nav-width` : "nav-width-collapse"}`}>
         <Navbar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
-        <Routing />
+        
+        <Routing  /> 
        </div>
 
     </div>

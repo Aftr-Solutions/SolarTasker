@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
   } = req.body;
 
   // Validate required fields
-  if (!name || !email || !number || !address || !plan || !area_region_id || !service_plan_duration) {
+  if (!name || !email || !number || !address || !area_region_id || !service_plan_duration) {
     return res.status(400).send(RESPONSE(false, "Missing required fields", {}));
   }
 
