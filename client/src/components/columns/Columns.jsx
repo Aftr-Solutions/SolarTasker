@@ -610,3 +610,136 @@ export const upcommingTaskColumn = [
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
 ];
+
+
+export const missedTaskColumn = [
+  {
+    title: "Team Name",
+    dataIndex: "team_name",
+    key: "team_name",
+    render: (row) => <span className="text-sm font-medium">{row}</span>,
+    sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
+    width: 130,
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+    render: (row) => <span className="">{row}</span>,
+    sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
+  },
+  {
+    title: "Number",
+    dataIndex: "number",
+    key: "number",
+    sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
+  },
+  {
+    title: "Task Status",
+    dataIndex: "task_status",
+    key: "task_status",
+    width: 130,
+    render: (task_status) => {
+      const getTaskStatusTagColor = (task_status) => {
+        switch (task_status) {
+          case 0:
+            return "#F5BC00"; // Red for Pending
+          case 1:
+            return "#D4C3A7"; // Black for On The Way
+          case 2:
+            return "#5D87FF"; // Blue for Working
+          case 3:
+            return "#13DEB9"; // Green for Completed
+          default:
+            return "#d9d9d9"; // Gray for Unknown
+        }
+      };
+
+      const getTaskStatusText = (task_status) => {
+        switch (task_status) {
+          case 0:
+            return "Pending";
+          case 1:
+            return "On The Way";
+          case 2:
+            return "Working";
+          case 3:
+            return "Completed";
+          default:
+            return "Unknown";
+        }
+      };
+
+      return (
+        <Tag
+          color={getTaskStatusTagColor(task_status)}
+          style={{
+            fontSize: "12px",
+            padding: "2px 2px",
+            borderRadius: "10px",
+            textAlign: "center",
+            width: "100px",
+            color: "white",
+          }}
+        >
+          {getTaskStatusText(task_status)}
+        </Tag>
+      );
+    },
+    sorter: (a, b) => a.task_status - b.task_status, // Sort numerically by status
+  },
+
+  {
+    title: "Response",
+    dataIndex: "response",
+    key: "response",
+    // render: (response) => (response === 1 ? 'YES' : 'NO'), // Conditional rendering
+    render: (response) => (
+      <Tag
+        color={getResponseTagColor(response)}
+        style={{
+          fontSize: "12px",
+          padding: "2px 2px",
+          borderRadius: "10px",
+          textAlign: "center",
+          width: "100px",
+          color: "white",
+        }}
+      >
+         {response === 2 ? "YES": response === 1? "NO" : "Pending"}
+      </Tag>
+    ),
+    sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
+    width: 120,
+  },
+  {
+    title: "Created At",
+    dataIndex: "created_at",
+    key: "created_at",
+    width: 130,
+    sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at), // Sort by date
+  },
+  {
+    title: "Service Date",
+    dataIndex: "service_date",
+    key: "service_date",
+    width: 140,
+    sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
+  },
+
+  {
+    title: " Last Service Date",
+    dataIndex: "last_service_date",
+    key: "last_service_date",
+    width: 180,
+    sorter: (a, b) => new Date(a.last_service_date) - new Date(b.last_service_date), // Sort by date
+  },
+
+  {
+    title: " Upcomming Service Date",
+    dataIndex: "upcoming_service_date",
+    key: "upcoming_service_date",
+    width: 220,
+    sorter: (a, b) => new Date(a.upcoming_service_date) - new Date(b.upcoming_service_date), // Sort by date
+  },
+];
