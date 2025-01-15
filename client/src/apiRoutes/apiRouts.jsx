@@ -1,4 +1,3 @@
-import { notification } from "antd";
 import axios from "axios";
 
 const baseURL = "http://localhost:5002/";

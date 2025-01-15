@@ -103,7 +103,7 @@ cron.schedule("0 8 * * *", async () => {
 //processTasks();
 
 const server = http.createServer(app);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 server.listen(PORT, () => {
   logger.info("Server is running on: localhost:", PORT);
 });
