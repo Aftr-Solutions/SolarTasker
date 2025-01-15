@@ -42,7 +42,7 @@ router.get("/", (req, res) => {
         
         result.forEach(item=>{
           item.service_date=moment(item.service_date).format('DD/MM/YYYY');
-          item.created_at=moment(item.created_at).format("DD//MM/YYYY")
+          item.created_at=moment(item.created_at).format("DD/MM/YYYY")
         });
         
         // Log the result and send a success response

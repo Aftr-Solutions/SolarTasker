@@ -134,7 +134,7 @@ const processTasks = async (pool) => {
       SELECT t.id AS task_id, t.service_date, t.client_id, c.service_plan_duration, c.region_preference
       FROM ${tableName.tasks} AS t
       JOIN ${tableName.clients} AS c ON t.client_id = c.id
-      WHERE t.isactive = 0 AND t.task_status = 3 AND t.response = 1 AND t.service_date = ?;
+      WHERE t.isactive = 0 AND t.task_status = 3 AND t.response = 1 AND t.service_date = ? ;
     `;
 
     const tasks = await performQuery({

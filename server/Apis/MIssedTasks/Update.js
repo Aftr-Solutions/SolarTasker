@@ -4,25 +4,23 @@ const tableName=require("../../Utils/allTableNames");
 const {GlobalUpdate}=require("../../GlobalFunctions/GlobalUpdate");
 const RESPONSE=require("../../GlobalResponse/RESPONSE");
 const logger = require("../../logger");
+const { pool } = require("../../Utils/crondb");
 
 
 router.post("/",(req,res)=>{
-    if (!req.body.id||!req.body.team_id||!req.body.response||!req.body.task_status){
+    if (!req.body.id||!req.body.team_id||!req.body.response||!req.body.task_status||!req.body.name||!req.body.number){
         return res.status(400).send(RESPONSE(false,"Please Fill All Fields",{}));
     }
-    let payload={
-        id:req.body.id,
-        tableName:tableName.tasks,
-        table:"Tasks",
-        databaseFields:{
-            team_id:req.body.team_id,
-            response:req.body.response,
-            task_status:req.body.task_status
+   const insertquery=`INSERT INTO ${tableName.tasks} VALUES ?`;
+    });
+
+    pool.query(insertquery,(err,result)=>{
+        if(err){
+            logger.error("Error while fetching data from clients table:", err);
+        return res.status(500)
+        .send(RESPONSE(false, "Database error while fetching data", err));
         }
-    }
-    logger.info("Payload for update:", payload);
-    
-        GlobalUpdate(payload,res);
+
     });
     
 module.exports = router;

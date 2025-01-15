@@ -49,7 +49,7 @@ router.get("/", (req, res) => {
           item.service_date=moment(item.service_date).format('DD/MM/YYYY');
           item.created_at=moment(item.created_at).format("DD//MM/YYYY");
           item.upcoming_service_date=moment(item.upcoming_service_date).format("DD//MM/YYYY");
-          item.last_service_date=moment(item.last_service_date).format("DD//MM/YYYY");
+          item.last_service_date=moment(item.last_service_date).format("DD/MM/YYYY");
         });
 
         return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
