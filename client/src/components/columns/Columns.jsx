@@ -151,7 +151,7 @@ export const clientColumns = [
           color: "white",
         }}
       >
-        {plan === 0 ? "Basic" : "Premium"}
+        {plan === 0 ? "Basic" : plan === 1? "Premium" : ""}
       </Tag>
     ),
   },
