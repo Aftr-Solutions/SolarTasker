@@ -74,7 +74,7 @@ const ClientForm = ({ close, handleDialogClose }) => {
   const { regions } = useSelector((state) => state.region);
 
   useEffect(() => {
-    const grouped = regions.reduce((acc, curr) => {
+    const grouped = regions?.reduce((acc, curr) => {
       const regionIndex = acc.findIndex((item) => item.region === curr.region);
 
       if (regionIndex !== -1) {

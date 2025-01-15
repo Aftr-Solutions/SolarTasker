@@ -27,15 +27,36 @@ export default function ResponsiveSidebar({isCollapse, setIsCollapse}) {
           className=" p-1 cursor-pointer mt-5 mx-5 hover:  hover:bg-hoverbgGray rounded-full text-gray-700  hover:text-primary"
         />
         </button>
-        <Navbar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
+        {
+      !isCollapse? (
+        <>
+            <Navbar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
+        </>
+      ) :(
+        <>
+        </>
+      )
+    }
+
+     
 
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
     </div>
-    <div className='w-[95vw] mx-5'>
+    {
+      !isCollapse? (
+        <>
+            <div className='w-[95vw] mx-5'>
     <Routing />
     </div>
+        </>
+      ) :(
+        <>
+        </>
+      )
+    }
+
     </>
   );
 }
