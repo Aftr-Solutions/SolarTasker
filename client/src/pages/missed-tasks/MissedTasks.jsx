@@ -37,7 +37,7 @@ const MissedTasks = () => {
   columns={missedTaskColumn}
   handleDelete={handleDelete}
   handleEdit={handleEdit}
-  tableType= "UpcommingTask"
+  tableType= "MissedTask"
 />
     </>
   )
