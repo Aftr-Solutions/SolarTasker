@@ -44,7 +44,7 @@ const Header = () => {
 
         {/* Breadcrumb Navigation */}
         <Breadcrumb
-          className="mt-2 text-gray-500 font-jakarta"
+          className="mt-2 text-gray-500 font-medium font-jakarta"
           items={breadcrumbItems}
         />
       </div>

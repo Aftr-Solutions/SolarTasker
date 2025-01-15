@@ -1,5 +1,5 @@
-  import React, { useState } from "react";
-  import { Sidebar, Menu, MenuItem, Submenu, Logo } from "react-mui-sidebar";
+  import React from "react";
+  import { Sidebar, Menu, MenuItem, } from "react-mui-sidebar";
   import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
   import EngineeringOutlinedIcon from "@mui/icons-material/EngineeringOutlined";
   import Diversity3OutlinedIcon from "@mui/icons-material/Diversity3Outlined";
@@ -10,14 +10,12 @@
   import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
   import { Link, useLocation } from "react-router";
   import UserProfile from "./components/UserProfile";
-  import Navbar from "./components/AppBar";
 
   const AppSidebar = ({open, isCollapse, setIsCollapse}) => {
     const location = useLocation();
  
     return (  
       <>
-        {/* <div className=" h-full bg-white border side-bar my-scrollable-element  "> */}
           <Sidebar
             isCollapse={isCollapse}
             width={isCollapse ? "80px" : "275px"}
@@ -80,7 +78,8 @@
                   icon={
                     <Groups3OutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/" ? "/" : ""}
@@ -96,7 +95,8 @@
                   icon={
                     <CottageOutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/region"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/region" ? "/" : ""}
@@ -110,7 +110,7 @@
                   icon={
                     <EngineeringOutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/worker"? "text-white" : "text-gray-700"}`}
                     />
                   }
                   link={location.pathname === "/worker" ? "/" : ""}
@@ -124,7 +124,8 @@
                   icon={
                     <Diversity3OutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/team"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/team" ? "/" : ""}
@@ -140,7 +141,8 @@
                   icon={
                     <TaskAltOutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/tasks"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/tasks" ? "/" : ""}
@@ -155,7 +157,8 @@
                   icon={
                     <AssignmentReturnedOutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/upcoming-tasks"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/upcoming-tasks" ? "/" : ""}
@@ -168,7 +171,8 @@
                   icon={
                     <LowPriorityOutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/missed-tasks"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/missed-tasks" ? "/" : ""}
@@ -183,7 +187,8 @@
                   icon={
                     <GroupAddOutlinedIcon
                       fontSize="small"
-                      className="text-gray-700"
+                      className={`${location.pathname=== "/users"? "text-white" : "text-gray-700"}`}
+
                     />
                   }
                   link={location.pathname === "/users" ? "/" : ""}
@@ -195,21 +200,6 @@
 
             <UserProfile userName="Hamza" userimg="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg" designation="Developer" isCollapse={isCollapse}  />
           </Sidebar>
-        {/* </div> */}
-        {!open? (
-          <>
-
-          </>
-  
-
-
-        ):(
-    ""
-        )}
-
-       
-      
-      
       </>
 
     );

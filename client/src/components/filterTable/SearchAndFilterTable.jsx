@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Select } from "antd";
+import { DatePicker, Input, Select } from "antd";
 import ReusableTable from "../reusebaleTable/ReuseableTable";
 
 const { Search } = Input;
@@ -14,6 +14,7 @@ const SearchAndFilterTable = ({
 }) => {
   // Table States
   const [tableData, setTableData] = useState([]);
+  console.log(tableData)
   console.log("Table Type =>", tableType);
   console.log("Data as props =>", data);
 
@@ -33,7 +34,6 @@ const SearchAndFilterTable = ({
   // Team States
   const [searchTeamByName, setSearchTeamByName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
-  console.log("Selected Status =>", selectedStatus);
 
   //User States 
 
@@ -41,11 +41,25 @@ const SearchAndFilterTable = ({
   const [searchByEmail , setSearchByEmail] = useState("")
   const [selectedRole , setSelectedRole] = useState("")
 
+  // Tasks Status 
+  const [searchByTaskName , setSearchByTaskName] = useState("")
+  const [selectedDate, setSelectedDate ]= useState("")
+
+// Date format in the data
+const dateFormat = "DD/MM/YYYY";
+const onDateChange = (date , dateString) => {
+  console.log( dateString);
+  setSelectedDate(dateString)
+};
+
+
+
 
   // Filter data based on search inputs
   useEffect(() => {
     // Ensure data is an array
     let filteredData = Array.isArray(data) ? data : [];
+    console.log(filteredData)
 
     if (tableType === "clients") {
       filteredData = filteredData.filter((item) => {
@@ -99,6 +113,17 @@ const SearchAndFilterTable = ({
           : true;
         return matchesUserName && matcheEmail && matchesUserRole ;
       });
+    } else if (tableType === "tasks") {
+      filteredData = filteredData.filter((item) => {
+        const matchesTaskName = item.name
+          ?.toLowerCase()
+          .includes(searchByTaskName.toLowerCase());
+        const matchesTaskDate = selectedDate
+          ? item.created_at === selectedDate
+          : true; 
+          console.log(matchesTaskDate)
+        return matchesTaskName && matchesTaskDate;
+      });
     }
 
     setTableData(filteredData);
@@ -117,7 +142,10 @@ const SearchAndFilterTable = ({
     searchByEmail,
     searchByName,
     selectedRole,
+    searchByTaskName, 
+    selectedDate
   ]);
+
 
   return (
     <div className="shadow-md p-6 bg-gray-50 rounded mt-2 ">
@@ -239,7 +267,25 @@ const SearchAndFilterTable = ({
               <Option value="Admin">Admin</Option>  
             </Select>
           </>
-        ):(
+        ):  tableType === "tasks"? (
+          <>
+           <Search
+              placeholder="Search By Name"
+              onChange={(e) => setSearchByTaskName(e.target.value)}
+              style={{ width: "200px" }}
+              allowClear
+            />
+             <DatePicker placeholder="Created Date" 
+             format={dateFormat} // Match the format of your data
+            //  onChange={(date) => setTaskDate(date)}
+            onChange={onDateChange}
+             style={{ width: "200px" }}
+
+              />
+
+          </>
+        ):
+        (
           ""
         )}
       </div>
