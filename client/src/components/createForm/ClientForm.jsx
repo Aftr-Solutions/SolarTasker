@@ -104,28 +104,27 @@ const ClientForm = ({ close, handleDialogClose }) => {
       amount: field.amount,
       service_plan_duration: field.planDuration,
       plan: field.plan == 1 ? field.plan : 0, // send 0 if value is not 1
-      region_preference: Number(field.region.region.match(/\d+/)[0])
+      region_preference: Number(field.region.region.match(/\d+/)[0]),
     };
-    console.log(dataToSend);
-    
-    // const response = await dispatch(createClient(dataToSend));
 
-    // if (response.payload.success) {
-    //   notification.success({
-    //     message: "Client Added!",
-    //     description: response?.payload?.message,
-    //     placement: "topRight",
-    //   });
-    //   await dispatch(fetchClients());
-    //   emptyStates();
-    //   handleDialogClose();
-    // } else {
-    //   notification.error({
-    //     message: "Client Not Added!",
-    //     description: response?.payload?.message || "Client not added",
-    //     placement: "topRight",
-    //   });
-    // }
+    const response = await dispatch(createClient(dataToSend));
+
+    if (response.payload.success) {
+      notification.success({
+        message: "Client Added!",
+        description: response?.payload?.message,
+        placement: "topRight",
+      });
+      await dispatch(fetchClients());
+      emptyStates();
+      handleDialogClose();
+    } else {
+      notification.error({
+        message: "Client Not Added!",
+        description: response?.payload?.message || "Client not added",
+        placement: "topRight",
+      });
+    }
     setIsSubmitting(false);
   };
 
