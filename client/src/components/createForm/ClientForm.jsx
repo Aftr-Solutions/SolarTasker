@@ -24,21 +24,11 @@ const fields = [
   { name: "address", label: "Address", type: "input" },
   { name: "region", label: "Region", type: "select" },
   { name: "area", label: "Area", type: "select" },
-  { name: "regionPref", label: "Region Preference", type: "select" },
   { name: "amount", label: "Amount", type: "input" },
   { name: "plan", label: "Plan", type: "select" },
   { name: "planDuration", label: "Plan Duration", type: "select" },
 ];
 
-// for region preference field
-const regionPrefs = [
-  { id: 1, name: "Preference 1" },
-  { id: 2, name: "Preference 2" },
-  { id: 3, name: "Preference 3" },
-  { id: 4, name: "Preference 4" },
-  { id: 5, name: "Preference 5" },
-  { id: 6, name: "Preference 6" },
-];
 // for plan field
 const plans = [
   { id: "0", name: "Basic" },
@@ -62,7 +52,6 @@ const ClientForm = ({ close, handleDialogClose }) => {
     region: "",
     areas: [], // stored area as per selected region
     area: "",
-    regionPref: "",
     amount: "",
     plan: "",
     planDuration: "",
@@ -115,27 +104,28 @@ const ClientForm = ({ close, handleDialogClose }) => {
       amount: field.amount,
       service_plan_duration: field.planDuration,
       plan: field.plan == 1 ? field.plan : 0, // send 0 if value is not 1
-      region_preference: field.regionPref,
+      region_preference: Number(field.region.region.match(/\d+/)[0])
     };
+    console.log(dataToSend);
+    
+    // const response = await dispatch(createClient(dataToSend));
 
-    const response = await dispatch(createClient(dataToSend));
-
-    if (response.payload.success) {
-      notification.success({
-        message: "Client Added!",
-        description: response?.payload?.message,
-        placement: "topRight",
-      });
-      await dispatch(fetchClients());
-      emptyStates();
-      handleDialogClose();
-    } else {
-      notification.error({
-        message: "Client Not Added!",
-        description: response?.payload?.message || "Client not added",
-        placement: "topRight",
-      });
-    }
+    // if (response.payload.success) {
+    //   notification.success({
+    //     message: "Client Added!",
+    //     description: response?.payload?.message,
+    //     placement: "topRight",
+    //   });
+    //   await dispatch(fetchClients());
+    //   emptyStates();
+    //   handleDialogClose();
+    // } else {
+    //   notification.error({
+    //     message: "Client Not Added!",
+    //     description: response?.payload?.message || "Client not added",
+    //     placement: "topRight",
+    //   });
+    // }
     setIsSubmitting(false);
   };
 
@@ -149,7 +139,6 @@ const ClientForm = ({ close, handleDialogClose }) => {
       region: "",
       areas: [],
       area: "",
-      regionPref: "",
       amount: "",
       plan: "",
       planDuration: "",
@@ -211,7 +200,8 @@ const ClientForm = ({ close, handleDialogClose }) => {
   };
 
   // Button should be disabled if any field is empty or any isValid field is false
-  const isButtonDisabled = isAnyFieldEmpty() || isAnyInvalid();
+  // const isButtonDisabled = isAnyFieldEmpty() || isAnyInvalid();
+  const isButtonDisabled = false;
 
   return (
     <div className="my-5" style={{ maxWidth: isMobile ? 270 : 420 }}>
@@ -255,8 +245,6 @@ const ClientForm = ({ close, handleDialogClose }) => {
                   ? groupedByRegions // groups by region
                   : name === "area"
                   ? field.areas // areas under the selected region
-                  : name === "regionPref"
-                  ? regionPrefs // regionPrefs
                   : name === "plan"
                   ? plans // plans
                   : planDur
