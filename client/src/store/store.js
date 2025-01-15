@@ -5,6 +5,9 @@ import teamReducer from "./ActionReducers/teamReducer";
 import userReducer from "./ActionReducers/userReducer";
 import workerReducer from "./ActionReducers/workerReducer";
 import taskReducer from "./ActionReducers/taskReducer";
+import upcommingTaskReducer from './ActionReducers/upcommingTaskReducer'
+import missedTasksReducer from './ActionReducers/missedTasksReducer'
+
 
 export const store = configureStore({
   reducer: {
@@ -17,5 +20,7 @@ export const store = configureStore({
     
     // Redux for Read, Update
     task: taskReducer,
+    upcommingTask: upcommingTaskReducer,
+    missedTask: missedTasksReducer,
   },
 });
