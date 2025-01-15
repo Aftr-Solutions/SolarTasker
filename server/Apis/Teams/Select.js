@@ -20,7 +20,7 @@ router.get("/",(req,res)=>{
       SELECT 
           w.name As team_lead,
           w1.name AS member1,
-          w.name As member2,
+          w2.name As member2,
           t.team_name
       FROM ${tableName.team} t
       LEFT JOIN ${tableName.workers} w ON w.id = t.member1_id LEFT JOIN ${tableName.workers} w1 ON w1.id=t.member2_id LEFT JOIN ${tableName.workers} w2 ON w2.id=t.member3_id  

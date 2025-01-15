@@ -61,11 +61,11 @@ const mytask = async (pool) => {
 
     // Query to select clients with upcoming services
     const selectQuery = `
-      SELECT id, upcoming_service_date, plan 
+      SELECT id, upcoming_service_date
       FROM ${tableName.clients} 
       WHERE DATEDIFF(upcoming_service_date, ?) = 2
     `;
-
+    
     const results = await performQuery({
       sql: selectQuery,
       params: [todayDate],
@@ -79,17 +79,18 @@ const mytask = async (pool) => {
       const tasks = results.map((item) => [
         item.id,
         item.upcoming_service_date,
-        item.plan,
+        //item.plan,
       ]);
+      
 
       // Query to insert new tasks
       const insertQuery = `
-        INSERT INTO ${tableName.tasks} (client_id, service_date, plan) VALUES ?
+        INSERT INTO ${tableName.tasks} (client_id, service_date) VALUES ?
       `;
-
+      //console.log(tasks);
       const insertResults = await performQuery({
         sql: insertQuery,
-        params: [tasks],
+        params:[tasks],
         pool:pool,
       });
 
@@ -98,7 +99,7 @@ const mytask = async (pool) => {
       logger.info("No clients with upcoming services within 2 days.");
     }
   } catch (error) {
-    logger.error("Error in mytask cron job:", error.message);
+    logger.error(`Error in mytask cron job:, ${error.message}`);
   }
 };
 
