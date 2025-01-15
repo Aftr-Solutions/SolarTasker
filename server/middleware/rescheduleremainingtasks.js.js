@@ -131,7 +131,7 @@ const rescheduling = async (pool) => {
       logger.info("No tasks to be rescheduled.");
     }
   } catch (error) {
-    logger.error("Error in rescheduling function:", error.message);
+    logger.error(`Error in mytask cron job:, error.message, error.stack || error`);
   }
 };
 

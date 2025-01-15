@@ -4,7 +4,7 @@ const logger = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BO06LZArp4MgZBa8Bqdt3Y1ld7MAxL12f3FdOvkwNff9ZBic91p4G5WMPQfJQMTiVMlHUZBsMPjOVqttZCPyXmaemFKzjBR2LlTowv3Pa9QJfUZAckdRSmk8JC5Jwu1mh2oYSdlYt6fsXYZAa7O3rfgE584xYQxinQZAoTeZAektVAaTHnHbZCY0fQru4lXQMU4VZAeS7TU6cviCZBpiucqtkLNxQLdvkHf6fDqD1yed0VTQZD";
+const ACCESS_TOKEN = "EAAItPCtNug4BO7Oqf7cOLelKMd2sCaSKmMoEY6YO6Mewh4WzeI1lLjhZAFx8ql5LnpR6NiGI1DTiTwDUUqLsbZBAYGyFvuQh7o5a8F07MAAp4pN58nnEjvDjswOMkuuZCVa0Dpet7RvDiZBHQxmvVIHHfFhQc9ePqwxZAsXZCyw3ZCXqyiqQWssnkTZAOfKnwHRLkU38VXiuF2Nn9YiQBOt2Fb9ldCePYv2BzKnfi2ILQcF9E5M4lGwZD";
 //const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
 const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
 
