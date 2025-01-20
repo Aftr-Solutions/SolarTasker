@@ -57,9 +57,9 @@ const getPlanTagColor = (plan) => {
 const getResponseTagColor = (response) => {
   switch (response) {
     case 2:
-      return "#13DEB9"; // RED-like color 
+      return " #F9886A"; // RED-like color 
     case 1:
-      return "#F9886A"; // Delivered-like color
+      return "#13DEB9"; // Delivered-like color   #13DEB9
     case 0: 
     return "#F5BC00"
     default:
@@ -164,12 +164,21 @@ export const clientColumns = [
     render: (row) => <span className="">{row}</span>,
   },
   {
-    title: "Region Preference",
-    dataIndex: "region_preference",
-    key: "region_preference",
+    title: "Last Service Data",
+    dataIndex: "last_service_date",
+    key: "last_service_date",
     width: 180,
-    sorter: (a, b) => a.region_preference - b.region_preference,
-    render: (row) => <span className="">{row}</span>,
+    sorter: (a, b) => a.last_service_date - b.last_service_date,
+    render: (row) => row || "N/A",
+  },
+
+  {
+    title: "Upcoming Service Data",
+    dataIndex: "upcoming_service_date",
+    key: "upcoming_service_date",
+    width: 200,
+    sorter: (a, b) => a.upcoming_service_date - b.upcoming_service_date,
+    render: (row) => row || "N/A",
   },
 ];
 
@@ -471,7 +480,7 @@ export const taskColumn = [
           color: "white",
         }}
       >
-        {response === 2 ? "YES": response === 1? "NO" : "Pending"}
+        {response === 2 ? "NO": response === 1? "YES" : "Pending"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)

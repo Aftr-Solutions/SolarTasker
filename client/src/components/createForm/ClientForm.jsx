@@ -15,7 +15,11 @@ import { handleSanitizeInput } from "../../utils/SanitizeInput";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { fetchRegions } from "../../store/ActionApis/regionApi";
-import { createClient, fetchClients } from "../../store/ActionApis/clientApi";
+import {
+  createClient,
+  fetchClients,
+  updateClient,
+} from "../../store/ActionApis/clientApi";
 
 const fields = [
   { name: "name", label: "Name", type: "input" },
@@ -40,7 +44,7 @@ const planDur = [
   { id: 30, name: "30 Days" },
 ];
 
-const ClientForm = ({ close, setClose, handleDialogClose }) => {
+const ClientForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -56,8 +60,6 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
     plan: 0,
     planDuration: "",
   });
-
-  // console.log(field);
 
   // state to avoid special character (for text field only)
   const [isValid, setIsValid] = useState({
@@ -105,25 +107,36 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
       area_region_id: field.area,
       amount: field.amount,
       service_plan_duration: field.planDuration,
-      plan: field.plan == 1 ? field.plan : 0, // send 0 if value is not 1
+      plan: field.plan || 0, // send 0 if value is not 1
       region_preference: Number(field.region.region.match(/\d+/)[0]),
     };
 
-    const response = await dispatch(createClient(dataToSend));
+    let response;
+    let module;
+    // Check if editRecord exists to determine whether it's an update or create
+    if (editRecord) {
+      response = await dispatch(
+        updateClient({ id: editRecord?.id, ...dataToSend })
+      ); // for update
+      module = "Updated";
+    } else {
+      response = await dispatch(createClient(dataToSend)); // for create
+      module = "Added";
+    }
 
     if (response.payload.success) {
+      await dispatch(fetchClients());
       notification.success({
-        message: "Client Added!",
+        message: `Client ${module}!`,
         description: response?.payload?.message,
         placement: "topRight",
       });
-      await dispatch(fetchClients());
-      emptyStates();
       handleDialogClose();
+      emptyStates();
     } else {
       notification.error({
-        message: "Client Not Added!",
-        description: response?.payload?.message || "Client not added",
+        message: `Client Not ${module}!`,
+        description: response?.payload?.message || `Client Not ${module}`,
         placement: "topRight",
       });
     }
@@ -132,18 +145,20 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
 
   // function to empty all states
   const emptyStates = () => {
-    setField({
-      name: "",
-      number: "",
-      email: "",
-      address: "",
-      region: "",
-      areas: [],
-      area: "",
-      amount: "",
-      plan: "",
-      planDuration: "",
-    });
+    if (!editRecord) {
+      setField({
+        name: "",
+        number: "",
+        email: "",
+        address: "",
+        region: "",
+        areas: [],
+        area: "",
+        amount: "",
+        plan: "",
+        planDuration: "",
+      });
+    }
     setIsValid({
       name: true,
       email: true,
@@ -157,7 +172,7 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
 
     setField((prev) => ({
       ...prev, // Spread the previous state
-      [name]: name === "region" ? value : value, // Store the entire region object if it's a region field
+      [name]: value, // Store the value
     }));
 
     // Special handling for region to update areas
@@ -165,6 +180,7 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
       setField((prev) => ({
         ...prev,
         areas: value ? value.areas : [], // If a region is selected, update areas based on that region
+        area: "",
       }));
     }
     // only apply on input text fields
@@ -180,19 +196,7 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
   // effect to call worker api to show in member's select field
   useEffect(() => {
     dispatch(fetchRegions());
-    setField({
-      name: "fff",
-      number: 4445,
-      email: "",
-      address: "",
-      region: "",
-      areas: [], // stored area as per selected region
-      area: "",
-      amount: "",
-      plan: 1,
-      planDuration: "",
-    });
-  }, []);
+  }, []); 
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
@@ -201,7 +205,27 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
       setClose(false);
     }
   }, [close]);
-  console.log("close", close);
+
+  // effect to fill data in field when edit
+  useEffect(() => {
+    if (editRecord) {
+      const regions = groupedByRegions?.find(
+        (item) => item.region === editRecord?.region_name
+      );
+      setField({
+        name: editRecord?.name,
+        number: editRecord?.number,
+        email: editRecord?.email,
+        address: editRecord?.address,
+        region: regions, // object to store in regions
+        areas: regions?.areas, // array to store i areas
+        area: editRecord?.area_region_id,
+        amount: editRecord?.amount,
+        plan: editRecord?.plan || "0",
+        planDuration: editRecord?.service_plan_duration,
+      });
+    }
+  }, [editRecord]);
 
   // Function to check if any field in 'field' is empty
   const isAnyFieldEmpty = () => {
@@ -217,8 +241,8 @@ const ClientForm = ({ close, setClose, handleDialogClose }) => {
   };
 
   // Button should be disabled if any field is empty or any isValid field is false
-  // const isButtonDisabled = isAnyFieldEmpty() || isAnyInvalid();
-  const isButtonDisabled = false;
+  const isButtonDisabled = isAnyFieldEmpty() || isAnyInvalid();
+  // const isButtonDisabled = false;
 
   return (
     <div className="my-5" style={{ maxWidth: isMobile ? 270 : 420 }}>
