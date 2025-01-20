@@ -22,7 +22,7 @@ const GlobalUpdate = (payload, res) => {
 
         if (err) {
           // // logger.info(err);
-          return res.send(reponse(false, `error while updating in ${payload.tableName}`, err));
+          return res.status(400).send(reponse(false, `error while updating in ${payload.tableName}`, err));
         } else {
           return res
             .status(200)

@@ -23,9 +23,9 @@ router.post("/",(req,res)=>{
         tableName:tableName.team,
         table:"Teams",
         databaseFields:{
-            member1:member1,
-            member2:member2,
-            member3:member3,
+            member1_id:member1,
+            member2_id:member2,
+            member3_id:member3,
             isactive:isactive,
             team_name:teamname,
         },
