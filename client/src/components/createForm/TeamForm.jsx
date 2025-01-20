@@ -66,7 +66,6 @@ const TeamForm = ({ close, setClose, handleDialogClose, editRecord }) => {
       response = await dispatch(createTeam(dataToSend)); // for create
       module = "Added";
     }
-    console.log(response);
 
     if (response.payload.success) {
       await dispatch(fetchTeams());
