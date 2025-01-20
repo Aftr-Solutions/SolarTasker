@@ -4,7 +4,7 @@ const logger = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BO7Oqf7cOLelKMd2sCaSKmMoEY6YO6Mewh4WzeI1lLjhZAFx8ql5LnpR6NiGI1DTiTwDUUqLsbZBAYGyFvuQh7o5a8F07MAAp4pN58nnEjvDjswOMkuuZCVa0Dpet7RvDiZBHQxmvVIHHfFhQc9ePqwxZAsXZCyw3ZCXqyiqQWssnkTZAOfKnwHRLkU38VXiuF2Nn9YiQBOt2Fb9ldCePYv2BzKnfi2ILQcF9E5M4lGwZD";
+const ACCESS_TOKEN = "EAAItPCtNug4BO2a9vtZBBCsKXyQ94jNM6bBvjOVxHGhSQwLkYHSElxJRtZA1UcCvPkpq2WacH259ziUz5TqLDkwsk7esA3JAFZCYKZAwvf2vqbOGmYnYbgp27Gu4ECUlN2GIjfVBMdxcVGBOIr6tVXXJaKV5cCnomsYyP9OspgHZBIqquSM8ZB2fcvebV44KlFxsPqZBaW08C4sDhP75M58PGcD0iQnjwFGlMUWTJZByfUwZCu5H4OCMZD";
 //const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
 const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
 
@@ -108,24 +108,61 @@ const sendMessagetoteams = async (pool) => {
       }
 
       for (const client of clients) {
+        // const payload = {
+        //   messaging_product: "whatsapp",
+        //   to: teamInfo.team_contact,
+        //   type: "template",
+        //   template: {
+        //     name: "team_message",
+        //     language: { code: "en" },
+        //     components: [
+        //       {
+        //         type: "body",
+        //         parameters: [
+        //           { type: "text", text: client.client_name },
+        //           { type: "text", text: client.address },
+        //           { type: "text", text: client.client_contact },
+        //           { type: "text", text: teamInfo.team_lead },
+        //         ],
+        //       },
+        //     ],
+        //   },
+        // };
+
         const payload = {
           messaging_product: "whatsapp",
-          to: teamInfo.team_contact,
-          type: "template",
-          template: {
-            name: "team_message",
-            language: { code: "en" },
-            components: [
-              {
-                type: "body",
-                parameters: [
-                  { type: "text", text: client.client_name },
-                  { type: "text", text: client.address },
-                  { type: "text", text: client.client_contact },
-                  { type: "text", text: teamInfo.team_lead },
-                ],
-              },
-            ],
+          to: teamInfo.team_contact, // Recipient's phone number
+          type: "interactive",
+          interactive: {
+            type: "button",
+            body: {
+              text: `Dear ${teamInfo.team_lead},\n\nYou have a service at ${client.client_name } house ${client.address } whose ${client.client_contact} number is this. Connect them and click on the buttons below to track the service:\n\n- On the way: when you are going there.\n- Start working: when you start working.\n- Completed: when you finish the work.\n\nSystem By Abdul Rafay`,
+            },
+            action: {
+              buttons: [
+                {
+                  type: "reply",
+                  reply: {
+                    id: String(client.client_contact)+" On the way",
+                    title: "On the way",
+                  },
+                },
+                {
+                  type: "reply",
+                  reply: {
+                    id: String(client.client_contact)+" Start working",
+                    title: "Start working",
+                  },
+                },
+                {
+                  type: "reply",
+                  reply: {
+                    id: String(client.client_contact)+" Completed",
+                    title: "Completed",
+                  },
+                },
+              ],
+            },
           },
         };
 

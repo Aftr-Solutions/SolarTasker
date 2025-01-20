@@ -27,12 +27,13 @@ export default function CreateDialog({
   isDialogOpen,
   handleDialogClose,
   path,
+  record,
 }) {
-  const [close, setClose] = React.useState();
+  const [close, setClose] = React.useState(false);
 
   const handleClose = () => {
     handleDialogClose();
-    setClose(!close);
+    setClose(true);
   };
 
   return (
@@ -69,15 +70,40 @@ export default function CreateDialog({
           </IconButton>
           <DialogContent dividers>
             {path === "/" ? (
-              <ClientForm close={close} handleDialogClose={handleDialogClose} />
+              <ClientForm
+                close={close}
+                setClose={setClose}
+                handleDialogClose={handleDialogClose}
+                editRecord={record} // row data for edit
+              />
             ) : path === "/region" ? (
-              <RegionForm close={close} handleDialogClose={handleDialogClose} />
+              <RegionForm
+                close={close}
+                setClose={setClose}
+                handleDialogClose={handleDialogClose}
+                editRecord={record} // row data for edit
+              />
             ) : path === "/worker" ? (
-              <WorkerForm close={close} handleDialogClose={handleDialogClose} />
+              <WorkerForm
+                close={close}
+                setClose={setClose}
+                handleDialogClose={handleDialogClose}
+                editRecord={record} // row data for edit
+              />
             ) : path === "/team" ? (
-              <TeamForm close={close} handleDialogClose={handleDialogClose} />
+              <TeamForm
+                close={close}
+                setClose={setClose}
+                handleDialogClose={handleDialogClose}
+                editRecord={record} // row data for edit
+              />
             ) : path === "/user" ? (
-              <UserForm close={close} handleDialogClose={handleDialogClose} />
+              <UserForm
+                close={close}
+                setClose={setClose}
+                handleDialogClose={handleDialogClose}
+                editRecord={record} // row data for edit
+              />
             ) : (
               <Typography gutterBottom>
                 Cras mattis consectetur purus sit amet fermentum. Cras justo

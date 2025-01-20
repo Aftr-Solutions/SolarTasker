@@ -12,7 +12,7 @@ router.post("/",(req,res)=>{
         member1,
         member2,
         member3,
-        isactive,
+
         teamname,
     }=req.body;
     if(!id || !member1 ||!member2){
@@ -23,10 +23,9 @@ router.post("/",(req,res)=>{
         tableName:tableName.team,
         table:"Teams",
         databaseFields:{
-            member1:member1,
-            member2:member2,
-            member3:member3,
-            isactive:isactive,
+            member1_id:member1,
+            member2_id:member2,
+            member3_id:member3,
             team_name:teamname,
         },
     };

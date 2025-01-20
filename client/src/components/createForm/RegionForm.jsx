@@ -12,7 +12,11 @@ import {
 import React, { useState, useEffect } from "react";
 import Buttons from "../button/Button";
 import { handleSanitizeInput } from "../../utils/SanitizeInput";
-import { createRegion, fetchRegions } from "../../store/ActionApis/regionApi";
+import {
+  createRegion,
+  fetchRegions,
+  updateRegion,
+} from "../../store/ActionApis/regionApi";
 import { useDispatch } from "react-redux";
 import { notification } from "antd";
 
@@ -25,7 +29,7 @@ const regions = [
   "Region 6",
 ];
 
-const RegionForm = ({ close, handleDialogClose }) => {
+const RegionForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -46,20 +50,32 @@ const RegionForm = ({ close, handleDialogClose }) => {
       area: area,
       region: region,
     };
-    const response = await dispatch(createRegion(dataToSend));
+    let response;
+    let module;
+    // Check if editRecord exists to determine whether it's an update or create
+    if (editRecord) {
+      response = await dispatch(
+        updateRegion({ id: editRecord?.id, ...dataToSend })
+      ); // for update
+      module = "Updated";
+    } else {
+      response = await dispatch(createRegion(dataToSend)); // for create
+      module = "Added";
+    }
+
     if (response.payload.success) {
+      await dispatch(fetchRegions());
       notification.success({
-        message: "Region Added!",
+        message: `Region ${module}!`,
         description: response?.payload?.message,
         placement: "topRight",
       });
-      await dispatch(fetchRegions());
-      emptyStates();
       handleDialogClose();
+      emptyStates();
     } else {
       notification.error({
-        message: "Region Not Added!",
-        description: response?.payload?.message || "Region not added",
+        message: `Region Not ${module}!`,
+        description: response?.payload?.message || `Region Not ${module}`,
         placement: "topRight",
       });
     }
@@ -68,8 +84,10 @@ const RegionForm = ({ close, handleDialogClose }) => {
 
   // function to empty all states
   const emptyStates = () => {
-    setArea("");
-    setRegion("");
+    if (!editRecord) {
+      setArea("");
+      setRegion("");
+    }
     setIsAreaValid(true);
   };
 
@@ -82,8 +100,19 @@ const RegionForm = ({ close, handleDialogClose }) => {
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
-    emptyStates();
+    if (close) {
+      emptyStates();
+      setClose(false);
+    }
   }, [close]);
+
+  // effect to fill data in field when edit
+  useEffect(() => {
+    if (editRecord) {
+      setArea(editRecord?.area);
+      setRegion(editRecord?.region);
+    }
+  }, [editRecord]);
 
   return (
     <div className="my-5">
