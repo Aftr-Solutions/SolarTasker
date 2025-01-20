@@ -64,14 +64,14 @@ const RegionForm = ({ close, setClose, handleDialogClose, editRecord }) => {
     }
 
     if (response.payload.success) {
+      await dispatch(fetchRegions());
       notification.success({
         message: `Region ${module}!`,
         description: response?.payload?.message,
         placement: "topRight",
       });
-      await dispatch(fetchRegions());
-      emptyStates();
       handleDialogClose();
+      emptyStates();
     } else {
       notification.error({
         message: `Region Not ${module}!`,
@@ -84,8 +84,10 @@ const RegionForm = ({ close, setClose, handleDialogClose, editRecord }) => {
 
   // function to empty all states
   const emptyStates = () => {
-    setArea("");
-    setRegion("");
+    if (!editRecord) {
+      setArea("");
+      setRegion("");
+    }
     setIsAreaValid(true);
   };
 
