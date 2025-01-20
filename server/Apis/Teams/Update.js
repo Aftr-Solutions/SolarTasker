@@ -12,7 +12,7 @@ router.post("/",(req,res)=>{
         member1,
         member2,
         member3,
-        isactive,
+
         teamname,
     }=req.body;
     if(!id || !member1 ||!member2){
@@ -26,7 +26,6 @@ router.post("/",(req,res)=>{
             member1_id:member1,
             member2_id:member2,
             member3_id:member3,
-            isactive:isactive,
             team_name:teamname,
         },
     };
