@@ -32,8 +32,6 @@ const UserForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   // state to check email format
   const [isEmailFormatted, setIsEmailFormatted] = useState(true);
 
-  console.log(isEmailFormatted);
-
   // state to show loader on submit button after submit clicked
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
