@@ -296,7 +296,7 @@ export const teamColumn = [
     key: "team_lead",
     width: 200,
     sorter: (a, b) => a.team_lead.length - b.team_lead.length,
-    render: (row) => <span className="">{row}</span>,
+    // render: (row) => <span className="">{row}</span>,
   },
   {
     title: "Team Member 1",
@@ -304,7 +304,7 @@ export const teamColumn = [
     key: "member1",
     width: 200,
     sorter: (a, b) => a.member1.length - b.member1.length,
-    render: (row) => <span className="">{row}</span>,
+    // render: (row) => <span className="">{row}</span>,
   },
   {
     title: "Team Member 2",
@@ -312,7 +312,7 @@ export const teamColumn = [
     key: "member2",
     width: 200,
     sorter: (a, b) => a.member2.length - b.member2.length,
-    render: (row) => <span className="">{row}</span>,
+    render: (row) => row || "N/A",
   },
 ];
 
