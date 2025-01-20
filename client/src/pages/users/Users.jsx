@@ -9,7 +9,6 @@ const Users = () => {
   const dispatch = useDispatch();
 
   const { users } = useSelector((state) => state.user);
-  console.log(users);
 
   useEffect(() => {
     dispatch(fetchUsers());
