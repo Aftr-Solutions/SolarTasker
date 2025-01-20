@@ -10,9 +10,13 @@ import Buttons from "../button/Button";
 import { handleSanitizeInput } from "../../utils/SanitizeInput";
 import { useDispatch } from "react-redux";
 import { notification } from "antd";
-import { createWorker, fetchWorkers } from "../../store/ActionApis/workerApi";
+import {
+  createWorker,
+  fetchWorkers,
+  updateWorker,
+} from "../../store/ActionApis/workerApi";
 
-const WorkerForm = ({ close, setClose, handleDialogClose }) => {
+const WorkerForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -38,21 +42,32 @@ const WorkerForm = ({ close, setClose, handleDialogClose }) => {
       cnic: nic,
       address: address,
     };
-    const response = await dispatch(createWorker(dataToSend));
+    let response;
+    let module;
+    // Check if editRecord exists to determine whether it's an update or create
+    if (editRecord) {
+      response = await dispatch(
+        updateWorker({ id: editRecord?.id, ...dataToSend })
+      ); // for update
+      module = "Updated";
+    } else {
+      response = await dispatch(createWorker(dataToSend)); // for create
+      module = "Added";
+    }
 
     if (response.payload.success) {
+      await dispatch(fetchWorkers());
       notification.success({
-        message: "Worker Added!",
+        message: `Worker ${module}!`,
         description: response?.payload?.message,
         placement: "topRight",
       });
-      await dispatch(fetchWorkers());
-      emptyStates();
       handleDialogClose();
+      emptyStates();
     } else {
       notification.error({
-        message: "Worker Not Added!",
-        description: response?.payload?.message || "Worker not added",
+        message: `Worker Not ${module}!`,
+        description: response?.payload?.message || `Worker Not ${module}`,
         placement: "topRight",
       });
     }
@@ -61,10 +76,12 @@ const WorkerForm = ({ close, setClose, handleDialogClose }) => {
 
   // function to empty all states
   const emptyStates = () => {
-    setName("");
-    setNumber("");
-    setNic("");
-    setAddress("");
+    if (!editRecord) {
+      setName("");
+      setNumber("");
+      setNic("");
+      setAddress("");
+    }
     setIsNameValid(true);
     setIsAddressValid(true);
   };
@@ -90,6 +107,16 @@ const WorkerForm = ({ close, setClose, handleDialogClose }) => {
       setClose(false);
     }
   }, [close]);
+
+  // effect to fill data in field when edit
+  useEffect(() => {
+    if (editRecord) {
+      setName(editRecord?.name);
+      setNumber(editRecord?.number);
+      setNic(editRecord?.cnic_number);
+      setAddress(editRecord?.address);
+    }
+  }, [editRecord]);
 
   return (
     <div className="my-5">
