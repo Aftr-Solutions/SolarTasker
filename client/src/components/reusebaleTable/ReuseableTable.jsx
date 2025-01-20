@@ -136,7 +136,11 @@ const ReusableTable = ({
 
       {/* Edit Dialog */}
       <CreateDialog
-        title={`Edit ${location.pathname === "/" ? "Client" : btnName}`}
+        title={
+          location.pathname === "/users"
+            ? "Reset Password"
+            : `Edit ${location.pathname === "/" ? "Client" : btnName}`
+        }
         isDialogOpen={isEditModalOpen}
         handleDialogClose={() => setEditModalOpen(false)}
         path={location.pathname}
