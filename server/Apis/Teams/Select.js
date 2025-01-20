@@ -18,6 +18,7 @@ router.get("/",(req,res)=>{
     
           const query = `
       SELECT 
+          t.*,
           w.name As team_lead,
           w1.name AS member1,
           w2.name As member2,

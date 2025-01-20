@@ -25,6 +25,7 @@ router.get("/", (req, res) => {
       t.isactive,
       t.task_status,
       t.re_task_done,
+      c.id As client_id,
       c.name,
       c.number,
       c.upcoming_service_date,
