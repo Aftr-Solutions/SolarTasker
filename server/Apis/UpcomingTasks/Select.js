@@ -24,6 +24,7 @@ router.get("/", (req, res) => {
       t.response,
       t.isactive,
       t.task_status,
+      c.id As client_id,
       c.name,
       c.number
   FROM ${tableName.tasks} t

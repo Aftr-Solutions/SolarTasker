@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
   const query = `
     SELECT 
       c.*, 
+      a.id As area_region_id,
       a.area AS area_name, 
       a.region AS region_name 
     FROM ${tableName.clients} AS c 

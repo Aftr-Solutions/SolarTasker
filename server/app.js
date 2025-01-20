@@ -95,7 +95,7 @@ cron.schedule("0 8 * * *", async () => {
   }
 });
 //await sendMessage(cronpool)
-sendMessagetoteams(cronpool);
+//sendMessagetoteams(cronpool);
 //commeted
 //mytask(cronpool);
 //assignteam();

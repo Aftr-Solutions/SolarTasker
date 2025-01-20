@@ -117,7 +117,6 @@ interactive: {
   }
 }
 
-
 // Webhook to handle WhatsApp messages and button responses
 router.post("/", async (req, res) => {
   try {
@@ -142,6 +141,7 @@ router.post("/", async (req, res) => {
           logger.info(`Team responded with ID: ${from} and Button Title: ${buttonTitle}`);
 
           let teamRes = null;
+          let clientRes=null;
           let clientNumber = buttonReply.id.replace(buttonTitle, "").trim();
 
           if (buttonTitle === "On the way") {
@@ -153,7 +153,10 @@ router.post("/", async (req, res) => {
           } else if (buttonTitle === "Completed") {
             teamRes = 3;
             logger.info(`Team ${from} has completed the service for ${clientNumber}.`);
+          } else if (buttonTitle === "1 - Very Poor") {
+            logger.info(`Client`)
           }
+
 
           if (teamRes !== null) {
             try {
@@ -198,6 +201,13 @@ router.post("/", async (req, res) => {
                 await sendmessageoffeedback(clientNumber,results[0].name)
               }
             } catch (queryError) {
+              logger.error(`Database query error: ${queryError.message}`);
+            }
+          }
+          if(clientRes !== null){
+            try{
+
+            }catch(queryError){
               logger.error(`Database query error: ${queryError.message}`);
             }
           }
