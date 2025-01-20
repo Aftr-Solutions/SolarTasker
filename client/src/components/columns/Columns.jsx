@@ -169,7 +169,7 @@ export const clientColumns = [
     key: "last_service_date",
     width: 180,
     sorter: (a, b) => a.last_service_date - b.last_service_date,
-    render: (row) => <span className="">{row}</span>,
+    render: (row) => row || "N/A",
   },
 
   {
@@ -178,7 +178,7 @@ export const clientColumns = [
     key: "upcoming_service_date",
     width: 200,
     sorter: (a, b) => a.upcoming_service_date - b.upcoming_service_date,
-    render: (row) => <span className="">{row}</span>,
+    render: (row) => row || "N/A",
   },
 ];
 
