@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { notification } from "antd";
 import { createWorker, fetchWorkers } from "../../store/ActionApis/workerApi";
 
-const WorkerForm = ({ close, handleDialogClose }) => {
+const WorkerForm = ({ close, setClose, handleDialogClose }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -39,7 +39,7 @@ const WorkerForm = ({ close, handleDialogClose }) => {
       address: address,
     };
     const response = await dispatch(createWorker(dataToSend));
-    
+
     if (response.payload.success) {
       notification.success({
         message: "Worker Added!",
@@ -85,7 +85,10 @@ const WorkerForm = ({ close, handleDialogClose }) => {
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
-    emptyStates();
+    if (close) {
+      emptyStates();
+      setClose(false);
+    }
   }, [close]);
 
   return (

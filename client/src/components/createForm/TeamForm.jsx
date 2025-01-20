@@ -23,7 +23,7 @@ const membersFields = [
   { label: "Second Member" },
 ];
 
-const TeamForm = ({ close, handleDialogClose }) => {
+const TeamForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -38,8 +38,9 @@ const TeamForm = ({ close, handleDialogClose }) => {
   const dispatch = useDispatch();
   // get member data from worker api
   const { workers } = useSelector((state) => state.worker);
+console.log(editRecord);
+console.log(workers);
 
-  console.log(workers);
 
   // function for submit
   const handleSubmit = async () => {
@@ -93,8 +94,24 @@ const TeamForm = ({ close, handleDialogClose }) => {
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
-    emptyStates();
+    if (close) {
+      emptyStates();
+      setClose(false);
+    }
   }, [close]);
+
+  // effect to fill data in field when edit
+  useEffect(() => {
+    if (editRecord) {
+      setTeamName(editRecord?.team_name);
+      const members = [
+        editRecord.team_lead,
+        editRecord.member1,
+        editRecord.member2 || "",
+      ];
+      setMembers(members);
+    }
+  }, [editRecord]);
 
   return (
     <div className="my-5" style={{ maxWidth: isMobile ? 270 : 420 }}>

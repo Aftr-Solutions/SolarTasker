@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { notification } from "antd";
 import { createUser, fetchUsers } from "../../store/ActionApis/userApi";
 
-const UserForm = ({ close, handleDialogClose }) => {
+const UserForm = ({ close,setClose, handleDialogClose }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -81,7 +81,10 @@ const UserForm = ({ close, handleDialogClose }) => {
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
-    emptyStates();
+    if (close) {
+      emptyStates();
+      setClose(false);
+    }
   }, [close]);
 
   return (

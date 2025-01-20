@@ -40,7 +40,7 @@ const planDur = [
   { id: 30, name: "30 Days" },
 ];
 
-const ClientForm = ({ close, handleDialogClose }) => {
+const ClientForm = ({ close, setClose, handleDialogClose }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
 
   // state to stored input data
@@ -53,9 +53,11 @@ const ClientForm = ({ close, handleDialogClose }) => {
     areas: [], // stored area as per selected region
     area: "",
     amount: "",
-    plan: "",
+    plan: 0,
     planDuration: "",
   });
+
+  // console.log(field);
 
   // state to avoid special character (for text field only)
   const [isValid, setIsValid] = useState({
@@ -178,12 +180,28 @@ const ClientForm = ({ close, handleDialogClose }) => {
   // effect to call worker api to show in member's select field
   useEffect(() => {
     dispatch(fetchRegions());
+    setField({
+      name: "fff",
+      number: 4445,
+      email: "",
+      address: "",
+      region: "",
+      areas: [], // stored area as per selected region
+      area: "",
+      amount: "",
+      plan: 1,
+      planDuration: "",
+    });
   }, []);
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
-    emptyStates();
+    if (close) {
+      emptyStates();
+      setClose(false);
+    }
   }, [close]);
+  console.log("close", close);
 
   // Function to check if any field in 'field' is empty
   const isAnyFieldEmpty = () => {
