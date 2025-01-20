@@ -15,7 +15,11 @@ import { handleSanitizeInput } from "../../utils/SanitizeInput";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { fetchWorkers } from "../../store/ActionApis/workerApi";
-import { createTeam, fetchTeams } from "../../store/ActionApis/teamApi";
+import {
+  createTeam,
+  fetchTeams,
+  updateTeam,
+} from "../../store/ActionApis/teamApi";
 
 const membersFields = [
   { label: "Team Lead" },
@@ -25,6 +29,7 @@ const membersFields = [
 
 const TeamForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   const isMobile = useMediaQuery("(max-width:500px)");
+  console.log(editRecord);
 
   // state to stored input data
   const [teamName, setTeamName] = useState("");
@@ -38,9 +43,6 @@ const TeamForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   const dispatch = useDispatch();
   // get member data from worker api
   const { workers } = useSelector((state) => state.worker);
-console.log(editRecord);
-console.log(workers);
-
 
   // function for submit
   const handleSubmit = async () => {
@@ -52,21 +54,33 @@ console.log(workers);
       member3: members[2] || null, // this field is allow to go with null as well
     };
 
-    const response = await dispatch(createTeam(dataToSend));
+    let response;
+    let module;
+    // Check if editRecord exists to determine whether it's an update or create
+    if (editRecord) {
+      response = await dispatch(
+        updateTeam({ id: editRecord?.id, ...dataToSend })
+      ); // for update
+      module = "Updated";
+    } else {
+      response = await dispatch(createTeam(dataToSend)); // for create
+      module = "Added";
+    }
+    console.log(response);
 
     if (response.payload.success) {
+      await dispatch(fetchTeams());
       notification.success({
-        message: "Team Added!",
+        message: `Team ${module}!`,
         description: response?.payload?.message,
         placement: "topRight",
       });
-      await dispatch(fetchTeams());
-      emptyStates();
       handleDialogClose();
+      emptyStates();
     } else {
       notification.error({
-        message: "Team Not Added!",
-        description: response?.payload?.message || "Team not added",
+        message: `Team Not ${module}!`,
+        description: response?.payload?.message || `Team Not ${module}`,
         placement: "topRight",
       });
     }
@@ -75,8 +89,10 @@ console.log(workers);
 
   // function to empty all states
   const emptyStates = () => {
-    setTeamName("");
-    setMembers(["", "", ""]);
+    if (!editRecord) {
+      setTeamName("");
+      setMembers(["", "", ""]);
+    }
     setIsTeamNameValid(true);
   };
 
@@ -105,9 +121,9 @@ console.log(workers);
     if (editRecord) {
       setTeamName(editRecord?.team_name);
       const members = [
-        editRecord.team_lead,
-        editRecord.member1,
-        editRecord.member2 || "",
+        editRecord?.member1_id,
+        editRecord?.member2_id,
+        editRecord?.member3_id || "",
       ];
       setMembers(members);
     }
