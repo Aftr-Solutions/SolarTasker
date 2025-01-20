@@ -9,7 +9,6 @@ const Team = () => {
   const dispatch = useDispatch();
 
   const { teams } = useSelector((state) => state.team);
-  console.log(teams);
 
   const handleDelete = (record) => {
     console.log(record);
