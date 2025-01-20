@@ -5,6 +5,7 @@ const tableNames = {
     team: "team",
     area_region:"area_region",
     tasks:"tasks",
+    feedback:"feedback",
   };
   
   module.exports = tableNames;
