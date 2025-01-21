@@ -5,6 +5,7 @@ const cronpool = require("../Utils/crondb");
 const logger = require("../logger");
 const { performQuery } = require("../Utils/performQuery");
 const axios = require("axios");
+const moment=require("moment-timezone");
 
 const ACCESS_TOKEN = "EAAItPCtNug4BO2a9vtZBBCsKXyQ94jNM6bBvjOVxHGhSQwLkYHSElxJRtZA1UcCvPkpq2WacH259ziUz5TqLDkwsk7esA3JAFZCYKZAwvf2vqbOGmYnYbgp27Gu4ECUlN2GIjfVBMdxcVGBOIr6tVXXJaKV5cCnomsYyP9OspgHZBIqquSM8ZB2fcvebV44KlFxsPqZBaW08C4sDhP75M58PGcD0iQnjwFGlMUWTJZByfUwZCu5H4OCMZD";
 const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
@@ -119,6 +120,7 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
 
 async function updateTaskResponse(teamRes, clientNumberOrTeamId, teamId, from) {
   try {
+    // Update the task status
     const updateQuery = `
       UPDATE ${tableName.tasks} t 
       INNER JOIN ${tableName.clients} c ON t.client_id = c.id
@@ -131,6 +133,41 @@ async function updateTaskResponse(teamRes, clientNumberOrTeamId, teamId, from) {
       params: [teamRes, teamId, clientNumberOrTeamId],
       pool: cronpool,
     });
+
+    // Retrieve the task ID for tracking
+    const getQuery = `
+      SELECT t.id 
+      FROM ${tableName.tasks} t 
+      INNER JOIN ${tableName.clients} c ON t.client_id = c.id
+      WHERE t.isactive = 0 AND t.team_id = ? AND c.number = ?;
+    `;
+
+    const getRes = await performQuery({
+      sql: getQuery,
+      params: [teamId, clientNumberOrTeamId],
+      pool: cronpool,
+    });
+
+    if (getRes.length > 0) {
+      const task_id = getRes[0].id;
+      const time_stamp = moment().tz("Asia/Karachi").format("YYYY-MM-DD HH:mm:ss");
+
+      // Insert tracking information
+      const insertQuery = `
+        INSERT INTO ${tableName.tracking} (task_id, status, time_stamp)
+        VALUES (?, ?, ?);
+      `;
+
+      const insertRes = await performQuery({
+        sql: insertQuery,
+        params: [task_id, teamRes, time_stamp],
+        pool: cronpool,
+      });
+
+      logger.info(`Tracking entry created for task ID ${task_id} with status ${teamRes}.`);
+    } else {
+      logger.warn(`No task found for team ID ${teamId} and client number ${clientNumberOrTeamId}.`);
+    }
 
     logger.info(`Updated task response for client ${clientNumberOrTeamId} with task status ${teamRes}`);
   } catch (queryError) {
@@ -268,9 +305,9 @@ router.post("/", async (req, res) => {
   
                 // Send feedback or notify client
                 if (teamRes === 1) {
-                  await sendmessageOfcoming(clientNumberOrTeamId, team.name);
+                  await sendMessageOfComing(clientNumberOrTeamId, team.name);
                 } else if (teamRes === 3) {
-                  await sendmessageoffeedback(clientNumberOrTeamId, team.name, team.team_id);
+                  await sendMessageOfFeedback(clientNumberOrTeamId, team.name, team.team_id);
                 }
               } else {
                 logger.warn(`No team found for phone number: ${from}`);

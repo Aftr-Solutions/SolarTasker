@@ -6,6 +6,7 @@ const tableNames = {
     area_region:"area_region",
     tasks:"tasks",
     feedback:"feedback",
+    tracking:"tracking",
   };
   
   module.exports = tableNames;
