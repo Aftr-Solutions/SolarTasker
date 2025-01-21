@@ -8,8 +8,6 @@ const { Option } = Select;
 const SearchAndFilterTable = ({
   data = [], // Default to an empty array if data is undefined
   columns,
-  handleDelete,
-  handleEdit,
   tableType,
 }) => {
   // Table States
@@ -35,30 +33,27 @@ const SearchAndFilterTable = ({
   const [searchTeamByName, setSearchTeamByName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
 
-  //User States 
+  //User States
 
-  const [searchByName , setSearchByName] = useState("")
-  const [searchByEmail , setSearchByEmail] = useState("")
-  const [selectedRole , setSelectedRole] = useState("")
+  const [searchByName, setSearchByName] = useState("");
+  const [searchByEmail, setSearchByEmail] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
 
-  // Tasks Status 
-  const [searchByTaskName , setSearchByTaskName] = useState("")
-  const [selectedDate, setSelectedDate ]= useState("")
+  // Tasks Status
+  const [searchByTaskName, setSearchByTaskName] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
-
-  // Upcomming Task Status  
-  const [searchByUpcommingTaskName , setSearchByUpcommingTaskName] = useState("")
+  // Upcomming Task Status
+  const [searchByUpcommingTaskName, setSearchByUpcommingTaskName] =
+    useState("");
   // const [selectedDate, setSelectedDate ]= useState("")
 
-// Date format in the data
-const dateFormat = "DD/MM/YYYY";
-const onDateChange = (date , dateString) => {
-  // console.log( dateString);
-  setSelectedDate(dateString)
-};
-
-
-
+  // Date format in the data
+  const dateFormat = "DD/MM/YYYY";
+  const onDateChange = (date, dateString) => {
+    // console.log( dateString);
+    setSelectedDate(dateString);
+  };
 
   // Filter data based on search inputs
   useEffect(() => {
@@ -112,11 +107,13 @@ const onDateChange = (date , dateString) => {
         const matchesUserName = item.user_name
           ?.toLowerCase()
           .includes(searchByName.toLowerCase());
-          const matcheEmail = item.email?.toLowerCase().includes(searchByEmail.toLowerCase())
+        const matcheEmail = item.email
+          ?.toLowerCase()
+          .includes(searchByEmail.toLowerCase());
         const matchesUserRole = selectedRole
           ? item.role === selectedRole
           : true;
-        return matchesUserName && matcheEmail && matchesUserRole ;
+        return matchesUserName && matcheEmail && matchesUserRole;
       });
     } else if (tableType === "tasks") {
       filteredData = filteredData.filter((item) => {
@@ -125,21 +122,19 @@ const onDateChange = (date , dateString) => {
           .includes(searchByTaskName.toLowerCase());
         const matchesTaskDate = selectedDate
           ? item.created_at === selectedDate
-          : true; 
-          // console.log(matchesTaskDate)
+          : true;
+        // console.log(matchesTaskDate)
         return matchesTaskName && matchesTaskDate;
       });
-    }
-
-    else if (tableType === "UpcommingTask" || tableType === "MissedTask") {
+    } else if (tableType === "UpcommingTask" || tableType === "MissedTask") {
       filteredData = filteredData.filter((item) => {
         const matchesUpcommingTaskName = item.name
           ?.toLowerCase()
           .includes(searchByUpcommingTaskName.toLowerCase());
         const matchesUpcommingTaskDate = selectedDate
           ? item.created_at === selectedDate
-          : true; 
-          // console.log(matchesTaskDate)
+          : true;
+        // console.log(matchesTaskDate)
         return matchesUpcommingTaskName && matchesUpcommingTaskDate;
       });
     }
@@ -160,11 +155,10 @@ const onDateChange = (date , dateString) => {
     searchByEmail,
     searchByName,
     selectedRole,
-    searchByTaskName, 
+    searchByTaskName,
     selectedDate,
     searchByUpcommingTaskName,
   ]);
-
 
   return (
     <div className="shadow-md p-6 bg-gray-50 rounded mt-2 ">
@@ -174,7 +168,7 @@ const onDateChange = (date , dateString) => {
           alignItems: "center",
           gap: "10px",
           marginBottom: "20px",
-          flexWrap: "wrap"
+          flexWrap: "wrap",
         }}
       >
         {tableType === "clients" ? (
@@ -200,7 +194,7 @@ const onDateChange = (date , dateString) => {
               allowClear
             >
               <Option value={0}>Basic</Option>
-              <Option value={1}>Premium</Option>  
+              <Option value={1}>Premium</Option>
             </Select>
           </>
         ) : tableType === "regions" ? (
@@ -260,8 +254,8 @@ const onDateChange = (date , dateString) => {
               <Option value={0}>Offline</Option>
             </Select>
           </>
-        ) : tableType === "Users"?(
-<>
+        ) : tableType === "Users" ? (
+          <>
             <Search
               placeholder="Search By Name"
               onChange={(e) => setSearchByName(e.target.value)}
@@ -283,55 +277,47 @@ const onDateChange = (date , dateString) => {
               allowClear
             >
               <Option value="Super Admin">Super Admin</Option>
-              <Option value="Admin">Admin</Option>  
+              <Option value="Admin">Admin</Option>
             </Select>
           </>
-        ):  tableType === "tasks"? (
+        ) : tableType === "tasks" ? (
           <>
-           <Search
+            <Search
               placeholder="Search By Name"
               onChange={(e) => setSearchByTaskName(e.target.value)}
               style={{ width: "200px" }}
               allowClear
             />
-             <DatePicker placeholder="Created Date" 
-             format={dateFormat} // Match the format of your data
-            //  onChange={(date) => setTaskDate(date)}
-            onChange={onDateChange}
-             style={{ width: "200px" }}
-
-              />
-
+            <DatePicker
+              placeholder="Created Date"
+              format={dateFormat} // Match the format of your data
+              //  onChange={(date) => setTaskDate(date)}
+              onChange={onDateChange}
+              style={{ width: "200px" }}
+            />
           </>
-        ): tableType === "UpcommingTask" || tableType === "MissedTask"? (
-<>
-           <Search
+        ) : tableType === "UpcommingTask" || tableType === "MissedTask" ? (
+          <>
+            <Search
               placeholder="Search By Name"
               onChange={(e) => setSearchByUpcommingTaskName(e.target.value)}
               style={{ width: "200px" }}
               allowClear
             />
-             <DatePicker placeholder="Created Date" 
-             format={dateFormat} // Match the format of your data
-            //  onChange={(date) => setTaskDate(date)}
-            onChange={onDateChange}
-             style={{ width: "200px" }}
-
-              />
-
-      </>
-        ):
-        (
+            <DatePicker
+              placeholder="Created Date"
+              format={dateFormat} // Match the format of your data
+              //  onChange={(date) => setTaskDate(date)}
+              onChange={onDateChange}
+              style={{ width: "200px" }}
+            />
+          </>
+        ) : (
           ""
         )}
       </div>
 
-      <ReusableTable
-        columns={columns}
-        data={tableData}
-        onDelete={handleDelete}
-        onEdit={handleEdit}
-      />
+      <ReusableTable columns={columns} data={tableData} />
     </div>
   );
 };
