@@ -97,7 +97,7 @@ export default function CreateDialog({
                 handleDialogClose={handleDialogClose}
                 editRecord={record} // row data for edit
               />
-            ) : path === "/users" ? (
+            ) : path === "/user" ? (
               <UserForm
                 close={close}
                 setClose={setClose}

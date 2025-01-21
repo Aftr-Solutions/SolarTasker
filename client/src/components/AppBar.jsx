@@ -99,7 +99,7 @@ const Navbar = ({isCollapse, setIsCollapse}) => {
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           {/* only this pages should display below section */}
-          {["/", "/region", "/worker", "/team", "/users"].includes(
+          {["/", "/region", "/worker", "/team", "/user"].includes(
             location.pathname
           ) && (
             <>

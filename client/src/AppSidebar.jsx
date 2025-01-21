@@ -152,46 +152,46 @@
                 </MenuItem>
               </Link>
 
-              <Link to="/upcoming-tasks">
+              <Link to="/upcoming-task">
                 <MenuItem
                   icon={
                     <AssignmentReturnedOutlinedIcon
                       fontSize="small"
-                      className={`${location.pathname=== "/upcoming-tasks"? "text-white" : "text-gray-700"}`}
+                      className={`${location.pathname=== "/upcoming-task"? "text-white" : "text-gray-700"}`}
 
                     />
                   }
-                  link={location.pathname === "/upcoming-tasks" ? "/" : ""}
+                  link={location.pathname === "/upcoming-task" ? "/" : ""}
                 >
                   Upcomming Tasks
                 </MenuItem>
               </Link>
-              <Link to="/missed-tasks">
+              <Link to="/missed-task">
                 <MenuItem
                   icon={
                     <LowPriorityOutlinedIcon
                       fontSize="small"
-                      className={`${location.pathname=== "/missed-tasks"? "text-white" : "text-gray-700"}`}
+                      className={`${location.pathname=== "/missed-task"? "text-white" : "text-gray-700"}`}
 
                     />
                   }
-                  link={location.pathname === "/missed-tasks" ? "/" : ""}
+                  link={location.pathname === "/missed-task" ? "/" : ""}
                 >
                   Missed Tasks
                 </MenuItem>
               </Link>
             </Menu>
             <Menu subHeading="ADMIN">
-              <Link to="/users">
+              <Link to="/user">
                 <MenuItem
                   icon={
                     <GroupAddOutlinedIcon
                       fontSize="small"
-                      className={`${location.pathname=== "/users"? "text-white" : "text-gray-700"}`}
+                      className={`${location.pathname=== "/user"? "text-white" : "text-gray-700"}`}
 
                     />
                   }
-                  link={location.pathname === "/users" ? "/" : ""}
+                  link={location.pathname === "/user" ? "/" : ""}
                 >
                   Users
                 </MenuItem>
