@@ -36,12 +36,13 @@ const updateupcomingtasks=require("../Apis/UpcomingTasks/Update.js");
 const selecttasks=require("../Apis/Tasks/Select.js");
 
 const selectmissedtasks=require("../Apis/MIssedTasks/Select.js");
+const selectfeedbacks=require("../Apis/Feedback/Select.js");
 
-const whatsappclientrecievedresponse = require("../middleware/whatsappclientrecievedresponse.js"); // Adjust the path as needed
+const whatsappallresponse = require("../middleware/whatsappallresponse.js"); // Adjust the path as needed
 
 const logs=require("../Utils/logs.js");
 
-router.use("/webhook",whatsappclientrecievedresponse);
+router.use("/webhook",whatsappallresponse);
 
 // Public route (no userAuth)
 router.use("/login", authentication);
@@ -80,6 +81,7 @@ router.use("updateupcomingtasks",updateupcomingtasks);
 router.use("/selecttasks",selecttasks);
 
 router.use("/selectmissedtasks",selectmissedtasks);
+router.use("/selectfeedbacks",selectfeedbacks);
 
 
 router.use("/logs",logs);

@@ -12,7 +12,6 @@ router.post("/",(req,res)=>{
         member1,
         member2,
         member3,
-
         teamname,
     }=req.body;
     if(!id || !member1 ||!member2){
