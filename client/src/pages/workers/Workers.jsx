@@ -10,19 +10,6 @@ const Workers = () => {
 
   const { workers } = useSelector((state) => state.worker);
 
-  const handleDelete = (record) => {
-    setData((prevData) => prevData.filter((item) => item.id !== record.id));
-    message.success("Record deleted successfully!");
-  };
-
-  const handleEdit = (updatedRecord) => {
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.id === updatedRecord.id ? updatedRecord : item
-      )
-    );
-  };
-
   useEffect(() => {
     dispatch(fetchWorkers());
   }, []);
@@ -36,8 +23,6 @@ const Workers = () => {
         <SearchAndFilterTable
           data={workers}
           columns={workerColumns}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
           tableType="workers"
         />
       </div>
