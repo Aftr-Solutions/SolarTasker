@@ -15,3 +15,29 @@ export const fetchUpcommingTasks = createAsyncThunk(
     }
   }
 );
+
+// Delete upcomingTask
+export const deleteUpcomingTask = createAsyncThunk(
+  "upcomingTask/deleteUpcomingTask",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await userRequest.post("deletetupcomingasks", id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("Error occurred while deleting upcoming task");
+    }
+  }
+);
+
+// Update upcomingTask
+export const updateUpcomingTask = createAsyncThunk(
+  "userupcomingTask/updateUpcomingTask",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await userRequest.post("updateupcomingtasks", data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("Error occurred while updating upcoming task");
+    }
+  }
+);
