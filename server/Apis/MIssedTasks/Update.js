@@ -9,7 +9,6 @@ router.post("/", (req, res) => {
   try {
     // Validate required fields
     const {
-      id,
       client_id,
       team_id,
       response,
@@ -20,7 +19,6 @@ router.post("/", (req, res) => {
     } = req.body;
 
     if (
-      !id ||
       !client_id ||
       !team_id ||
       response === undefined || // Allow `0` as valid response
