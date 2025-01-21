@@ -20,6 +20,14 @@ import { deleteWorker, fetchWorkers } from "../../store/ActionApis/workerApi";
 import { deleteTeam, fetchTeams } from "../../store/ActionApis/teamApi";
 import { deleteUser, fetchUsers } from "../../store/ActionApis/userApi";
 import { useDispatch } from "react-redux";
+import {
+  deleteUpcomingTask,
+  fetchUpcommingTasks,
+} from "../../store/ActionApis/upcommingTaskApi";
+import {
+  deleteMissedTask,
+  fetchMissedTasks,
+} from "../../store/ActionApis/missedTasksApi";
 
 const ReusableTable = ({ columns, data, paginationConfig }) => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -30,8 +38,10 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [btnName, setBtnName] = React.useState(null);
+  console.log(selectedRecord);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   // Pagination logic
   const handlePageChange = (page, pageSize) => {
@@ -60,7 +70,10 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
   const handleGlobalRowDelete = async () => {
     setIsDeleting(true);
     const path = location.pathname;
-    const id = { id: selectedRecord?.id };
+    // const id = { id: selectedRecord?.id };
+    const id = ["/upcoming-task", "/missed-task"].includes(path)
+      ? { id: selectedRecord?.task_id }
+      : { id: selectedRecord?.id };
 
     // Object to map paths to corresponding delete actions
     const deleteActions = {
@@ -68,7 +81,9 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
       "/region": deleteRegion,
       "/worker": deleteWorker,
       "/team": deleteTeam,
-      "/users": deleteUser,
+      "/user": deleteUser,
+      "/upcoming-task": deleteUpcomingTask,
+      "/missed-task": deleteMissedTask,
     };
     // Object to map paths to corresponding fetch actions
     const fetchActions = {
@@ -76,7 +91,9 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
       "/region": fetchRegions,
       "/worker": fetchWorkers,
       "/team": fetchTeams,
-      "/users": fetchUsers,
+      "/user": fetchUsers,
+      "/upcoming-task": fetchUpcommingTasks,
+      "/missed-task": fetchMissedTasks,
     };
 
     // Check if path exists in deleteActions
@@ -114,44 +131,47 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
   // Add Edit and Delete buttons to columns
   const enhancedColumns = [
     ...columns,
-    {
-      title: "Action",
-      key: "actions",
-      width: 150,
-      fixed: "right",
-      render: (_, record) => (
-        <div className="flex space-x-3">
-          {/* View Action */}
-          <Tooltip title="Edit">
-            <button
-              onClick={() => handleEdit(record)}
-              className="flex items-center justify-center two-icons w-10 h-10 rounded-full transition duration-300 hover:bg-[#13DEB9] hover:text-white"
-            >
-              <DriveFileRenameOutlineRoundedIcon
-                className="icons"
-                style={{ fontSize: "20px", color: "#13DEB9" }}
-              />
-            </button>
-          </Tooltip>
+    ...(location.pathname !== "/tasks"
+      ? [
+          {
+            title: "Action",
+            key: "actions",
+            width: 150,
+            fixed: "right",
+            render: (_, record) => (
+              <div className="flex space-x-3">
+                {/* View Action */}
+                <Tooltip title="Edit">
+                  <button
+                    onClick={() => handleEdit(record)}
+                    className="flex items-center justify-center two-icons w-10 h-10 rounded-full transition duration-300 hover:bg-[#13DEB9] hover:text-white"
+                  >
+                    <DriveFileRenameOutlineRoundedIcon
+                      className="icons"
+                      style={{ fontSize: "20px", color: "#13DEB9" }}
+                    />
+                  </button>
+                </Tooltip>
 
-          {/* Delete Action */}
-          <Tooltip title="Delete">
-            <button
-              onClick={() => handleDelete(record)}
-              className="flex items-center justify-center w-10 h-10 two-icons  rounded-full transition duration-300 hover:bg-[#FA896B] hover:text-white"
-            >
-              <DeleteSweepRoundedIcon
-                className="icons"
-                style={{ fontSize: "20px", color: "#FA896B" }}
-              />
-            </button>
-          </Tooltip>
-        </div>
-      ),
-    },
+                {/* Delete Action */}
+                <Tooltip title="Delete">
+                  <button
+                    onClick={() => handleDelete(record)}
+                    className="flex items-center justify-center w-10 h-10 two-icons  rounded-full transition duration-300 hover:bg-[#FA896B] hover:text-white"
+                  >
+                    <DeleteSweepRoundedIcon
+                      className="icons"
+                      style={{ fontSize: "20px", color: "#FA896B" }}
+                    />
+                  </button>
+                </Tooltip>
+              </div>
+            ),
+          },
+        ]
+      : [{}]),
   ];
 
-  const location = useLocation();
   useEffect(() => {
     const btnName = location.pathname.replace("/", ""); // remove / from url
     const capitalName = btnName.charAt(0).toUpperCase() + btnName.slice(1); // make first word cap
@@ -189,7 +209,7 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
       {/* Edit Dialog / modal */}
       <CreateDialog
         title={
-          location.pathname === "/users"
+          location.pathname === "/user"
             ? "Reset Password"
             : `Edit ${location.pathname === "/" ? "Client" : btnName}`
         }
