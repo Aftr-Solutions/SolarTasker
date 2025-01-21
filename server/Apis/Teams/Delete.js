@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const { GlobalDelete } = require("../../GlobalFunctions/GlobalDelete");
+const {GlobalUpdate}=require("../../GlobalFunctions/GlobalUpdate");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db"); 
 const logger = require("../../logger");
@@ -43,7 +44,7 @@ router.post("/", (req, res) => {
             tableName:tableName.team,
             table:"Teams",
             databaseFields:{
-                isactive:isactive,
+                isactive:1,
             },
         };
         logger.info("Payload for update:", payload);
