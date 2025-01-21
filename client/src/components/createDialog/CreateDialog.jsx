@@ -104,13 +104,7 @@ export default function CreateDialog({
                 handleDialogClose={handleDialogClose}
                 editRecord={record} // row data for edit
               />
-            ) : (
-              <Typography gutterBottom>
-                Cras mattis consectetur purus sit amet fermentum. Cras justo
-                odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                risus, porta ac consectetur ac, vestibulum at eros.
-              </Typography>
-            )}
+            ) : null}
           </DialogContent>
         </BootstrapDialog>
       </Grow>
