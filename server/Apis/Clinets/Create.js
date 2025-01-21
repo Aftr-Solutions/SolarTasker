@@ -15,6 +15,7 @@ const REGION_DAY_MAPPING = {
   4: 4, // Region 4 → Thursday
   5: 5, // Region 5 → Friday
   6: 6, // Region 6 → Saturday
+  7: 7, // Region 7 → Sunday
 };
 
 // Function to calculate the next scheduled day

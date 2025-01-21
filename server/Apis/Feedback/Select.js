@@ -6,7 +6,6 @@ const RESPONSE=require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
 
 
-
 router.get("/",(req,res)=>{
     try{
         const selectquery=`SELECT f.id,c.name,c.number,ta.service_date,tm.team_name,f.rating,f.created_at 
@@ -29,3 +28,4 @@ router.get("/",(req,res)=>{
     
 });
 
+module.exports=router;
