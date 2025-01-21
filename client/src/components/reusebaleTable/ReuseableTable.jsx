@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal, Form, Input, Pagination, message } from "antd";
+import {
+  Table,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Pagination,
+  message,
+  notification,
+} from "antd";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
 import DeleteSweepRoundedIcon from "@mui/icons-material/DeleteSweepRounded";
 import { Tooltip } from "antd";
 import CreateDialog from "../createDialog/CreateDialog";
 import { useLocation } from "react-router";
+import { deleteClient, fetchClients } from "../../store/ActionApis/clientApi";
+import { deleteRegion, fetchRegions } from "../../store/ActionApis/regionApi";
+import { deleteWorker, fetchWorkers } from "../../store/ActionApis/workerApi";
+import { deleteTeam, fetchTeams } from "../../store/ActionApis/teamApi";
+import { deleteUser, fetchUsers } from "../../store/ActionApis/userApi";
+import { useDispatch } from "react-redux";
 
-const ReusableTable = ({
-  columns,
-  data,
-  onDelete,
-  onEdit,
-  paginationConfig,
-}) => {
+const ReusableTable = ({ columns, data, paginationConfig }) => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [btnName, setBtnName] = React.useState(null);
+
+  const dispatch = useDispatch();
 
   // Pagination logic
   const handlePageChange = (page, pageSize) => {
@@ -41,6 +54,61 @@ const ReusableTable = ({
   const handleDelete = (record) => {
     setSelectedRecord(record);
     setDeleteModalOpen(true);
+  };
+
+  // delete row for all pages
+  const handleGlobalRowDelete = async () => {
+    setIsDeleting(true);
+    const path = location.pathname;
+    const id = { id: selectedRecord?.id };
+
+    // Object to map paths to corresponding delete actions
+    const deleteActions = {
+      "/": deleteClient,
+      "/region": deleteRegion,
+      "/worker": deleteWorker,
+      "/team": deleteTeam,
+      "/users": deleteUser,
+    };
+    // Object to map paths to corresponding fetch actions
+    const fetchActions = {
+      "/": fetchClients,
+      "/region": fetchRegions,
+      "/worker": fetchWorkers,
+      "/team": fetchTeams,
+      "/users": fetchUsers,
+    };
+
+    // Check if path exists in deleteActions
+    const deleteFunc = deleteActions[path];
+    let response;
+
+    if (deleteFunc) {
+      response = await dispatch(deleteFunc(id));
+
+      // Fetch updated data if deletion was successful
+      if (response.payload.success) {
+        const fetchFunc = fetchActions[path];
+        await dispatch(fetchFunc());
+      }
+    }
+
+    // Show notification based on response success or failure
+    if (response?.payload?.success) {
+      notification.success({
+        message: `${btnName} Deleted`,
+        description: response?.payload?.message,
+        placement: "topRight",
+      });
+      setDeleteModalOpen(false);
+    } else {
+      notification.error({
+        message: `${btnName} Not Deleted`,
+        description: response?.payload?.message || `${btnName} Not Deleted`,
+        placement: "topRight",
+      });
+    }
+    setIsDeleting(false);
   };
 
   // Add Edit and Delete buttons to columns
@@ -118,23 +186,7 @@ const ReusableTable = ({
         />
       </div>
 
-      {/* Edit Modal */}
-      {/* <Modal
-        title="Edit Record"
-        open={isEditModalOpen}
-        onCancel={() => setEditModalOpen(false)}
-        footer={null}
-      >
-        <EditModalContent
-          record={selectedRecord}
-          onEdit={(updatedRecord) => {
-            onEdit(updatedRecord);
-            setEditModalOpen(false);
-          }}
-        />
-      </Modal> */}
-
-      {/* Edit Dialog */}
+      {/* Edit Dialog / modal */}
       <CreateDialog
         title={
           location.pathname === "/users"
@@ -147,15 +199,12 @@ const ReusableTable = ({
         record={selectedRecord} // pass row data which can edit
       />
 
-      {/* Delete Modal */}
+      {/* Delete Dialog / Modal */}
       <Modal
-        title="Confirm Delete"
+        title={`Delete ${location.pathname === "/" ? "Client" : btnName}`}
         open={isDeleteModalOpen}
         onCancel={() => setDeleteModalOpen(false)}
-        onOk={() => {
-          onDelete(selectedRecord);
-          setDeleteModalOpen(false);
-        }}
+        onOk={!isDeleting ? handleGlobalRowDelete : null}
         okText="Delete"
         cancelText="Cancel"
       >
