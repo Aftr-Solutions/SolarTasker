@@ -36,6 +36,9 @@ const updateupcomingtasks=require("../Apis/UpcomingTasks/Update.js");
 const selecttasks=require("../Apis/Tasks/Select.js");
 
 const selectmissedtasks=require("../Apis/MIssedTasks/Select.js");
+const deletemissedtasks=require("../Apis/MIssedTasks/Delete.js");
+const updatemissedtasks=require("../Apis/MIssedTasks/Update.js");
+
 const selectfeedbacks=require("../Apis/Feedback/Select.js");
 
 const whatsappallresponse = require("../middleware/whatsappallresponse.js"); // Adjust the path as needed
@@ -81,7 +84,12 @@ router.use("updateupcomingtasks",updateupcomingtasks);
 router.use("/selecttasks",selecttasks);
 
 router.use("/selectmissedtasks",selectmissedtasks);
+router.use("/deletetmissedtasks",deletemissedtasks);
+router.use("/updatetmissedtasks",updatemissedtasks);
+
 router.use("/selectfeedbacks",selectfeedbacks);
+
+
 
 
 router.use("/logs",logs);

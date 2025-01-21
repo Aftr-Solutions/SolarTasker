@@ -18,9 +18,9 @@ const Routing = React.memo(() => {
             <Route path="/worker" element={<Workers />} />
             <Route path="/team" element={<Team />} />
             <Route path="/tasks" element={<Tasks />} />
-            <Route path="/upcoming-tasks" element={<UpcomingTasks />} />
-            <Route path="/missed-tasks" element={<MissedTasks />} />
-            <Route path="/users" element={<Users />} />
+            <Route path="/upcoming-task" element={<UpcomingTasks />} />
+            <Route path="/missed-task" element={<MissedTasks />} />
+            <Route path="/user" element={<Users />} />
           </Routes>
       </div>
   )
