@@ -38,8 +38,6 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [btnName, setBtnName] = React.useState(null);
-  console.log(selectedRecord);
-
   const dispatch = useDispatch();
   const location = useLocation();
 
