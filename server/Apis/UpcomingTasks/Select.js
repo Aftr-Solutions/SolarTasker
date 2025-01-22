@@ -24,6 +24,7 @@ router.get("/", (req, res) => {
       t.response,
       t.isactive,
       t.task_status,
+      t.team_id,
       c.id As client_id,
       c.name,
       c.number
