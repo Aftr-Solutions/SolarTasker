@@ -107,7 +107,7 @@ const ClientForm = ({ close, setClose, handleDialogClose, editRecord }) => {
       area_region_id: field.area,
       amount: field.amount,
       service_plan_duration: field.planDuration,
-      plan: field.plan || 0, // send 0 if value is not 1
+      plan: field.plan === "0" ? 0 : field.plan, // send 0 if value is not 1
       region_preference: Number(field.region.region.match(/\d+/)[0]),
     };
 
@@ -196,7 +196,7 @@ const ClientForm = ({ close, setClose, handleDialogClose, editRecord }) => {
   // effect to call worker api to show in member's select field
   useEffect(() => {
     dispatch(fetchRegions());
-  }, []); 
+  }, []);
 
   // effect to empty all state whenever dialog is closed
   useEffect(() => {
@@ -289,21 +289,20 @@ const ClientForm = ({ close, setClose, handleDialogClose, editRecord }) => {
                   : name === "plan"
                   ? plans // plans
                   : planDur
-                ) // plan duration // other conditions can be added for different fields like "plan"
-                  .map((item, idx) => (
-                    <MenuItem
-                      key={idx}
-                      value={
-                        name === "region"
-                          ? item // store the entire object for region
-                          : item.id
-                      }
-                    >
-                      {name === "region"
-                        ? item.region // display region name
-                        : item.name}
-                    </MenuItem>
-                  ))}
+                )?.map((item, idx) => (
+                  <MenuItem
+                    key={idx}
+                    value={
+                      name === "region"
+                        ? item // store the entire object for region
+                        : item.id
+                    }
+                  >
+                    {name === "region"
+                      ? item.region // display region name
+                      : item.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           )
