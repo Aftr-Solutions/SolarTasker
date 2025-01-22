@@ -129,7 +129,7 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
   // Add Edit and Delete buttons to columns
   const enhancedColumns = [
     ...columns,
-    ...(location.pathname !== "/tasks"
+    ...(!["/tasks", "/feedback", "/liveTracking"].includes(location.pathname)
       ? [
           {
             title: "Action",

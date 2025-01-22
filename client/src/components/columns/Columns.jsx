@@ -752,3 +752,170 @@ export const missedTaskColumn = [
     sorter: (a, b) => new Date(a.upcoming_service_date) - new Date(b.upcoming_service_date), // Sort by date
   },
 ];
+
+
+export const liveTrackingColumn = [
+  {
+    title: "Team Name",
+    dataIndex: "team_name",
+    key: "team_name",
+    render: (row) => <span className="text-sm font-medium">{row}</span>,
+    sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
+    width: 130,
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+    render: (row) => <span>{row}</span>,
+    sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
+  },
+  {
+    title: "Number",
+    dataIndex: "number",
+    key: "number",
+    sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
+  },
+  {
+    title: "Task Status",
+    dataIndex: "status", // 'status' comes from the SQL query
+    key: "task_status",
+    width: 130,
+    render: (status) => {
+      const getTaskStatusTagColor = (status) => {
+        switch (status) {
+          case 0:
+            return "#F5BC00"; // Yellow for Pending
+          case 1:
+            return "#D4C3A7"; // Black for On The Way
+          case 2:
+            return "#5D87FF"; // Blue for Working
+          case 3:
+            return "#13DEB9"; // Green for Completed
+          default:
+            return "#d9d9d9"; // Gray for Unknown
+        }
+      };
+
+      const getTaskStatusText = (status) => {
+        switch (status) {
+          case 0:
+            return "Pending";
+          case 1:
+            return "On The Way";
+          case 2:
+            return "Working";
+          case 3:
+            return "Completed";
+          default:
+            return "Unknown";
+        }
+      };
+
+      return (
+        <Tag
+          color={getTaskStatusTagColor(status)}
+          style={{
+            fontSize: "12px",
+            padding: "2px 2px",
+            borderRadius: "10px",
+            textAlign: "center",
+            width: "100px",
+            color: "white",
+          }}
+        >
+          {getTaskStatusText(status)}
+        </Tag>
+      );
+    },
+    sorter: (a, b) => a.status - b.status, // Sort numerically by status
+  },
+  {
+    title: "Created At", 
+    dataIndex: "time_stamp", // 'time_stamp' from the SQL query
+    key: "created_at",
+    width: 130,
+    sorter: (a, b) => new Date(a.time_stamp) - new Date(b.time_stamp), // Sort by date
+  },
+  {
+    title: "Service Date",
+    dataIndex: "service_date", // 'service_date' from the SQL query
+    key: "service_date",
+    width: 140,
+    sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
+  },
+];
+
+export const feedbackColumn = [
+  {
+    title: "Team Name",
+    dataIndex: "team_name",
+    key: "team_name",
+    render: (row) => <span className="text-sm font-medium">{row}</span>,
+    sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
+    width: 130,
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+    render: (row) => <span>{row}</span>,
+    sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
+  },
+  {
+    title: "Number",
+    dataIndex: "number",
+    key: "number",
+    sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
+  },
+  {
+    title: "Rating",
+    dataIndex: "rating",
+    key: "rating",
+    width: 100,
+    render: (rating) => {
+      const getRatingColor = (rating) => {
+        if (rating >= 4) return "#13DEB9"; // Green for good rating
+        if (rating === 3) return "#F5BC00"; // Yellow for average rating
+        return "#F56C6C"; // Red for poor rating
+      };
+
+      return (
+        <Tag
+          color={getRatingColor(rating)}
+          style={{
+            fontSize: "12px",
+            padding: "2px 2px",
+            borderRadius: "10px",
+            textAlign: "center",
+            width: "80px",
+            color: "white",
+          }}
+        >
+          {rating}
+        </Tag>
+      );
+    },
+    sorter: (a, b) => a.rating - b.rating, // Sort numerically by rating
+  },
+  {
+    title: "Service Date",
+    dataIndex: "service_date",
+    key: "service_date",
+    width: 140,
+    sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
+    render: (date) => {
+      return new Date(date).toLocaleDateString(); // Format date
+    },
+  },
+  {
+    title: "Created At",
+    dataIndex: "created_in_feedback", // Renamed as 'created_in_feedback' from the SQL query
+    key: "created_in_feedback",
+    width: 150,
+    sorter: (a, b) => new Date(a.created_in_feedback) - new Date(b.created_in_feedback), // Sort by date
+    render: (date) => {
+      return new Date(date).toLocaleDateString(); // Format date
+    },
+  },
+];

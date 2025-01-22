@@ -8,6 +8,8 @@ import UpcomingTasks from './pages/upcoming-tasks/UpcomingTasks'
 import MissedTasks from './pages/missed-tasks/MissedTasks'
 import Users from './pages/users/Users'
 import { Route, Routes } from 'react-router'
+import LiveTracking from './pages/live-tracking/LiveTracking'
+import Feedbacks from './pages/feedbacks/Feedbacks'
 
 const Routing = React.memo(() => {
   return (
@@ -21,6 +23,8 @@ const Routing = React.memo(() => {
             <Route path="/upcoming-task" element={<UpcomingTasks />} />
             <Route path="/missed-task" element={<MissedTasks />} />
             <Route path="/user" element={<Users />} />
+            <Route path="/liveTracking" element={<LiveTracking />} />
+            <Route path="/feedback" element={<Feedbacks />} />
           </Routes>
       </div>
   )
