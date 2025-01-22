@@ -79,7 +79,7 @@ router.use("/selectteams",selectteams);
 
 router.use("/selectupcomingtasks",selectupcomingtasks);
 router.use("/deletetupcomingasks",deleteupcomingtasks);
-router.use("updateupcomingtasks",updateupcomingtasks);
+router.use("/updateupcomingtasks",updateupcomingtasks);
 
 router.use("/selecttasks",selecttasks);
 
