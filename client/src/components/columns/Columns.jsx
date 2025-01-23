@@ -598,7 +598,7 @@ export const upcommingTaskColumn = [
           color: "white",
         }}
       >
-         {response === 2 ? "YES": response === 1? "NO" : "Pending"}
+         {response === 2 ? "NO": response === 1? "YES" : "Pending"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
@@ -715,7 +715,7 @@ export const missedTaskColumn = [
           color: "white",
         }}
       >
-         {response === 2 ? "YES": response === 1? "NO" : "Pending"}
+         {response === 2 ? "NO": response === 1? "YES" : "Pending"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)

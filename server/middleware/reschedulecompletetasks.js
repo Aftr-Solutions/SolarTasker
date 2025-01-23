@@ -158,12 +158,12 @@ const processTasks = async (pool) => {
 
         const updateClientQuery = `
           UPDATE ${tableName.clients}
-          SET upcoming_service_date = ?
+          SET upcoming_service_date = ? , last_service_date = ?
           WHERE id = ?;
         `;
         await performQuery({
           sql: updateClientQuery,
-          params: [nextServiceDate, client_id],
+          params: [nextServiceDate, service_date, client_id],
           pool,
         });
         logger.info(`Client ${client_id} updated with new service date: ${nextServiceDate}`);

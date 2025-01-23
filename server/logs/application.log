@@ -1286,3 +1286,122 @@
 2025-01-21 17:13:47 [INFO]: Database connection successful
 2025-01-21 17:16:27 [INFO]: Server is running on: localhost:, 5002
 2025-01-21 17:16:28 [INFO]: Database connection successful
+2025-01-23 10:15:31 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 10:15:32 [INFO]: Database connection successful
+2025-01-23 10:17:36 [INFO]: Successfully fetched tasks:
+2025-01-23 10:17:36 [INFO]: Successfully fetched tasks:
+2025-01-23 10:17:37 [INFO]: Successfully fetched tasks:
+2025-01-23 10:17:37 [INFO]: Successfully fetched tasks:
+2025-01-23 10:20:10 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 10:20:11 [INFO]: Database connection successful
+2025-01-23 10:31:03 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 10:31:03 [INFO]: Database connection successful
+2025-01-23 11:28:53 [INFO]: Successfully fetched tasks:
+2025-01-23 11:28:53 [INFO]: Successfully fetched tasks:
+2025-01-23 11:32:26 [INFO]: Successfully retasked missed task:
+2025-01-23 11:32:27 [INFO]: Successfully fetched tasks:
+2025-01-23 11:33:36 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:33:36 [INFO]: Database connection successful
+2025-01-23 11:36:21 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:36:22 [INFO]: Database connection successful
+2025-01-23 11:37:09 [INFO]: Successfully fetched tasks:
+2025-01-23 11:37:09 [INFO]: Successfully fetched tasks:
+2025-01-23 11:37:10 [INFO]: Successfully fetched tasks:
+2025-01-23 11:37:10 [INFO]: Successfully fetched tasks:
+2025-01-23 11:37:25 [INFO]: Successfully retasked missed task:", [object Object]
+2025-01-23 11:37:26 [INFO]: Successfully fetched tasks:
+2025-01-23 11:40:21 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:40:22 [INFO]: Database connection successful
+2025-01-23 11:41:39 [INFO]: Successfully fetched tasks:
+2025-01-23 11:41:40 [INFO]: Successfully fetched tasks:
+2025-01-23 11:41:40 [INFO]: Successfully fetched tasks:
+2025-01-23 11:41:41 [INFO]: Successfully fetched tasks:
+2025-01-23 11:44:02 [INFO]: Error in fetching records from feedbacks Unknown column 'ta.client' in 'on clause'
+2025-01-23 11:45:25 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:45:26 [INFO]: Database connection successful
+2025-01-23 11:45:29 [INFO]: Successfully retasked missed task:
+2025-01-23 11:45:30 [INFO]: Successfully fetched tasks:
+2025-01-23 11:53:10 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:53:11 [INFO]: Database connection successful
+2025-01-23 11:53:29 [INFO]: Successfully retasked missed task:
+2025-01-23 11:53:30 [INFO]: Successfully fetched tasks:
+2025-01-23 11:56:48 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:56:49 [INFO]: Database connection successful
+2025-01-23 11:57:18 [ERROR]: Error while executing insert query:, insertErr
+2025-01-23 11:58:19 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:58:19 [INFO]: Database connection successful
+2025-01-23 11:58:32 [ERROR]: Error while executing insert query:, insertErr
+2025-01-23 11:58:48 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 11:58:48 [INFO]: Database connection successful
+2025-01-23 11:58:53 [INFO]: Successfully retasked missed task:
+2025-01-23 11:58:54 [INFO]: Successfully fetched tasks:
+2025-01-23 12:12:51 [INFO]: Error in fetching records from feedbacks Unknown column 'ta.client' in 'on clause'
+2025-01-23 12:22:40 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:22:41 [INFO]: Database connection successful
+2025-01-23 12:27:19 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:27:20 [INFO]: Database connection successful
+2025-01-23 12:27:34 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:27:35 [INFO]: Database connection successful
+2025-01-23 12:28:42 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:28:43 [INFO]: Database connection successful
+2025-01-23 12:28:50 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:28:51 [INFO]: Database connection successful
+2025-01-23 12:29:02 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:29:03 [INFO]: Database connection successful
+2025-01-23 12:31:24 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:31:25 [INFO]: Database connection successful
+2025-01-23 12:35:14 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:35:15 [INFO]: Database connection successful
+2025-01-23 12:36:45 [INFO]: Successfully fetched tasks:
+2025-01-23 12:36:45 [INFO]: Successfully fetched tasks:
+2025-01-23 12:36:45 [INFO]: Successfully fetched tasks:
+2025-01-23 12:36:45 [INFO]: Successfully fetched tasks:
+2025-01-23 12:38:44 [INFO]: Successfully fetched tasks:
+2025-01-23 12:38:45 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:14 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:15 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:18 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:18 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:22 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:22 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:22 [INFO]: Successfully fetched tasks:
+2025-01-23 12:39:22 [INFO]: Successfully fetched tasks:
+2025-01-23 12:41:46 [INFO]: Successfully fetched tasks:
+2025-01-23 12:41:46 [INFO]: Successfully fetched tasks:
+2025-01-23 12:41:46 [INFO]: Successfully fetched tasks:
+2025-01-23 12:41:46 [INFO]: Successfully fetched tasks:
+2025-01-23 12:43:56 [INFO]: Successfully fetched tasks:
+2025-01-23 12:43:57 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:08 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:08 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:09 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:09 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:29 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:29 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:29 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:29 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:34 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:34 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:35 [INFO]: Successfully fetched tasks:
+2025-01-23 12:44:35 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:12 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:48:13 [INFO]: Database connection successful
+2025-01-23 12:48:32 [INFO]: Successfully fetched records from tracking.
+2025-01-23 12:48:45 [INFO]: Successfully fetched records from tracking.
+2025-01-23 12:48:46 [INFO]: Successfully fetched records from tracking.
+2025-01-23 12:48:55 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:55 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:56 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:56 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:56 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:57 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:57 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:57 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:58 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:58 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:58 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:59 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:59 [INFO]: Successfully fetched tasks:
+2025-01-23 12:48:59 [INFO]: Successfully fetched tasks:
+2025-01-23 12:51:38 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 12:51:39 [INFO]: Database connection successful

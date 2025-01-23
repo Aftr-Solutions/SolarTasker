@@ -40,6 +40,7 @@ const deletemissedtasks=require("../Apis/MIssedTasks/Delete.js");
 const updatemissedtasks=require("../Apis/MIssedTasks/Update.js");
 
 const selectfeedbacks=require("../Apis/Feedback/Select.js");
+const selectlivetracking=require("../Apis/LiveTracking/Select.js");
 
 const whatsappallresponse = require("../middleware/whatsappallresponse.js"); // Adjust the path as needed
 
@@ -88,6 +89,7 @@ router.use("/deletetmissedtasks",deletemissedtasks);
 router.use("/updatetmissedtasks",updatemissedtasks);
 
 router.use("/selectfeedbacks",selectfeedbacks);
+router.use("/selectlivetracking",selectlivetracking);
 
 router.use("/logs",logs);
 

@@ -48,8 +48,8 @@ const missedTaskFields = [
 // for response field
 const response = [
   { id: "0", name: "Pending" },
-  { id: 1, name: "No" },
-  { id: 2, name: "Yes" },
+  { id: 1, name: "Yes" },
+  { id: 2, name: "No" },
 ];
 
 // for taskStatus field

@@ -7,7 +7,7 @@ export const fetchLiveTrackings = createAsyncThunk(
   "liveTracking/fetchLiveTrackings",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await userRequest.get("selectfeedbacks");
+      const response = await userRequest.get("selectlivetracking");
       return response.data.payload;
     } catch (error) {
       return rejectWithValue("Error occurred while fetching live trackings");
