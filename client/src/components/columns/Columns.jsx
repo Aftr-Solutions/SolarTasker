@@ -57,11 +57,11 @@ const getPlanTagColor = (plan) => {
 const getResponseTagColor = (response) => {
   switch (response) {
     case 2:
-      return " #F9886A"; // RED-like color 
+      return " #F9886A"; // RED-like color
     case 1:
       return "#13DEB9"; // Delivered-like color   #13DEB9
-    case 0: 
-    return "#F5BC00"
+    case 0:
+      return "#F5BC00";
     default:
       return "default"; // Default color for undefined plans
   }
@@ -151,7 +151,7 @@ export const clientColumns = [
           color: "white",
         }}
       >
-        {plan === 0 ? "Basic" : plan === 1? "Premium" : ""}
+        {plan === 0 ? "Basic" : plan === 1 ? "Premium" : ""}
       </Tag>
     ),
   },
@@ -480,7 +480,7 @@ export const taskColumn = [
           color: "white",
         }}
       >
-        {response === 2 ? "NO": response === 1? "YES" : "Pending"}
+        {response === 2 ? "NO" : response === 1 ? "YES" : "Pending"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
@@ -501,8 +501,6 @@ export const taskColumn = [
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
 ];
-
-
 
 export const upcommingTaskColumn = [
   {
@@ -598,7 +596,7 @@ export const upcommingTaskColumn = [
           color: "white",
         }}
       >
-         {response === 2 ? "NO": response === 1? "YES" : "Pending"}
+        {response === 2 ? "NO" : response === 1 ? "YES" : "Pending"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
@@ -619,7 +617,6 @@ export const upcommingTaskColumn = [
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
 ];
-
 
 export const missedTaskColumn = [
   {
@@ -715,7 +712,7 @@ export const missedTaskColumn = [
           color: "white",
         }}
       >
-         {response === 2 ? "NO": response === 1? "YES" : "Pending"}
+        {response === 2 ? "NO" : response === 1 ? "YES" : "Pending"}
       </Tag>
     ),
     sorter: (a, b) => a.response - b.response, // Sort numerically (0 or 1)
@@ -741,7 +738,8 @@ export const missedTaskColumn = [
     dataIndex: "last_service_date",
     key: "last_service_date",
     width: 180,
-    sorter: (a, b) => new Date(a.last_service_date) - new Date(b.last_service_date), // Sort by date
+    sorter: (a, b) =>
+      new Date(a.last_service_date) - new Date(b.last_service_date), // Sort by date
   },
 
   {
@@ -749,10 +747,10 @@ export const missedTaskColumn = [
     dataIndex: "upcoming_service_date",
     key: "upcoming_service_date",
     width: 220,
-    sorter: (a, b) => new Date(a.upcoming_service_date) - new Date(b.upcoming_service_date), // Sort by date
+    sorter: (a, b) =>
+      new Date(a.upcoming_service_date) - new Date(b.upcoming_service_date), // Sort by date
   },
 ];
-
 
 export const liveTrackingColumn = [
   {
@@ -767,6 +765,7 @@ export const liveTrackingColumn = [
     title: "Name",
     dataIndex: "name",
     key: "name",
+    width: 150,
     render: (row) => <span>{row}</span>,
     sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
   },
@@ -774,13 +773,14 @@ export const liveTrackingColumn = [
     title: "Number",
     dataIndex: "number",
     key: "number",
+    width: 130,
     sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
   },
   {
     title: "Task Status",
     dataIndex: "status", // 'status' comes from the SQL query
-    key: "task_status",
-    width: 130,
+    key: "status",
+    width: 180,
     render: (status) => {
       const getTaskStatusTagColor = (status) => {
         switch (status) {
@@ -831,17 +831,19 @@ export const liveTrackingColumn = [
     sorter: (a, b) => a.status - b.status, // Sort numerically by status
   },
   {
-    title: "Created At", 
+    title: "Created At",
     dataIndex: "time_stamp", // 'time_stamp' from the SQL query
     key: "created_at",
-    width: 130,
+    // width: 200,
+    maxWidth: 220,
     sorter: (a, b) => new Date(a.time_stamp) - new Date(b.time_stamp), // Sort by date
   },
   {
     title: "Service Date",
     dataIndex: "service_date", // 'service_date' from the SQL query
     key: "service_date",
-    width: 140,
+    // width: 200,
+    maxWidth: 220,
     sorter: (a, b) => new Date(a.service_date) - new Date(b.service_date), // Sort by date
   },
 ];
@@ -913,7 +915,8 @@ export const feedbackColumn = [
     dataIndex: "created_in_feedback", // Renamed as 'created_in_feedback' from the SQL query
     key: "created_in_feedback",
     width: 150,
-    sorter: (a, b) => new Date(a.created_in_feedback) - new Date(b.created_in_feedback), // Sort by date
+    sorter: (a, b) =>
+      new Date(a.created_in_feedback) - new Date(b.created_in_feedback), // Sort by date
     render: (date) => {
       return new Date(date).toLocaleDateString(); // Format date
     },
