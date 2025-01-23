@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
   try {
     const getQuery = `
       SELECT 
+        tk.id,
         c.name, 
         c.number, 
         tm.team_name, 

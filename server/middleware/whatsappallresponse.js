@@ -225,7 +225,7 @@ router.post("/", async (req, res) => {
             const buttonResponse = message.button?.text; // 'Yes' or 'No'
             const from = message.from; // Client's phone number
             let client_res = null;
-  
+            
             if (buttonResponse === "Yes") {
               logger.info(`Client ${from} agreed to the service.`);
               client_res = 1;
@@ -287,12 +287,12 @@ router.post("/", async (req, res) => {
             // Handle team actions
             if (["On the way", "Start working", "Completed"].includes(buttonTitle)) {
               teamRes = ["On the way", "Start working", "Completed"].indexOf(buttonTitle) + 1;
-  
+            
               // Fetch team details
               const teamQuery = `
                 SELECT t.id AS team_id, t.team_name AS name 
                 FROM ${tableName.team} t 
-                INNER JOIN ${tableName.workers} w ON t.member1 = w.id 
+                INNER JOIN ${tableName.workers} w ON t.member1_id = w.id 
                 WHERE w.number = ?;
               `;
               const teamResults = await performQuery({

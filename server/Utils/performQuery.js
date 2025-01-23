@@ -46,6 +46,7 @@ async function performQuery({ sql, params, pool, retries = 3 }) {
         attempt++;
         await new Promise(res => setTimeout(res, 1000 * attempt)); // Exponential backoff
       } else {
+        logger.error(`Error in perform query function, ${error.message}`);
         throw error;
       }
     } finally {

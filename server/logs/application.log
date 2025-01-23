@@ -1405,3 +1405,108 @@
 2025-01-23 12:48:59 [INFO]: Successfully fetched tasks:
 2025-01-23 12:51:38 [INFO]: Server is running on: localhost:, 5002
 2025-01-23 12:51:39 [INFO]: Database connection successful
+2025-01-23 14:37:25 [INFO]: Successfully fetched tasks:
+2025-01-23 14:37:25 [INFO]: Successfully fetched tasks:
+2025-01-23 14:37:26 [INFO]: Successfully fetched tasks:
+2025-01-23 14:37:26 [INFO]: Successfully fetched tasks:
+2025-01-23 14:39:27 [INFO]: Successfully fetched records from tracking.
+2025-01-23 14:39:28 [INFO]: Successfully fetched records from tracking.
+2025-01-23 14:39:29 [INFO]: Successfully fetched records from tracking.
+2025-01-23 14:39:30 [INFO]: Successfully fetched records from tracking.
+2025-01-23 14:39:31 [INFO]: Successfully fetched tasks:
+2025-01-23 14:39:31 [INFO]: Successfully fetched tasks:
+2025-01-23 14:39:32 [INFO]: Successfully fetched tasks:
+2025-01-23 14:39:32 [INFO]: Successfully fetched tasks:
+2025-01-23 14:40:01 [INFO]: Successfully fetched tasks:
+2025-01-23 14:40:01 [INFO]: Successfully fetched tasks:
+2025-01-23 14:53:16 [INFO]: Webhook received data:
+2025-01-23 14:53:16 [INFO]: Button response from 923353693809: On the way
+2025-01-23 14:53:17 [ERROR]: Error processing webhook data:
+2025-01-23 15:41:34 [INFO]: Webhook received data:
+2025-01-23 15:41:34 [INFO]: Button response from 923353693809: On the way
+2025-01-23 15:42:17 [WARN]: ECONNRESET encountered. Retrying... (1/3)
+2025-01-23 15:42:19 [ERROR]: Error processing webhook data:
+2025-01-23 15:45:27 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 15:45:28 [INFO]: Database connection successful
+2025-01-23 15:45:31 [INFO]: Webhook received data:
+2025-01-23 15:45:31 [INFO]: Button response from 923353693809: On the way
+2025-01-23 15:45:31 [INFO]: in team response ",On the way,1
+2025-01-23 15:45:32 [ERROR]: Error processing webhook data:
+2025-01-23 15:46:40 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 15:46:41 [INFO]: Database connection successful
+2025-01-23 15:46:47 [INFO]: Successfully fetched tasks:
+2025-01-23 15:46:48 [INFO]: Successfully fetched tasks:
+2025-01-23 15:51:23 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 15:51:24 [INFO]: Database connection successful
+2025-01-23 15:51:31 [INFO]: Webhook received data:
+2025-01-23 15:51:31 [INFO]: Button response from 923353693809: On the way
+2025-01-23 15:51:31 [INFO]: in team response ",On the way,1
+2025-01-23 15:51:32 [WARN]: No team found for phone number: 923353693809
+2025-01-23 15:53:27 [INFO]: Webhook received data:
+2025-01-23 15:53:27 [INFO]: Button response from 923353693809: On the way
+2025-01-23 15:53:27 [INFO]: in team response ",On the way,1
+2025-01-23 15:53:27 [WARN]: No team found for phone number: 923353693809
+2025-01-23 15:54:02 [INFO]: Webhook received data:
+2025-01-23 15:54:02 [INFO]: Button response from 923353693809: On the way
+2025-01-23 15:54:02 [INFO]: in team response ",On the way,1
+2025-01-23 15:54:02 [INFO]: Found team Narcos with ID: 1
+2025-01-23 15:54:03 [WARN]: No task found for team ID 1 and client number 03343177400.
+2025-01-23 15:54:03 [INFO]: Updated task response for client 03343177400 with task status 1
+2025-01-23 15:54:04 [INFO]: Message sent to 03343177400. Response status: 200
+2025-01-23 16:01:24 [INFO]: Webhook received data:
+2025-01-23 16:01:24 [INFO]: Button response from 923353693809: On the way
+2025-01-23 16:01:24 [INFO]: in team response ",On the way,1
+2025-01-23 16:01:24 [INFO]: Found team Narcos with ID: 1
+2025-01-23 16:01:25 [WARN]: No task found for team ID 1 and client number 03343177400.
+2025-01-23 16:01:25 [INFO]: Updated task response for client 03343177400 with task status 1
+2025-01-23 16:01:26 [INFO]: Message sent to 03343177400. Response status: 200
+2025-01-23 16:03:31 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:03:32 [INFO]: Database connection successful
+2025-01-23 16:05:33 [INFO]: Today: 2025-01-23
+2025-01-23 16:05:33 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:05:34 [INFO]: Database connection successful
+2025-01-23 16:05:34 [INFO]: No clients with today services.
+2025-01-23 16:06:06 [INFO]: Today: 2025-01-23
+2025-01-23 16:06:06 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:06:07 [INFO]: Database connection successful
+2025-01-23 16:06:07 [INFO]: No clients with today services.
+2025-01-23 16:06:49 [INFO]: Today: 2025-01-23
+2025-01-23 16:06:49 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:06:50 [INFO]: Database connection successful
+2025-01-23 16:06:50 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-23 16:06:50 [INFO]: Unique Team IDs: 1
+2025-01-23 16:06:50 [INFO]: Query parameters: 1
+2025-01-23 16:06:50 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-23 16:06:51 [INFO]: Message sent to Ahmed for client John Doe Chnange
+2025-01-23 16:07:59 [INFO]: Today: 2025-01-23
+2025-01-23 16:07:59 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:08:00 [INFO]: Database connection successful
+2025-01-23 16:08:00 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-23 16:08:00 [INFO]: Unique Team IDs: 1
+2025-01-23 16:08:00 [INFO]: Query parameters: 1
+2025-01-23 16:08:01 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-23 16:08:01 [INFO]: Message sent to Ahmed for client Hamza khan
+2025-01-23 16:10:30 [INFO]: Today: 2025-01-23
+2025-01-23 16:10:30 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:10:31 [INFO]: Database connection successful
+2025-01-23 16:10:31 [INFO]: Found 1 clients with services today. Extracting unique team IDs...
+2025-01-23 16:10:31 [INFO]: Unique Team IDs: 1
+2025-01-23 16:10:31 [INFO]: Query parameters: 1
+2025-01-23 16:10:32 [INFO]: Found 1 team members. Proceeding with message sending.
+2025-01-23 16:10:33 [INFO]: Message sent to Ahmed for client Hamza khan
+2025-01-23 16:10:37 [INFO]: Server is running on: localhost:, 5002
+2025-01-23 16:10:38 [INFO]: Database connection successful
+2025-01-23 16:11:10 [INFO]: Webhook received data:
+2025-01-23 16:11:10 [INFO]: Button response from 923353693809: On the way
+2025-01-23 16:11:11 [INFO]: Found team Narcos with ID: 1
+2025-01-23 16:11:12 [INFO]: Tracking entry created for task ID 72 with status 1.
+2025-01-23 16:11:12 [INFO]: Updated task response for client 923118366981 with task status 1
+2025-01-23 16:11:13 [INFO]: Message sent to 923118366981. Response status: 200
+2025-01-23 16:12:38 [INFO]: Successfully fetched records from tracking.
+2025-01-23 16:12:38 [INFO]: Successfully fetched records from tracking.
+2025-01-23 16:13:21 [INFO]: Successfully fetched tasks:
+2025-01-23 16:13:22 [INFO]: Successfully fetched tasks:
+2025-01-23 16:13:33 [INFO]: Successfully fetched tasks:
+2025-01-23 16:13:33 [INFO]: Successfully fetched tasks:
+2025-01-23 16:13:33 [INFO]: Successfully fetched tasks:
+2025-01-23 16:13:34 [INFO]: Successfully fetched tasks:
