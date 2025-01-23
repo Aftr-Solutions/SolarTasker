@@ -51,6 +51,7 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
     logger.error("Invalid parameters: clientNumberOrTeamId or name is missing.");
     return;
   }
+
   const payload = {
     messaging_product: "whatsapp",
     to: clientNumberOrTeamId,
@@ -66,35 +67,35 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
           {
             type: "reply",
             reply: {
-              id: `1 - Very Poor ${team_id}`,
+              id: `1 - Very Poor${team_id}`,
               title: "1 - Very Poor",
             },
           },
           {
             type: "reply",
             reply: {
-              id: `2 - Poor ${team_id}`,
+              id: `2 - Poor${team_id}`,
               title: "2 - Poor",
             },
           },
           {
             type: "reply",
             reply: {
-              id: `3 - Average ${team_id}`,
+              id: `3 - Average${team_id}`,
               title: "3 - Average",
             },
           },
           {
             type: "reply",
             reply: {
-              id: `4 - Good ${team_id}`,
+              id: `4 - Good${team_id}`,
               title: "4 - Good",
             },
           },
           {
             type: "reply",
             reply: {
-              id: `5 - Excellent ${team_id}`,
+              id: `5 - Excellent${team_id}`,
               title: "5 - Excellent",
             },
           },
@@ -116,7 +117,7 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
     );
   } catch (error) {
     logger.error(
-      `Error sending message to ${clientNumberOrTeamId}: ${error.response?.data || error.message}`
+      `Error sending message to ${clientNumberOrTeamId}: ${error.response?.data} || ${error.message}`
     );
   }
 }
