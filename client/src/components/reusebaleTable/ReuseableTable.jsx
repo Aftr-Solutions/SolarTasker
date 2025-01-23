@@ -139,17 +139,18 @@ const ReusableTable = ({ columns, data, paginationConfig }) => {
             render: (_, record) => (
               <div className="flex space-x-3">
                 {/* View Action */}
-                <Tooltip title="Edit">
-                  <button
-                    onClick={() => handleEdit(record)}
-                    className="flex items-center justify-center two-icons w-10 h-10 rounded-full transition duration-300 hover:bg-[#13DEB9] hover:text-white"
-                  >
-                    <DriveFileRenameOutlineRoundedIcon
-                      className="icons"
-                      style={{ fontSize: "20px", color: "#13DEB9" }}
-                    />
-                  </button>
-                </Tooltip>
+                  <Tooltip title="Edit">
+                    <button
+                      onClick={() => handleEdit(record)}
+                      disabled={record?.re_task_done}
+                      className={"flex items-center justify-center two-icons w-10 h-10 rounded-full transition duration-300 hover:bg-[#13DEB9] hover:text-white"}
+                    >
+                      <DriveFileRenameOutlineRoundedIcon
+                        className="icons"
+                        style={{ fontSize: "20px", color: "#13DEB9" }}
+                      />
+                    </button>
+                  </Tooltip>
 
                 {/* Delete Action */}
                 <Tooltip title="Delete">

@@ -80,8 +80,8 @@ const UpdateForm = ({
     service_date: "",
   });
 
-  console.log(field);
-  
+  // console.log(field);
+
   // state to show loader on submit button after submit clicked
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -112,13 +112,13 @@ const UpdateForm = ({
         client_id: field.client_id,
         // name: field.name,
         number: field.number,
-        service_date: field.service_date?.format("MM/DD/YYYY"),
+        service_date: field.service_date?.format("DD/MM/YYYY"),
       };
       response = await dispatch(updateMissedTask(missedTaskData)); // for missed task
       module = "Missed Task";
     }
-    console.log(response);
-    
+    // console.log(response);
+
     if (response.payload.success) {
       if (path === "/upcoming-task") {
         await dispatch(fetchUpcommingTasks()); // for upcomming task
@@ -177,7 +177,7 @@ const UpdateForm = ({
         // name: editRecord?.name || "",
         number: Number(editRecord?.number) || "",
         service_date: editRecord?.service_date
-          ? dayjs(editRecord?.service_date)
+        ? dayjs(editRecord?.service_date, "DD/MM/YYYY") // Parse as DD/MM/YYYY
           : null, // Handle null or undefined
       });
     }
@@ -209,6 +209,7 @@ const UpdateForm = ({
                   name={name}
                   label={label}
                   variant="outlined"
+                  inputFormat="DD/MM/YY" // Specify the desired format
                   value={field[name] || null} // Ensure it's a dayjs object or null
                   onChange={(e) =>
                     handleInputChange({ target: { name, value: e } })
