@@ -40,7 +40,7 @@ const missedTaskFields = [
   { name: "team_id", label: "Team", type: "select" },
   { name: "response", label: "Response", type: "select" },
   { name: "task_status", label: "Task Status", type: "select" },
-  { name: "name", label: "Name", type: "input" },
+  // { name: "name", label: "Name", type: "input" },
   { name: "number", label: "Number", type: "input" },
   { name: "service_date", label: "Service Date", type: "date" },
 ];
@@ -75,11 +75,13 @@ const UpdateForm = ({
     team_id: "",
     response: "",
     task_status: "",
-    name: "",
+    // name: "",
     number: "",
     service_date: "",
   });
 
+  console.log(field);
+  
   // state to show loader on submit button after submit clicked
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -108,7 +110,7 @@ const UpdateForm = ({
       const missedTaskData = {
         ...upcommingTaskData,
         client_id: field.client_id,
-        name: field.name,
+        // name: field.name,
         number: field.number,
         service_date: field.service_date?.format("MM/DD/YYYY"),
       };
@@ -172,7 +174,7 @@ const UpdateForm = ({
         team_id: editRecord?.team_id,
         response: editRecord?.response || "0",
         task_status: editRecord?.task_status || "0",
-        name: editRecord?.name || "",
+        // name: editRecord?.name || "",
         number: Number(editRecord?.number) || "",
         service_date: editRecord?.service_date
           ? dayjs(editRecord?.service_date)
