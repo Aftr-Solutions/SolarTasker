@@ -7,6 +7,8 @@ import workerReducer from "./ActionReducers/workerReducer";
 import taskReducer from "./ActionReducers/taskReducer";
 import upcommingTaskReducer from './ActionReducers/upcommingTaskReducer'
 import missedTasksReducer from './ActionReducers/missedTasksReducer'
+import liveTrackingReducer from "./ActionReducers/liveTrackingReducer";
+import feedbackReducer from "./ActionReducers/feedbackReducer";
 
 
 export const store = configureStore({
@@ -22,5 +24,7 @@ export const store = configureStore({
     task: taskReducer,
     upcommingTask: upcommingTaskReducer,
     missedTask: missedTasksReducer,
+    liveTracking:liveTrackingReducer,
+    feedback:feedbackReducer,
   },
 });

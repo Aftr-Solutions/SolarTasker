@@ -12,6 +12,7 @@ import WorkerForm from "../createForm/WorkerForm";
 import TeamForm from "../createForm/TeamForm";
 import UserForm from "../createForm/UserForm";
 import ClientForm from "../createForm/ClientForm";
+import UpdateForm from "../createForm/UpdateForm";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -103,6 +104,14 @@ export default function CreateDialog({
                 setClose={setClose}
                 handleDialogClose={handleDialogClose}
                 editRecord={record} // row data for edit
+              />
+            ) : path === "/upcoming-task" || path === "/missed-task" ? (
+              <UpdateForm
+                close={close}
+                setClose={setClose}
+                handleDialogClose={handleDialogClose}
+                editRecord={record} // row data for edit
+                path={path} // send path to diffrentiate
               />
             ) : null}
           </DialogContent>

@@ -92,6 +92,10 @@ body {
 .MuiOutlinedInput-notchedOutline {
   border-radius: 10px !important;
 }
+/* select list in select field */
+.MuiMenu-list{
+  max-height: 260px !important;
+}
 .MuiInputBase-input {
   padding: 10px 14px !important;
 }

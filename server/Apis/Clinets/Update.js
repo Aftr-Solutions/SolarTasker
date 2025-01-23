@@ -7,7 +7,7 @@ const logger = require("../../logger");
 
 
 router.post("/",(req,res)=>{
-    if (!req.body.id||!req.body.name || !req.body.email || !req.body.number || !req.body.address || !req.body.plan || !req.body.area_region_id || !req.body.service_plan_duration){
+    if (!req.body.id||!req.body.name || !req.body.email || !req.body.number || !req.body.address || !req.body.area_region_id || !req.body.service_plan_duration){
         return res.status(400).send(RESPONSE(false,"Please Fill All Fields",{}));
     }
     let payload={
