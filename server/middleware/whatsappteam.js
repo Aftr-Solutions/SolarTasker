@@ -3,10 +3,12 @@ const tableName = require("../Utils/allTableNames");
 const logger = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
+const dotenv = require("dotenv");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BO2a9vtZBBCsKXyQ94jNM6bBvjOVxHGhSQwLkYHSElxJRtZA1UcCvPkpq2WacH259ziUz5TqLDkwsk7esA3JAFZCYKZAwvf2vqbOGmYnYbgp27Gu4ECUlN2GIjfVBMdxcVGBOIr6tVXXJaKV5cCnomsYyP9OspgHZBIqquSM8ZB2fcvebV44KlFxsPqZBaW08C4sDhP75M58PGcD0iQnjwFGlMUWTJZByfUwZCu5H4OCMZD";
-//const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
-const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
+dotenv.config();
+
+const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
+const API_URL = process.env.WHATSAPP_API_URL;
 
 const sendMessagetoteams = async (pool) => {
   try {
@@ -176,14 +178,14 @@ const sendMessagetoteams = async (pool) => {
           logger.info(`Message sent to ${teamInfo.team_lead} for client ${client.client_name}`);
         } catch (error) {
           logger.error(
-            `Error sending message to ${teamInfo.team_lead} for client ${client.client_name}:`,
-            error.response?.data || error.message
+            `Error sending message to ${teamInfo.team_lead} for client ${client.client_name}:,
+            ${error.response?.data || error.message}`
           );
         }
       }
     }
   } catch (error) {
-    logger.error("Error in WhatsApp message send cron job:", error.message);
+    logger.error(`Error in WhatsApp message send cron job:", ${error.message}`);
   }
 };
 

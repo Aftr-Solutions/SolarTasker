@@ -5,10 +5,12 @@ const cronpool = require("../Utils/crondb");
 const logger = require("../logger");
 const { performQuery } = require("../Utils/performQuery");
 const axios = require("axios");
+const dotenv = require("dotenv");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BO2a9vtZBBCsKXyQ94jNM6bBvjOVxHGhSQwLkYHSElxJRtZA1UcCvPkpq2WacH259ziUz5TqLDkwsk7esA3JAFZCYKZAwvf2vqbOGmYnYbgp27Gu4ECUlN2GIjfVBMdxcVGBOIr6tVXXJaKV5cCnomsYyP9OspgHZBIqquSM8ZB2fcvebV44KlFxsPqZBaW08C4sDhP75M58PGcD0iQnjwFGlMUWTJZByfUwZCu5H4OCMZD";
-//const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
-const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
+dotenv.config();
+
+const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
+const API_URL = process.env.WHATSAPP_API_URL;
 
 async function sendmessageOfcoming(clientNumberOrTeamId, name) {
   if (!clientNumberOrTeamId || !name) {
@@ -262,7 +264,7 @@ router.post("/", async (req, res) => {
 
 // Verification endpoint for webhook
 router.get("/", (req, res) => {
-  const VERIFY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJBZG1pbk9mU29sYXIiLCJlbWFpbCI6ImFiZHVscmFmYXlhdHBha0BnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODg0NDQsImV4cCI6MTczNzI0ODQ0NH0.H5nAGzVu3Kc--og_MDZJYlYfH0id7a3df7oO8yNt4zU"; // Replace with your verification token
+  const VERIFY_TOKEN = process.env.WHATSAPP_RESPONSE_TOKEN; // Replace with your verification token
 
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];

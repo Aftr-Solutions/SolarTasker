@@ -1,5 +1,5 @@
 const pool = require("../Utils/db.js");
-const reponse = require("../GlobalResponse/RESPONSE");
+const response = require("../GlobalResponse/RESPONSE");
 const logger = require("../logger");
 
 
@@ -11,7 +11,7 @@ const GlobalUpdate = (payload, res) => {
     pool.getConnection(async (err, connection) => {
       if (err) {
         // // logger.info("eror while creating connection", err);
-        return res.send(reponse(false, "database error", {}));
+        return res.status(500).send(response(false, "Error While Connecting With Database", {}));
       }
       let query = `UPDATE ${payload.tableName} SET  ${keys.join(
         " = ? ,"
@@ -22,16 +22,16 @@ const GlobalUpdate = (payload, res) => {
 
         if (err) {
           // // logger.info(err);
-          return res.status(400).send(reponse(false, `error while updating in ${payload.tableName}`, err));
+          return res.status(500).send(response(false, `Error While Updating Data In ${payload.table}`, err));
         } else {
           return res
             .status(200)
-            .send(reponse(true, `succesfully updated in ${payload.tableName}`, result));
+            .send(response(true, `Data Has Been Successfully Updated In ${payload.table}`, result));
         }
       });
     });
   } catch (err) {
-    return res.send(reponse(false, err.message, err));
+    return res.status(401).send(response(false, err.message, err));
   }
 };
 module.exports = { GlobalUpdate };

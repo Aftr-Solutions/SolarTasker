@@ -11,8 +11,8 @@ router.get("/", (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) {
         // Log the error and send a proper response
-        logger.error("Error while creating database connection:", err);
-        return res.send(RESPONSE(false, "Database connection error", {}));
+        logger.error("Error While Creating Database Connection:", err);
+        return res.status(500).send(RESPONSE(false, "Database connection error", {}));
       }
 
       const query = `
@@ -42,7 +42,7 @@ router.get("/", (req, res) => {
         if (err) {
           // Log the error and send a proper response
           logger.error("Error while executing query:", err);
-          return res.send(RESPONSE(false, "Error while selecting data from Tasks", err));
+          return res.status(400).send(RESPONSE(false, "Error While Selecting Data From Tasks", err));
         }
 
         // Log the result and send a success response
@@ -54,13 +54,13 @@ router.get("/", (req, res) => {
           item.last_service_date=moment(item.last_service_date).format("DD/MM/YYYY");
         });
 
-        return res.send(RESPONSE(true, "Successfully selected record from Tasks", result));
+        return res.status(200).send(RESPONSE(true, "Successfully Selected Record From Tasks", result));
       });
     });
   } catch (err) {
     // Log any unexpected errors
     logger.error("Unexpected error in route handler:", err);
-    return res.send(RESPONSE(false, err.message, err));
+    return res.status(400).send(RESPONSE(false, err.message, err));
   }
 });
 

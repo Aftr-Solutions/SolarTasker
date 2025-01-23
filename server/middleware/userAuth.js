@@ -3,6 +3,9 @@ const RESPONSE = require("../GlobalResponse/RESPONSE");
 const tableNames = require("../Utils/allTableNames");
 const pool = require("../Utils/db");
 const logger = require("../logger");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 
 module.exports = async (req, res, next) => {
@@ -18,7 +21,7 @@ module.exports = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
 
     // Verify the token
-    const decodedToken = jwt.verify(token,"pksectret");
+    const decodedToken = jwt.verify(token,process.env.SECRET_KEY);
     if (!decodedToken) {
       return res.status(401).json({ message: "Invalid token" });
     }

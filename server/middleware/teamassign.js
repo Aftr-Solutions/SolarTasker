@@ -385,7 +385,7 @@ const assignteam = async (pool) => {
       logger.info("No tasks with upcoming services.");
     }
   } catch (error) {
-    logger.error("Error in assignteam function:", error.message);
+    logger.error(`Error in assignteam function:", ${error.message}`);
   }
 };
 

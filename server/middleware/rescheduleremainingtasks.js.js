@@ -71,6 +71,58 @@ const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
 const moment = require("moment-timezone");
 const logger = require("../logger");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
+const API_URL = process.env.WHATSAPP_API_URL;
+
+async function sendreshulingmessage(client_id,pool){
+  try{
+    const selectQuery=
+    `SELECT name,number,UPCOMING_SERVICE_DATE From 
+    ${tableName.clients} WHERE id = ?;`
+
+    const results=await performQuery({
+      sql:selectQuery,
+      params:[client_id],
+      pool:pool
+    });
+
+    if(results.length>0){
+      logger.info(`Found ${results.length} client to message.`);
+
+      const payload = { 
+        messaging_product: "whatsapp",
+        to: results[0].number, // Recipient's phone number
+        type: "text",
+        text: {
+          body: `Dear ${results[0].name},\n\nYour Service is reshedule to ${results[0].upcoming_service_date}.\n\nFor any updates connect we us.\n\nThank you.\n\nSystem By Abdul Rafay`,
+        },
+      };
+    
+      try {
+        const response = await axios.post(API_URL, payload, {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+        });
+    
+        logger.info(
+          `Message sent to ${client_id} whose name is ${results[0].name}`
+        );
+      } catch (error) {
+        logger.error(
+          `Error sending message to ${client_id} whose name is ${results[0].name}: ${error.response?.data || error.message}`
+        );
+    }
+  }
+  }catch(queryError){
+    logger.error(`Database query error in resheduling messages: ${queryError.message}`);
+  }
+}  
 
 const rescheduling = async (pool) => {
   try {
@@ -126,12 +178,14 @@ const rescheduling = async (pool) => {
           pool,
         });
         logger.info(`Task ${item.id} marked as inactive.`);
+
+        await sendreshulingmessage(item.client_id,pool);
       }
     } else {
       logger.info("No tasks to be rescheduled.");
     }
   } catch (error) {
-    logger.error(`Error in mytask cron job:, error.message, error.stack || error`);
+    logger.error(`Error in mytask cron job:, ${error.message, error.stack || error}`);
   }
 };
 

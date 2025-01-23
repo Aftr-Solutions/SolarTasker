@@ -8,7 +8,7 @@ const GlobalDelete = (payload, res) => {
     pool.getConnection((err, connection) => {
       if (err) {
         // // logger.info("eror while creating connection", err);
-        return res.send(response(false, "database error", {}));
+        return res.status(500).send(response(false, "Error While Connecting With Database", {}));
       }
       connection.query(
         `DELETE FROM ${payload.tableName} WHERE id =${payload.databaseFields.id}`,
@@ -17,17 +17,17 @@ const GlobalDelete = (payload, res) => {
 
           if (err) {
             // // logger.info(err);
-            return res.send(response(false, `error while deleting in ${payload.table}`, err));
+            return res.status(500).send(response(false, `Error While Deleting Data In ${payload.table}`, err));
           } else {
 
             // // // logger.info(result);
-            return res.send(response(true, `succesfully deleted in ${payload.table}`, {}));
+            return res.status(200).send(response(true, `Data Has Been Successfully Deleted From ${payload.table}`, {}));
           }
         }
       );
     });
   } catch (err) {
-    return res.send(response(false, err.message, err));
+    return res.status(401).send(response(false, err.message, err));
   }
 };
 

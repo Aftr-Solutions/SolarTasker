@@ -184,7 +184,7 @@ const processTasks = async (pool) => {
       logger.info("No tasks found for rescheduling.");
     }
   } catch (error) {
-    logger.error("Error in processTasks function:", error.message);
+    logger.error(`Error in processTasks function:, ${error.message}`);
   }
 };
 

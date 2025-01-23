@@ -3,10 +3,12 @@ const tableName = require("../Utils/allTableNames");
 const logger = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
+const dotenv = require("dotenv");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BO2KWhIFcf3zxZA0YTDsTAZCpVil4lv53yKtTqnA5fgmQJUVobqd8NvYDZAPAyR7OvdKWfzoCjrd7SuOwvkKN95Td1lg2ZCZB9WZCLBTznYK7YX1LavYqKhG7pOP2uV8PL4RyEVR6yyh1DdSlIU4x4eePZAkcFLuxuRubOkeBTTai6DSvqmPlhq42PtZAZCQopSyvJrOQoHYrLuaGltYJfJspBkKJ8ZBNIGGODGkZANoZCaEZD";
-//const PHONE_NUMBER_ID = "519207967946235"; // Replace with your WhatsApp Phone Number ID
-const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
+dotenv.config();
+
+const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
+const API_URL = process.env.WHATSAPP_API_URL;
 
 const sendMessage = async (pool) => {
   try {
@@ -33,7 +35,7 @@ const sendMessage = async (pool) => {
       logger.info("No clients with upcoming services n 2 days.");
       return;
     }
-    logger.info("Query Results:", results);
+    logger.info(`Query Results:, ${results}`);
     // Iterate over results and send WhatsApp messages
     for (const item of results) {
       const payload = {
@@ -66,7 +68,7 @@ const sendMessage = async (pool) => {
         });
         logger.info(`Message sent to ${item.name} (${item.number}) successfully.`);
       } catch (error) {
-        logger.error(`Error sending message to ${item.name} (${item.number}):`, error.response?.data || error.message);
+        logger.error(`Error sending message to ${item.name} (${item.number}):, ${error.response?.data || error.message}`);
       }      
     }
   } catch (error) {

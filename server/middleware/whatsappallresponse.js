@@ -6,9 +6,12 @@ const logger = require("../logger");
 const { performQuery } = require("../Utils/performQuery");
 const axios = require("axios");
 const moment=require("moment-timezone");
+const dotenv = require("dotenv");
 
-const ACCESS_TOKEN = "EAAItPCtNug4BO2a9vtZBBCsKXyQ94jNM6bBvjOVxHGhSQwLkYHSElxJRtZA1UcCvPkpq2WacH259ziUz5TqLDkwsk7esA3JAFZCYKZAwvf2vqbOGmYnYbgp27Gu4ECUlN2GIjfVBMdxcVGBOIr6tVXXJaKV5cCnomsYyP9OspgHZBIqquSM8ZB2fcvebV44KlFxsPqZBaW08C4sDhP75M58PGcD0iQnjwFGlMUWTJZByfUwZCu5H4OCMZD";
-const API_URL = `https://graph.facebook.com/v21.0/519207967946235/messages`;
+dotenv.config();
+
+const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
+const API_URL = process.env.WHATSAPP_API_URL;
 
 async function sendMessageOfComing(clientNumberOrTeamId, name) {
   if (!clientNumberOrTeamId || !name) {
@@ -347,7 +350,7 @@ router.post("/", async (req, res) => {
   });  
 
 router.get("/", (req, res) => {
-  const VERIFY_TOKEN = "YOUR_VERIFY_TOKEN_HERE";
+  const VERIFY_TOKEN = process.env.WHATSAPP_RESPONSE_TOKEN;
 
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];

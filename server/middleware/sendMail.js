@@ -1,17 +1,20 @@
 const nodemailer = require("nodemailer");
 const RESPONSE = require("../GlobalResponse/RESPONSE");
 const logger = require("../logger");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 module.exports = function sendUserCredentials(email, username, password,call, req, res) {
     try {
         // Configure the email transporter
         const transporter = nodemailer.createTransport({
-            host: "mail.solarcleaner.pk",
+            host: process.env.MAIL_HOST,
             port: 465,
             secure: true,
             auth: {
-                user: "support@solarcleaner.pk",
-                pass: "Shahroz$$$$000"
+                user: process.env.MAIL_USERNAME,
+                pass: process.env.MAIL_PASSWORD
             }
         });
 

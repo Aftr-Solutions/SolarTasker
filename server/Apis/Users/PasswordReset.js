@@ -32,14 +32,14 @@ router.post("/", (req, res) => {
           connection.query(updateQuery, (err, result) => {
             if (err) {
               connection.release();
-              return res.send(RESPONSE(false, "Error while updating password", {}));
+              return res.status(400).send(RESPONSE(false, "Error while updating password", {}));
             }
 
             // Execute the select query to fetch email and username
             connection.query(selectQuery, (err, userResult) => {
               connection.release();
               if (err) {
-                return res.send(RESPONSE(false, "Error while fetching user details", {}));
+                return res.status(400).send(RESPONSE(false, "Error while fetching user details", {}));
               }
 
               if (userResult.length > 0) {
@@ -48,15 +48,15 @@ router.post("/", (req, res) => {
                 // Send the reset password email
                 sendUserCredentials(email, user_name, newPassword,"reset", req, res);
 
-                return res.send(RESPONSE(true, "Password reset successfully", result));
+                return res.status(200).send(RESPONSE(true, "Password reset successfully", result));
               } else {
-                return res.send(RESPONSE(false, "User not found", {}));
+                return res.status(404).send(RESPONSE(false, "User not found", {}));
               }
             });
           });
         });
       } catch (err) {
-        return res.send(RESPONSE(false, err.message, err));
+        return res.status(400).send(RESPONSE(false, err.message, err));
       }
     }
   });

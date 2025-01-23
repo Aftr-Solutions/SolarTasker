@@ -4,6 +4,10 @@ const tableName = require("../Utils/allTableNames");
 const cronpool = require("../Utils/crondb");
 const logger = require("../logger");
 const { performQuery } = require("../Utils/performQuery");
+const dotenv = require("dotenv");
+
+
+dotenv.config();
 
 // Webhook to handle WhatsApp messages and button responses
 router.post("/", async (req, res) => {
@@ -78,7 +82,7 @@ router.post("/", async (req, res) => {
 
 // Verification endpoint for webhook
 router.get("/", (req, res) => {
-  const VERIFY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJBZG1pbk9mU29sYXIiLCJlbWFpbCI6ImFiZHVscmFmYXlhdHBha0BnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODg0NDQsImV4cCI6MTczNzI0ODQ0NH0.H5nAGzVu3Kc--og_MDZJYlYfH0id7a3df7oO8yNt4zU"; // Replace with your verification token
+  const VERIFY_TOKEN = process.env.WHATSAPP_RESPONSE_TOKEN; // Replace with your verification token
 
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];

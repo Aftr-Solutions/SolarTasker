@@ -65,7 +65,7 @@ router.post("/", (req, res) => {
               username: data[0].user_name,
               email: data[0].email,
             },
-              "pksectret",
+            process.env.SECRET_KEY,
             { expiresIn: "100h" }
           );
 

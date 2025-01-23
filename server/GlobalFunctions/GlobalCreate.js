@@ -8,8 +8,8 @@ const GlobalInsert = (payload, res) => {
   try {
     pool.getConnection(async (err, connection) => {
       if (err) {
-        logger.info("eror while creating connection", err);
-        return res.send(response(false, "database error", {}));
+        logger.error(`eror while creating connection, err`);
+        return res.status(500).send(response(false, "Error While Connecting With Database", {}));
       }
       connection.query(
         `INSERT INTO ${payload.tableName} SET ?`,
@@ -21,17 +21,17 @@ const GlobalInsert = (payload, res) => {
           if (err) {
             // // logger.info("database");
             logger.info(err);
-            return res.send(response(false, `error while inserting in ${payload.table}`, {}));
+            return res.status(500).send(response(false, `Error While Inserting Data In ${payload.table}`, {}));
           } else {
             // // logger.info("result");
 
-            return res.send(response(true, `succesfully added record in ${payload.table}`, result));
+            return res.status(200).send(response(true, `Data Has Been Successfully Created in ${payload.table}`, result));
           }
         }
       );
     });
   } catch (err) {
-    return res.send(response(false, err.message, err));
+    return res.status(401).send(response(false, err.message, err));
   }
 };
 

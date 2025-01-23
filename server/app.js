@@ -7,6 +7,7 @@ const http = require("http");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cron = require("node-cron");
+const dotenv = require("dotenv");
 const appRouter = require("./routes");
 const pool = require("./Utils/db.js");
 const { mytask } = require("./middleware/taskmaker");
@@ -19,6 +20,7 @@ const logger = require("./logger");
 const cronpool=require("./Utils/crondb.js");
 
 const app = express();
+dotenv.config();
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -46,7 +48,7 @@ cron.schedule("2 0 * * *", async () => {
   try {
     await mytask(cronpool);
   } catch (error) {
-    logger.error("Error in mytask cron job:", error.message);
+    logger.error(`Error in mytask cron job:, ${error.message}`);
   }
 });
 
@@ -55,7 +57,7 @@ cron.schedule("10 0 * * *", async () => {
   try {
     await assignteam(cronpool);
   } catch (error) {
-    logger.error("Error in assignteam cron job:", error.message);
+    logger.error(`Error in assignteam cron job:, ${error.message}`);
   }
 });
 
@@ -64,7 +66,7 @@ cron.schedule("45 23 * * *", async () => {
   try {
     await rescheduling(cronpool);
   } catch (error) {
-    logger.error("Error in rescheduling cron job:", error.message);
+    logger.error(`Error in rescheduling cron job:, ${error.message}`);
   }
 });
 
@@ -73,7 +75,7 @@ cron.schedule("50 23 * * *", async () => {
   try {
     await processTasks(cronpool);
   } catch (error) {
-    logger.error("Error in processTasks cron job:", error.message);
+    logger.error(`Error in processTasks cron job:, ${error.message}`);
   }
 });
 
@@ -82,7 +84,7 @@ cron.schedule("0 9 * * *", async () => {
   try {
     await sendMessage(cronpool);
   } catch (error) {
-    logger.error("Error in processTasks cron job:", error.message);
+    logger.error(`Error in processTasks cron job:", ${error.message}`);
   }
 });
 
@@ -91,7 +93,7 @@ cron.schedule("0 8 * * *", async () => {
   try {
     await sendMessagetoteams(cronpool);
   } catch (error) {
-    logger.error("Error in processTasks cron job:", error.message);
+    logger.error(`Error in processTasks cron job:, ${error.message}`);
   }
 });
 //await sendMessage(cronpool)
@@ -103,7 +105,7 @@ cron.schedule("0 8 * * *", async () => {
 //processTasks();
 
 const server = http.createServer(app);
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT;
 server.listen(PORT, () => {
-  logger.info("Server is running on: localhost:", PORT);
+  logger.info(`Server is running on: localhost:, ${PORT}`);
 });
