@@ -35,43 +35,52 @@ const WorkerForm = ({ close, setClose, handleDialogClose, editRecord }) => {
 
   // function for submit
   const handleSubmit = async () => {
-    setIsSubmitting(true);
-    const dataToSend = {
-      name: name,
-      number: number,
-      cnic: nic,
-      address: address,
-    };
-    let response;
-    let module;
-    // Check if editRecord exists to determine whether it's an update or create
-    if (editRecord) {
-      response = await dispatch(
-        updateWorker({ id: editRecord?.id, ...dataToSend })
-      ); // for update
-      module = "Updated";
-    } else {
-      response = await dispatch(createWorker(dataToSend)); // for create
-      module = "Added";
-    }
+    if (number?.length === 10) {
+      setIsSubmitting(true);
+      const dataToSend = {
+        name: name,
+        // number: number,
+        number: Number(`92${number}`),
+        cnic: nic,
+        address: address,
+      };
+      let response;
+      let module;
+      // Check if editRecord exists to determine whether it's an update or create
+      if (editRecord) {
+        response = await dispatch(
+          updateWorker({ id: editRecord?.id, ...dataToSend })
+        ); // for update
+        module = "Updated";
+      } else {
+        response = await dispatch(createWorker(dataToSend)); // for create
+        module = "Added";
+      }
 
-    if (response.payload.success) {
-      await dispatch(fetchWorkers());
-      notification.success({
-        message: `Worker ${module}!`,
-        description: response?.payload?.message,
-        placement: "topRight",
-      });
-      handleDialogClose();
-      emptyStates();
+      if (response.payload.success) {
+        await dispatch(fetchWorkers());
+        notification.success({
+          message: `Worker ${module}!`,
+          description: response?.payload?.message,
+          placement: "topRight",
+        });
+        handleDialogClose();
+        emptyStates();
+      } else {
+        notification.error({
+          message: `Worker Not ${module}!`,
+          description: response?.payload?.message || `Worker Not ${module}`,
+          placement: "topRight",
+        });
+      }
+      setIsSubmitting(false);
     } else {
       notification.error({
-        message: `Worker Not ${module}!`,
-        description: response?.payload?.message || `Worker Not ${module}`,
+        message: `Number Field Incorrect`,
+        description: "Number should not start with 0. Only 10 digits allow.",
         placement: "topRight",
       });
     }
-    setIsSubmitting(false);
   };
 
   // function to empty all states
@@ -137,7 +146,7 @@ const WorkerForm = ({ close, setClose, handleDialogClose, editRecord }) => {
         <FormControl fullWidth sx={{ mb: 3 }}>
           <TextField
             type="number"
-            label="Enter Phone Number"
+            label="Enter Number After 0"
             variant="outlined"
             value={number}
             onChange={(e) => setNumber(e.target.value)}
