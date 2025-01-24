@@ -855,7 +855,7 @@ export const feedbackColumn = [
     key: "team_name",
     render: (row) => <span className="text-sm font-medium">{row}</span>,
     sorter: (a, b) => a.team_name.localeCompare(b.team_name), // Sort alphabetically
-    width: 130,
+    // width: 130,
   },
   {
     title: "Name",
@@ -863,23 +863,26 @@ export const feedbackColumn = [
     key: "name",
     render: (row) => <span>{row}</span>,
     sorter: (a, b) => a.name.localeCompare(b.name), // Sort alphabetically
+    // width: 100,
   },
   {
     title: "Number",
     dataIndex: "number",
     key: "number",
     sorter: (a, b) => a.number.localeCompare(b.number), // Sort alphabetically
+    // width: 100,
   },
+ 
   {
     title: "Rating",
     dataIndex: "rating",
     key: "rating",
-    width: 100,
+    // width: 100,
     render: (rating) => {
       const getRatingColor = (rating) => {
-        if (rating >= 4) return "#13DEB9"; // Green for good rating
-        if (rating === 3) return "#F5BC00"; // Yellow for average rating
-        return "#F56C6C"; // Red for poor rating
+        if (rating === 1)  return "#F56C6C"; // Red for poor rating
+        if (rating === 2) return "#F5BC00"; // Yellow for average rating
+        return "#13DEB9"; // Green for good rating
       };
 
       return (
@@ -894,7 +897,7 @@ export const feedbackColumn = [
             color: "white",
           }}
         >
-          {rating}
+          {rating === 1 ? "Very Poor" : rating === 2 ? "Average" : "Excellent"}
         </Tag>
       );
     },

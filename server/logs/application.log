@@ -1510,3 +1510,7 @@
 2025-01-23 16:13:33 [INFO]: Successfully fetched tasks:
 2025-01-23 16:13:33 [INFO]: Successfully fetched tasks:
 2025-01-23 16:13:34 [INFO]: Successfully fetched tasks:
+2025-01-24 23:40:29 [INFO]: Server is running on: localhost:, 5002
+2025-01-24 23:40:30 [ERROR]: Database connection error:, err
+2025-01-24 23:40:43 [INFO]: Server is running on: localhost:, 5002
+2025-01-24 23:40:44 [ERROR]: Database connection error:, err
