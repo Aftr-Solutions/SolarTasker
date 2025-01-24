@@ -18,6 +18,7 @@ const { sendMessage }=require("./middleware/whatsappclient.js");
 const { sendMessagetoteams } = require("./middleware/whatsappteam.js");
 const logger = require("./logger");
 const cronpool=require("./Utils/crondb.js");
+const { sendMessageOfFeedback, sendMessageOfComing } = require("./middleware/whatsappclientrecievedresponse.js");
 
 const app = express();
 dotenv.config();
@@ -96,6 +97,9 @@ cron.schedule("0 8 * * *", async () => {
     logger.error(`Error in processTasks cron job:, ${error.message}`);
   }
 });
+
+//sendMessageOfFeedback("923118366981","Abdul Rafay",1);
+//sendMessageOfComing("+923118366981","Narcos");
 //await sendMessage(cronpool)
 //sendMessagetoteams(cronpool);
 //commeted

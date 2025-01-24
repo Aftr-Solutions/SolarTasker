@@ -23,8 +23,15 @@ async function sendMessageOfComing(clientNumberOrTeamId, name) {
     messaging_product: "whatsapp",
     to: clientNumberOrTeamId,
     type: "text",
+    header: {
+      type: "text", // You can also use "image" or "document" for other types
+      text: `Service Arrival Notification - Team ${name}`, // Header content
+    },
     text: {
       body: `Team ${name} is on the way to you and will arrive in approximately 15 minutes to 1 hour.`,
+    },
+    footer: {
+      text: "System By Abdul Rafay", 
     },
   };
 
@@ -58,9 +65,21 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
     type: "interactive",
     interactive: {
       type: "button",
+      header: {
+        type: "text", // You can also use "image" or "document" for other types
+        text: `Feedback Request - Team ${name}`, // Header content
+      },
       body: {
         text: `Dear,
-\nPlease rate the service provided by our team ${name} at your house. This will help us maintain better service for you.\n\nClick one of the buttons below to rate the service from 1 to 5:\n\n1 - Very Poor\n2 - Poor\n3 - Average\n4 - Good\n5 - Excellent\n\nSystem By Abdul Rafay`,
+Please rate the service provided by our team ${name} at your house. This will help us maintain better service for you.
+Click one of the buttons below to rate the service from 1 to 3:
+1 - Very Poor
+2 - Average
+3 - Excellent
+Thank you for your valuable feedback. Your response helps us improve!`
+      },
+      footer: {
+        text: "System By Abdul Rafay", 
       },
       action: {
         buttons: [
@@ -74,29 +93,15 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
           {
             type: "reply",
             reply: {
-              id: `2 - Poor${team_id}`,
-              title: "2 - Poor",
+              id: `2 - Average${team_id}`,
+              title: "2 - Average",
             },
           },
           {
             type: "reply",
             reply: {
-              id: `3 - Average${team_id}`,
-              title: "3 - Average",
-            },
-          },
-          {
-            type: "reply",
-            reply: {
-              id: `4 - Good${team_id}`,
-              title: "4 - Good",
-            },
-          },
-          {
-            type: "reply",
-            reply: {
-              id: `5 - Excellent${team_id}`,
-              title: "5 - Excellent",
+              id: `3 - Excellent${team_id}`,
+              title: "3 - Excellent",
             },
           },
         ],
@@ -117,10 +122,14 @@ async function sendMessageOfFeedback(clientNumberOrTeamId, name, team_id) {
     );
   } catch (error) {
     logger.error(
-      `Error sending message to ${clientNumberOrTeamId}: ${error.response?.data} || ${error.message}`
+      `Error sending message to ${clientNumberOrTeamId}: ${
+        error.response?.data || error.message
+      }`
     );
   }
 }
+
+
 
 async function updateTaskResponse(teamRes, clientNumberOrTeamId, teamId, from) {
   try {
@@ -252,8 +261,8 @@ router.post("/", async (req, res) => {
                   // Update task response
                   const updateQuery = `
                     UPDATE ${tableName.tasks}
-                    SET response = ?, whats_client_res = 1
-                    WHERE isactive = 1 AND client_id = ? AND whats_client_res = 0;
+                    SET response = ?, whats_client_res = 1w
+                    WHERE isactive = 0 AND client_id = ? AND whats_client_res = 0;
                   `;
                   const updateRes = await performQuery({
                     sql: updateQuery,
@@ -319,7 +328,7 @@ router.post("/", async (req, res) => {
             }
   
             // Handle client feedback
-            if (!teamRes && ["1 - Very Poor", "2 - Poor", "3 - Average", "4 - Good", "5 - Excellent"].includes(buttonTitle)) {
+            if (!teamRes && ["1 - Very Poor", "2 - Average","3 - Excellent"].includes(buttonTitle)) {
               clientRes = parseInt(buttonTitle.split(" ")[0], 10);
   
               const clientQuery = `SELECT id, name FROM ${tableName.clients} WHERE number = ?;`;
