@@ -97,8 +97,15 @@ async function sendreshulingmessage(client_id,pool){
         messaging_product: "whatsapp",
         to: results[0].number, // Recipient's phone number
         type: "text",
+        header: {
+          type: "text", // You can also use "image" or "document" for other types
+          text: `Service Reschedule Notification`, // Header content
+        },
         text: {
-          body: `Dear ${results[0].name},\n\nYour Service is reshedule to ${results[0].upcoming_service_date}.\n\nFor any updates connect we us.\n\nThank you.\n\nSystem By Abdul Rafay`,
+          body: `Dear ${results[0].name},\n\nYour Service is reshedule to ${results[0].upcoming_service_date}.\n\nFor any updates connect we us.\n\nThank you.\n\n`
+        },
+        footer: {
+          text: "System By Abdul Rafay", 
         },
       };
     

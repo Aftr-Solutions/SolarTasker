@@ -137,8 +137,15 @@ const sendMessagetoteams = async (pool) => {
           type: "interactive",
           interactive: {
             type: "button",
+            header: {
+              type: "text", 
+              text: `Today Service`, 
+            },
             body: {
-              text: `Dear ${teamInfo.team_lead},\n\nYou have a service at ${client.client_name } house ${client.address } whose ${client.client_contact} number is this. Connect them and click on the buttons below to track the service:\n\n- On the way: when you are going there.\n- Start working: when you start working.\n- Completed: when you finish the work.\n\nSystem By Abdul Rafay`,
+              text: `Dear ${teamInfo.team_lead},\n\nYou have a service at ${client.client_name } house ${client.address } whose ${client.client_contact} number is this. Connect them and click on the buttons below to track the service:\n\n- On the way: when you are going there.\n- Start working: when you start working.\n- Completed: when you finish the work.`,
+            },
+            footer: {
+              text: "System By Abdul Rafay", 
             },
             action: {
               buttons: [
