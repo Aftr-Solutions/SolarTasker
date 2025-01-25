@@ -98,12 +98,12 @@ const ClientForm = ({ close, setClose, handleDialogClose, editRecord }) => {
 
   // function for submit
   const handleSubmit = async () => {
-    if (number?.length > 10) {
+    if (field.number?.length === 10) {
       setIsSubmitting(true);
       const dataToSend = {
         name: field.name,
         // number: field.number,
-        number: Number(`92${number}`),
+        number: Number(`92${field.number}`),
         email: field.email,
         address: field.address,
         area_region_id: field.area,
