@@ -1,6 +1,7 @@
 const { createLogger, format, transports } = require("winston");
 const path = require("path");
 const fs = require("fs");
+const { broadcastLog } = require("../server/Utils/websocket");
 
 // Create logs directory if it doesn't exist
 const logDir = path.join(__dirname, "logs");
@@ -28,4 +29,12 @@ const logger = createLogger({
   ],
 });
 
-module.exports = logger;
+// Function to log and optionally broadcast messages
+function logWithOptionalBroadcast(level, message, send = false) {
+  logger.log({ level, message });
+  if (send) {
+    broadcastLog(message);
+  }
+}
+
+module.exports = { logger, logWithOptionalBroadcast };

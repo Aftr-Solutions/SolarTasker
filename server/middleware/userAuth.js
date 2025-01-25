@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const RESPONSE = require("../GlobalResponse/RESPONSE");
 const tableNames = require("../Utils/allTableNames");
 const pool = require("../Utils/db");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -54,7 +54,7 @@ module.exports = async (req, res, next) => {
       );
     });
   } catch (error) {
-    logger.error("Authentication error:", error.message);
+    logWithOptionalBroadcast('error',"Authentication error:", error.message);
     res.status(401).json({ message: "User Not Authenticated" });
   }
 };

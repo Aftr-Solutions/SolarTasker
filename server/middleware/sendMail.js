@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const RESPONSE = require("../GlobalResponse/RESPONSE");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -56,15 +56,15 @@ module.exports = function sendUserCredentials(email, username, password,call, re
         // Send the email
         transporter.sendMail(mailOptions, (err, data) => {
             if (err) {
-                logger.error("Error sending email:", err);
+                logWithOptionalBroadcast('error',"Error sending email:", err);
                 return res.status(500).send(RESPONSE(false, "Error sending email", err));
             } else {
-                logger.info("Email sent successfully:", data.response);
+                logWithOptionalBroadcast('info',"Email sent successfully:", data.response);
                 return res.status(200).send(RESPONSE(true, "Email sent successfully", {}));
             }
         });
     } catch (err) {
-        logger.error("Catch Error (Email Error):", err);
+        logWithOptionalBroadcast('error',"Catch Error (Email Error):", err);
         return res.status(500).send(RESPONSE(false, "Unexpected error while sending email", err));
     }
 };

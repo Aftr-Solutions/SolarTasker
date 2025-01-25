@@ -1,6 +1,6 @@
 const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
 const dotenv = require("dotenv");
@@ -13,7 +13,7 @@ const API_URL = process.env.WHATSAPP_API_URL;
 const sendMessagetoteams = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info(`Today: ${todayDate}`);
+    logWithOptionalBroadcast('info',`Today: ${todayDate}`);
 
     // Query to get clients with services today
     const selectQuery = `
@@ -42,18 +42,18 @@ const sendMessagetoteams = async (pool) => {
     });
 
     if (clientResults.length === 0) {
-      logger.info("No clients with today services.");
+      logWithOptionalBroadcast('info',"No clients with today services.");
       return;
     }
 
-    logger.info(`Found ${clientResults.length} clients with services today. Extracting unique team IDs...`);
+    logWithOptionalBroadcast('info',`Found ${clientResults.length} clients with services today. Extracting unique team IDs...`);
 
     // Extract unique team IDs
     const uniqueTeamIds = [...new Set(clientResults.map((item) => item.team_id))];
-    logger.info(`Unique Team IDs: ${uniqueTeamIds}`);
+    logWithOptionalBroadcast('info',`Unique Team IDs: ${uniqueTeamIds}`);
 
     if (uniqueTeamIds.length === 0) {
-      logger.info("No unique team IDs found. Skipping message sending.");
+      logWithOptionalBroadcast('info',"No unique team IDs found. Skipping message sending.");
       return;
     }
 
@@ -73,8 +73,8 @@ const sendMessagetoteams = async (pool) => {
           t.id IN (${uniqueTeamIds.map(() => "?").join(",")});
     `;
 
-    //logger.info(`Executing teamMemberQuery: ${teamMemberQuery}`);
-    logger.info(`Query parameters: ${uniqueTeamIds}`);
+    //logWithOptionalBroadcast('info',`Executing teamMemberQuery: ${teamMemberQuery}`);
+    logWithOptionalBroadcast('info',`Query parameters: ${uniqueTeamIds}`);
 
     let teamMembers;
     try {
@@ -85,13 +85,13 @@ const sendMessagetoteams = async (pool) => {
       });
 
       if (teamMembers.length === 0) {
-        logger.info("No team members found for the given team IDs.");
+        logWithOptionalBroadcast('info',"No team members found for the given team IDs.");
         return;
       }
 
-      logger.info(`Found ${teamMembers.length} team members. Proceeding with message sending.`);
+      logWithOptionalBroadcast('info',`Found ${teamMembers.length} team members. Proceeding with message sending.`);
     } catch (error) {
-      logger.error(`Error executing teamMemberQuery: ${error.message}`, error);
+      logWithOptionalBroadcast('error',`Error executing teamMemberQuery: ${error.message}`, error);
       return;
     }
 
@@ -105,7 +105,7 @@ const sendMessagetoteams = async (pool) => {
     // Process combined results and send messages
     for (const { teamInfo, clients } of combinedResults) {
       if (!teamInfo || clients.length === 0) {
-        logger.warn(`Missing teamInfo or clients for team ID: ${teamInfo?.team_id || "unknown"}`);
+        logWithOptionalBroadcast('warn', `Missing teamInfo or clients for team ID: ${teamInfo?.team_id || "unknown"}`);
         continue;
       }
 
@@ -182,9 +182,9 @@ const sendMessagetoteams = async (pool) => {
               "Content-Type": "application/json",
             },
           });
-          logger.info(`Message sent to ${teamInfo.team_lead} for client ${client.client_name}`);
+          logWithOptionalBroadcast('info',`Message sent to ${teamInfo.team_lead} for client ${client.client_name}`,true);
         } catch (error) {
-          logger.error(
+          logWithOptionalBroadcast('error',
             `Error sending message to ${teamInfo.team_lead} for client ${client.client_name}:,
             ${error.response?.data || error.message}`
           );
@@ -192,7 +192,7 @@ const sendMessagetoteams = async (pool) => {
       }
     }
   } catch (error) {
-    logger.error(`Error in WhatsApp message send cron job:", ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in WhatsApp message send cron job:", ${error.message}`);
   }
 };
 

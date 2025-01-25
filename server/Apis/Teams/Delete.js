@@ -5,7 +5,7 @@ const { GlobalDelete } = require("../../GlobalFunctions/GlobalDelete");
 const {GlobalUpdate}=require("../../GlobalFunctions/GlobalUpdate");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db"); 
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 
 router.post("/", (req, res) => {
@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
     // Check for references in the team table
     pool.query(query, [id], (err, results) => {
         if (err) {
-            logger.error("Error checking ID in task table:", err);
+            logWithOptionalBroadcast('error',"Error checking ID in task table:", err);
             return res.status(500).send(RESPONSE(false, "Database error while checking references", err));
         }
 
@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
                 isactive:1,
             },
         };
-        logger.info("Payload for update:", payload);
+        logWithOptionalBroadcast('info',"Payload for update:", payload);
     
         GlobalUpdate(payload,res);
     });

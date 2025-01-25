@@ -1,6 +1,6 @@
 const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const axios = require("axios");
 const moment = require("moment-timezone");
 const dotenv = require("dotenv");
@@ -13,7 +13,7 @@ const API_URL = process.env.WHATSAPP_API_URL;
 const sendMessage = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info(`today==>, ${todayDate}`);
+    logWithOptionalBroadcast('info',`today==>, ${todayDate}`);
 
     // Query to get clients with upcoming services in 2 days
     const selectQuery = `
@@ -30,12 +30,12 @@ const sendMessage = async (pool) => {
     });
 
     if (results.length > 0) {
-      logger.info(`Found ${results.length} clients with services in coming 2 days so sending messages to clients.`);
+      logWithOptionalBroadcast('info',`Found ${results.length} clients with services in coming 2 days so sending messages to clients.`);
     } else {
-      logger.info("No clients with upcoming services n 2 days.");
+      logWithOptionalBroadcast('info',"No clients with upcoming services n 2 days.");
       return;
     }
-    logger.info(`Query Results:, ${results}`);
+    logWithOptionalBroadcast('info',`Query Results:, ${results}`);
     // Iterate over results and send WhatsApp messages
     for (const item of results) {
       const payload = {
@@ -66,13 +66,13 @@ const sendMessage = async (pool) => {
             "Content-Type": "application/json",
           },
         });
-        logger.info(`Message sent to ${item.name} (${item.number}) successfully.`);
+        logWithOptionalBroadcast('info',`Message sent to ${item.name} (${item.number}) successfully.`,true);
       } catch (error) {
-        logger.error(`Error sending message to ${item.name} (${item.number}):, ${error.response?.data || error.message}`);
+        logWithOptionalBroadcast('error',`Error sending message to ${item.name} (${item.number}):, ${error.response?.data || error.message}`);
       }      
     }
   } catch (error) {
-    logger.error(`Error in WhatsApp message send cron job: ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in WhatsApp message send cron job: ${error.message}`);
   }
 };
 

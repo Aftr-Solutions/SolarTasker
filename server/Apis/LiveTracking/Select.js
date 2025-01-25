@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
 
@@ -33,19 +33,19 @@ router.get("/", (req, res) => {
 
     pool.query(getQuery, (err, result) => {
       if (err) {
-        logger.info(`Error in fetching records from tracking: ${err.message}`);
+        logWithOptionalBroadcast('info',`Error in fetching records from tracking: ${err.message}`);
         return res
           .status(500)
           .send(RESPONSE(false, "Database error while fetching tracking records", err));
       } else {
-        logger.info("Successfully fetched records from tracking.");
+        logWithOptionalBroadcast('info',"Successfully fetched records from tracking.");
         return res
           .status(200)
           .send(RESPONSE(true, "Successfully fetched records from tracking", { result }));
       }
     });
   } catch (error) {
-    logger.info(`Error Fetching Live Tracking: ${error.message}`);
+    logWithOptionalBroadcast('info',`Error Fetching Live Tracking: ${error.message}`);
     res.status(400).send(RESPONSE(false, "Error Fetching Live Tracking", {}));
   }
 });

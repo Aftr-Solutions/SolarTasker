@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 const tableName=require("../../Utils/allTableNames");
-const logger=require("../../logger");
+const { logWithOptionalBroadcast }=require("../../logger");
 const RESPONSE=require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
 
@@ -15,14 +15,14 @@ router.get("/",(req,res)=>{
 
         pool.query( selectquery,(err,result)=>{
             if(err){
-                logger.info(`Error in fetching records from feedbacks ${err.message}`);
+                logWithOptionalBroadcast('info',`Error in fetching records from feedbacks ${err.message}`);
                 return res.status(500).send(RESPONSE(false, "Database error while checking references", err));    
             }else{
                 return res.status(200).send(RESPONSE(true,"Successfully Fetched Record From Feedback",{result}));
             }
         });   
     }catch(error){
-        logger.info(`Error Fetching Feedbacks ${error.message}`)
+        logWithOptionalBroadcast('info',`Error Fetching Feedbacks ${error.message}`)
         res.status(400).send(RESPONSE(false,"Error Fetching Feedbacks",{}))
     };
     

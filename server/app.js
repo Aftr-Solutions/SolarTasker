@@ -16,7 +16,7 @@ const { rescheduling } = require("./middleware/rescheduleremainingtasks.js");
 const { processTasks } =require("./middleware/reschedulecompletetasks.js");
 const { sendMessage }=require("./middleware/whatsappclient.js");
 const { sendMessagetoteams } = require("./middleware/whatsappteam.js");
-const logger = require("./logger");
+const { logWithOptionalBroadcast } = require("./logger");
 const cronpool=require("./Utils/crondb.js");
 const { sendMessageOfFeedback, sendMessageOfComing } = require("./middleware/whatsappclientrecievedresponse.js");
 
@@ -45,56 +45,56 @@ app.get("/", (req, res) => {
 app.use("/", appRouter);
 
 cron.schedule("2 0 * * *", async () => {
-  logger.info("Running cron job for task creation at 12:02 AM....");
+  logWithOptionalBroadcast('info',"Running cron job for task creation at 12:02 AM....",true);
   try {
     await mytask(cronpool);
   } catch (error) {
-    logger.error(`Error in mytask cron job:, ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in mytask cron job:, ${error.message}`);
   }
 });
 
 cron.schedule("10 0 * * *", async () => {
-  logger.info("Running cron job for assigning tasks at 12:10 AM....");
+  logWithOptionalBroadcast('info',"Running cron job for assigning tasks at 12:10 AM....",true);
   try {
     await assignteam(cronpool);
   } catch (error) {
-    logger.error(`Error in assignteam cron job:, ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in assignteam cron job:, ${error.message}`);
   }
 });
 
 cron.schedule("45 23 * * *", async () => {
-  logger.info("Running cron job for rescheduling pending tasks at 11:45 PM....");
+  logWithOptionalBroadcast('info',"Running cron job for rescheduling pending tasks at 11:45 PM....",true);
   try {
     await rescheduling(cronpool);
   } catch (error) {
-    logger.error(`Error in rescheduling cron job:, ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in rescheduling cron job:, ${error.message}`);
   }
 });
 
 cron.schedule("50 23 * * *", async () => {
-  logger.info("Running cron job for rescheduling complete tasks at 11:50 PM....");
+  logWithOptionalBroadcast('info',"Running cron job for rescheduling complete tasks at 11:50 PM....",true);
   try {
     await processTasks(cronpool);
   } catch (error) {
-    logger.error(`Error in processTasks cron job:, ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in processTasks cron job:, ${error.message}`);
   }
 });
 
 cron.schedule("0 9 * * *", async () => {
-  logger.info("Running cron job for sending whatsapp messages to clients at 9:00 AM....");
+  logWithOptionalBroadcast('info',"Running cron job for sending whatsapp messages to clients at 9:00 AM....",true);
   try {
     await sendMessage(cronpool);
   } catch (error) {
-    logger.error(`Error in processTasks cron job:", ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in processTasks cron job:", ${error.message}`);
   }
 });
 
 cron.schedule("0 8 * * *", async () => {
-  logger.info("Running cron job for rsending whatsapp messages to team leads at 8:00 AM....");
+  logWithOptionalBroadcast('info',"Running cron job for rsending whatsapp messages to team leads at 8:00 AM....",true);
   try {
     await sendMessagetoteams(cronpool);
   } catch (error) {
-    logger.error(`Error in processTasks cron job:, ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in processTasks cron job:, ${error.message}`);
   }
 });
 
@@ -111,5 +111,5 @@ cron.schedule("0 8 * * *", async () => {
 const server = http.createServer(app);
 const PORT = process.env.PORT;
 server.listen(PORT, () => {
-  logger.info(`Server is running on: localhost:, ${PORT}`);
+  logWithOptionalBroadcast('info',`Server is running on: localhost:, ${PORT}`);
 });

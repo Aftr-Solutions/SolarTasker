@@ -3,7 +3,7 @@ const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const { GlobalInsert } = require("../../GlobalFunctions/GlobalCreate");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 router.post("/",(req,res)=>{
     const{
@@ -27,7 +27,7 @@ router.post("/",(req,res)=>{
         },
         
     };
-    logger.info("Payload for insertion:", payload);
+    logWithOptionalBroadcast('info',"Payload for insertion:", payload);
     
     GlobalInsert(payload,res);
 });

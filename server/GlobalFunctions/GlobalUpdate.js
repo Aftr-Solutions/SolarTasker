@@ -1,6 +1,6 @@
 const pool = require("../Utils/db.js");
 const response = require("../GlobalResponse/RESPONSE");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 
 
 const GlobalUpdate = (payload, res) => {
@@ -10,7 +10,7 @@ const GlobalUpdate = (payload, res) => {
   try {
     pool.getConnection(async (err, connection) => {
       if (err) {
-        // // logger.info("eror while creating connection", err);
+        // // logWithOptionalBroadcast('info',"eror while creating connection", err);
         return res.status(500).send(response(false, "Error While Connecting With Database", {}));
       }
       let query = `UPDATE ${payload.tableName} SET  ${keys.join(
@@ -21,7 +21,7 @@ const GlobalUpdate = (payload, res) => {
         connection.release();
 
         if (err) {
-          // // logger.info(err);
+          // // logWithOptionalBroadcast('info',err);
           return res.status(500).send(response(false, `Error While Updating Data In ${payload.table}`, err));
         } else {
           return res

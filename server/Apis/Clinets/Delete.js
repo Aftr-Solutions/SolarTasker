@@ -3,7 +3,7 @@ const router=express.Router();
 const tableName = require("../../Utils/allTableNames");
 const { GlobalDelete } = require("../../GlobalFunctions/GlobalDelete");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 
 router.post("/",(req,res)=>{
@@ -20,7 +20,7 @@ router.post("/",(req,res)=>{
             id:id,
         },
     };
-    logger.info("Payload for deletion:", payload);
+    logWithOptionalBroadcast('info',"Payload for deletion:", payload);
 
   // Call the global delete function
   GlobalDelete(payload, res);

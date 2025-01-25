@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const tableName = require("../Utils/allTableNames");
 const cronpool = require("../Utils/crondb");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const { performQuery } = require("../Utils/performQuery");
 const axios = require("axios");
 const dotenv = require("dotenv");
@@ -14,7 +14,7 @@ const API_URL = process.env.WHATSAPP_API_URL;
 
 async function sendmessageOfcoming(clientNumberOrTeamId, name) {
   if (!clientNumberOrTeamId || !name) {
-    logger.error("Invalid parameters: clientNumberOrTeamId or name is missing.");
+    logWithOptionalBroadcast('error',"Invalid parameters: clientNumberOrTeamId or name is missing.");
     return;
   }
 
@@ -35,11 +35,11 @@ async function sendmessageOfcoming(clientNumberOrTeamId, name) {
       },
     });
 
-    logger.info(
+    logWithOptionalBroadcast('info',
       `Message sent to ${clientNumberOrTeamId}. Response status: ${response.status}`
     );
   } catch (error) {
-    logger.error(
+    logWithOptionalBroadcast('error',
       `Error sending message to ${clientNumberOrTeamId}: ${error.response?.data || error.message}`
     );
   }
@@ -47,7 +47,7 @@ async function sendmessageOfcoming(clientNumberOrTeamId, name) {
 
 async function sendmessageoffeedback(clientNumberOrTeamId, name,team_id) {
   if (!clientNumberOrTeamId || !name) {
-    logger.error("Invalid parameters: clientNumberOrTeamId or name is missing.");
+    logWithOptionalBroadcast('error',"Invalid parameters: clientNumberOrTeamId or name is missing.");
     return;
   }
   const payload = {
@@ -109,11 +109,11 @@ interactive: {
       },
     });
 
-    logger.info(
+    logWithOptionalBroadcast('info',
       `Message sent to ${clientNumberOrTeamId}. Response status: ${response.status}`
     );
   } catch (error) {
-    logger.error(
+    logWithOptionalBroadcast('error',
       `Error sending message to ${clientNumberOrTeamId}: ${error.response?.data || error.message}`
     );
   }
@@ -135,9 +135,9 @@ async function updateTaskResponse(teamRes, clientNumberOrTeamId, teamId, from) {
       pool: cronpool,
     });
 
-    logger.info(`Updated task response for client ${clientNumberOrTeamId} with task status ${teamRes}`);
+    logWithOptionalBroadcast('info',`Updated task response for client ${clientNumberOrTeamId} with task status ${teamRes}`);
   } catch (queryError) {
-    logger.error(`Database query error in updateTaskResponse: ${queryError.message}`);
+    logWithOptionalBroadcast('error',`Database query error in updateTaskResponse: ${queryError.message}`);
   }
 }
 
@@ -162,22 +162,22 @@ async function recordFeedback(clientId, teamId, clientRes) {
         pool: cronpool,
       });
 
-      logger.info(`Feedback recorded for Task ID: ${taskId} with rating: ${clientRes}`);
+      logWithOptionalBroadcast('info',`Feedback recorded for Task ID: ${taskId} with rating: ${clientRes}`);
     } else {
-      logger.warn(`No task found for Client ID: ${clientId} and Team ID: ${teamId}`);
+      logWithOptionalBroadcast('warn', `No task found for Client ID: ${clientId} and Team ID: ${teamId}`);
     }
   } catch (queryError) {
-    logger.error(`Database query error in recordFeedback: ${queryError.message}`);
+    logWithOptionalBroadcast('error',`Database query error in recordFeedback: ${queryError.message}`);
   }
 }
 
 router.post("/", async (req, res) => {
   try {
     const data = req.body;
-    logger.info("Webhook received data:", JSON.stringify(data, null, 2));
+    logWithOptionalBroadcast('info',"Webhook received data:", JSON.stringify(data, null, 2));
 
     if (data.object !== "whatsapp_business_account") {
-      logger.info("Not a WhatsApp business account webhook.");
+      logWithOptionalBroadcast('info',"Not a WhatsApp business account webhook.");
       return res.status(200).send("EVENT_RECEIVED");
     }
 
@@ -190,7 +190,7 @@ router.post("/", async (req, res) => {
           const buttonTitle = buttonReply.title;
           const from = message.from;
 
-          logger.info(`Button response from ${from}: ${buttonTitle}`);
+          logWithOptionalBroadcast('info',`Button response from ${from}: ${buttonTitle}`);
           const clientNumberOrTeamId = buttonReply.id.replace(buttonTitle, "").trim();
 
           let teamRes = null;
@@ -215,7 +215,7 @@ router.post("/", async (req, res) => {
 
             if (teamResults.length > 0) {
               const team = teamResults[0];
-              logger.info(`Found team ${team.name} with ID: ${team.team_id}`);
+              logWithOptionalBroadcast('info',`Found team ${team.name} with ID: ${team.team_id}`);
               await updateTaskResponse(teamRes, clientNumberOrTeamId, team.team_id, from);
 
               // Send feedback or notify client
@@ -225,7 +225,7 @@ router.post("/", async (req, res) => {
                 await sendmessageoffeedback(clientNumberOrTeamId, team.name, team.team_id);
               }
             } else {
-              logger.warn(`No team found for phone number: ${from}`);
+              logWithOptionalBroadcast('warn', `No team found for phone number: ${from}`);
             }
           }
 
@@ -242,21 +242,21 @@ router.post("/", async (req, res) => {
 
             if (clientResults.length > 0) {
               const client = clientResults[0];
-              logger.info(`Found client ${client.name} with ID: ${client.id}`);
+              logWithOptionalBroadcast('info',`Found client ${client.name} with ID: ${client.id}`);
               await recordFeedback(client.id, clientNumberOrTeamId, clientRes);
             } else {
-              logger.warn(`No client found for phone number: ${from}`);
+              logWithOptionalBroadcast('warn', `No client found for phone number: ${from}`);
             }
           }
         }
       }
     } else {
-      logger.info("No messages found in webhook data.");
+      logWithOptionalBroadcast('info',"No messages found in webhook data.");
     }
 
     res.status(200).send("EVENT_RECEIVED");
   } catch (error) {
-    logger.error("Error processing webhook data:", error.message);
+    logWithOptionalBroadcast('error',"Error processing webhook data:", error.message);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -270,13 +270,13 @@ router.get("/", (req, res) => {
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
-  logger.info(`Webhook verification received: mode=${mode}, token=${token}, challenge=${challenge}`);
+  logWithOptionalBroadcast('info',`Webhook verification received: mode=${mode}, token=${token}, challenge=${challenge}`);
 
   if (mode && token === VERIFY_TOKEN) {
-    logger.info("Webhook verified successfully");
+    logWithOptionalBroadcast('info',"Webhook verified successfully");
     res.status(200).send(challenge);
   } else {
-    logger.error("Webhook verification failed");
+    logWithOptionalBroadcast('error',"Webhook verification failed");
     res.status(403).send("Forbidden");
   }
 });

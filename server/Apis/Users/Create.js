@@ -5,7 +5,7 @@ const tableNames = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
 const sendUserCredentials = require("../../middleware/sendmail");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 
 router.post("/", (req, res) => {
@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
     else {
       pool.getConnection(async (err, connection) => {
         if (err) {
-          logger.info("eror while creating connection", err);
+          logWithOptionalBroadcast('info',"eror while creating connection", err);
           return res.send(RESPONSE(false, "database error", {}));
         }
         let payload = {

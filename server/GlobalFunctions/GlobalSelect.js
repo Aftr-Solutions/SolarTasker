@@ -1,14 +1,14 @@
 const pool = require("../Utils/db");
 const reponse = require("../GlobalResponse/RESPONSE");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 
 
 const GlobalSelect = (payload, res) => {
   try {
-    // logger.info(payload);
+    // logWithOptionalBroadcast('info',payload);
     pool.getConnection((err, connection) => {
       if (err) {
-        // logger.info("eror while creating connection", err);
+        // logWithOptionalBroadcast('info',"eror while creating connection", err);
         res.send(reponse(false, "database error", {}));
         throw err;
         // return
@@ -19,10 +19,10 @@ const GlobalSelect = (payload, res) => {
           connection.release();
 
           if (err) {
-            // logger.info(err);
+            // logWithOptionalBroadcast('info',err);
             return res.send(reponse(false, `error while selecting in ${payload.table}`, err));
           } else {
-            // logger.info(result);
+            // logWithOptionalBroadcast('info',result);
             return res.send(reponse(true, `succesfully selected from ${payload.table}`, result));
           }
         }
@@ -33,11 +33,11 @@ const GlobalSelect = (payload, res) => {
   }
 };
 const GlobalSelectWithWhereClause = (payload, res) => {
-  // logger.info("payload",payload);
+  // logWithOptionalBroadcast('info',"payload",payload);
   try {
     pool.getConnection((err, connection) => {
       if (err) {
-        // logger.info("eror while creating connection", err);
+        // logWithOptionalBroadcast('info',"eror while creating connection", err);
         return res.send(reponse(false, "database error", {}));
       }
       connection.query(
@@ -46,10 +46,10 @@ const GlobalSelectWithWhereClause = (payload, res) => {
           connection.release();
           console.log(payload.select,payload.tableName,payload.key,payload.value,result);
           if (err) {
-            // logger.info(err);
+            // logWithOptionalBroadcast('info',err);
             return res.send(reponse(false, `error while selecting from ${payload.table}`, err));
           } else {
-            // logger.info(result);
+            // logWithOptionalBroadcast('info',result);
             return res.send(reponse(true, `succesfully selected from ${payload.table}`, result));
           }
         }
@@ -61,10 +61,10 @@ const GlobalSelectWithWhereClause = (payload, res) => {
 };
 const GlobalSelecthWhereCondition = (payload, res) => {
   try {
-    // logger.info("payload >>>>", payload);
+    // logWithOptionalBroadcast('info',"payload >>>>", payload);
     pool.getConnection((err, connection) => {
       if (err) {
-        // // logger.info("eror while creating connection", err);
+        // // logWithOptionalBroadcast('info',"eror while creating connection", err);
         return res.send(reponse(false, "database error", {}));
       }
       
@@ -74,10 +74,10 @@ const GlobalSelecthWhereCondition = (payload, res) => {
           connection.release();
           
           if (err) {
-            // // logger.info(err);
+            // // logWithOptionalBroadcast('info',err);
             return res.send(reponse(false, `error while selecting from ${payload.table}`, err));
           } else {
-            // // // logger.info(result);
+            // // // logWithOptionalBroadcast('info',result);
             return res.send(reponse(true, `succesfully selected from ${payload.table}`, result));
           }
         }

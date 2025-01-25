@@ -3,7 +3,7 @@ const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const { GlobalUpdate } = require("../../GlobalFunctions/GlobalUpdate");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 router.post("/", (req, res) => {
   if (
@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
       task_status: req.body.task_status,
     },
   };
-  logger.info("Payload for update:", payload);
+  logWithOptionalBroadcast('info',"Payload for update:", payload);
 
   GlobalUpdate(payload, res);
 });

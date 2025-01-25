@@ -5,7 +5,7 @@ const moment = require("moment-timezone");
 const rescheduling = async () => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info("today==>", todayDate);
+    logWithOptionalBroadcast('info',"today==>", todayDate);
 
     const query = `
       SELECT * 
@@ -17,16 +17,16 @@ const rescheduling = async () => {
 
     pool.query(query, [todayDate], (err, results) => {
       if (err) {
-        logger.error("Error fetching data from tasks table:", err);
+        logWithOptionalBroadcast('error',"Error fetching data from tasks table:", err);
         return;
       }
 
       if (results.length > 0) {
-        logger.info(`Found ${results.length} tasks to be rescheduled.`);
+        logWithOptionalBroadcast('info',`Found ${results.length} tasks to be rescheduled.`);
 
         results.forEach((item) => {
           const rescheduledate = moment(item.service_date).add(7, "days").format("YYYY-MM-DD");
-          logger.info(`Task ${item.id} rescheduled to ${rescheduledate}`);
+          logWithOptionalBroadcast('info',`Task ${item.id} rescheduled to ${rescheduledate}`);
 
           const updateQuery = `
             UPDATE ${tableName.clients} 
@@ -42,26 +42,26 @@ const rescheduling = async () => {
 
           pool.query(updateQuery, [rescheduledate, item.client_id], (updateErr) => {
             if (updateErr) {
-              logger.error(`Error updating client ${item.client_id}:`, updateErr);
+              logWithOptionalBroadcast('error',`Error updating client ${item.client_id}:`, updateErr);
             } else {
-              logger.info(`Client ${item.client_id} successfully rescheduled.`);
+              logWithOptionalBroadcast('info',`Client ${item.client_id} successfully rescheduled.`);
             }
           });
 
           pool.query(updateTaskQuery, [item.id], (taskUpdateErr) => {
             if (taskUpdateErr) {
-              logger.error(`Error updating task ${item.id} to inactive:`, taskUpdateErr);
+              logWithOptionalBroadcast('error',`Error updating task ${item.id} to inactive:`, taskUpdateErr);
             } else {
-              logger.info(`Task ${item.id} marked as inactive.`);
+              logWithOptionalBroadcast('info',`Task ${item.id} marked as inactive.`);
             }
           });
         });
       } else {
-        logger.info("No tasks to be rescheduled.");
+        logWithOptionalBroadcast('info',"No tasks to be rescheduled.");
       }
     });
   } catch (error) {
-    logger.error("Error in rescheduling function:", error.message);
+    logWithOptionalBroadcast('error',"Error in rescheduling function:", error.message);
   }
 };
 
@@ -70,7 +70,7 @@ module.exports = { rescheduling };*/
 const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
 const moment = require("moment-timezone");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -91,7 +91,7 @@ async function sendreshulingmessage(client_id,pool){
     });
 
     if(results.length>0){
-      logger.info(`Found ${results.length} client to message.`);
+      logWithOptionalBroadcast('info',`Found ${results.length} client to message.`);
 
       const payload = { 
         messaging_product: "whatsapp",
@@ -117,24 +117,24 @@ async function sendreshulingmessage(client_id,pool){
           },
         });
     
-        logger.info(
-          `Message sent to ${client_id} whose name is ${results[0].name}`
+        logWithOptionalBroadcast('info',
+          `Message sent to ${client_id} whose name is ${results[0].name},true`
         );
       } catch (error) {
-        logger.error(
+        logWithOptionalBroadcast('error',
           `Error sending message to ${client_id} whose name is ${results[0].name}: ${error.response?.data || error.message}`
         );
     }
   }
   }catch(queryError){
-    logger.error(`Database query error in resheduling messages: ${queryError.message}`);
+    logWithOptionalBroadcast('error',`Database query error in resheduling messages: ${queryError.message}`);
   }
 }  
 
 const rescheduling = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info("today==>", todayDate);
+    logWithOptionalBroadcast('info',"today==>", todayDate);
 
     const selectQuery = `
       SELECT * 
@@ -152,13 +152,13 @@ const rescheduling = async (pool) => {
     });
 
     if (results.length > 0) {
-      logger.info(`Found ${results.length} tasks to be rescheduled.`);
+      logWithOptionalBroadcast('info',`Found ${results.length} tasks to be rescheduled.`);
 
       for (const item of results) {
         const rescheduledate = moment(item.service_date)
           .add(7, "days")
           .format("YYYY-MM-DD");
-          logger.info(`Task ${item.id} rescheduled to ${rescheduledate}`);
+          logWithOptionalBroadcast('info',`Task ${item.id} rescheduled to ${rescheduledate}`);
 
         // Update client's upcoming service date
         const updateClientQuery = `
@@ -171,7 +171,7 @@ const rescheduling = async (pool) => {
           params: [rescheduledate, item.client_id],
           pool,
         });
-        logger.info(`Client ${item.client_id} successfully rescheduled.`);
+        logWithOptionalBroadcast('info',`Client ${item.client_id} successfully rescheduled.`,true);
 
         // Mark task as inactive
         const updateTaskQuery = `
@@ -184,15 +184,15 @@ const rescheduling = async (pool) => {
           params: [item.id],
           pool,
         });
-        logger.info(`Task ${item.id} marked as inactive.`);
+        logWithOptionalBroadcast('info',`Task ${item.id} marked as inactive.`);
 
         await sendreshulingmessage(item.client_id,pool);
       }
     } else {
-      logger.info("No tasks to be rescheduled.");
+      logWithOptionalBroadcast('info',"No tasks to be rescheduled.");
     }
   } catch (error) {
-    logger.error(`Error in mytask cron job:, ${error.message, error.stack || error}`);
+    logWithOptionalBroadcast('error',`Error in mytask cron job:, ${error.message, error.stack || error}`);
   }
 };
 

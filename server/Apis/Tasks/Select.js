@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 const pool = require("../../Utils/db");
 const moment=require("moment-timezone");
 
@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) {
         // Log the error and send a proper response
-        logger.error("Error while creating database connection:", err);
+        logWithOptionalBroadcast('error',"Error while creating database connection:", err);
         return res.status(500).send(RESPONSE(false, "Database connection error", {}));
       }
 
@@ -38,12 +38,12 @@ router.get("/", (req, res) => {
 
         if (err) {
           // Log the error and send a proper response
-          logger.error("Error while executing query:", err);
+          logWithOptionalBroadcast('error',"Error while executing query:", err);
           return res.status(400).send(RESPONSE(false, "Error while selecting data from Tasks", err));
         }
 
         // Log the result and send a success response
-        logger.info("Successfully fetched tasks:", result);
+        logWithOptionalBroadcast('info',"Successfully fetched tasks:", result);
         result.forEach(item=>{
           item.service_date=moment(item.service_date).format('DD/MM/YYYY');
           item.created_at=moment(item.created_at).format("DD/MM/YYYY")
@@ -54,7 +54,7 @@ router.get("/", (req, res) => {
     });
   } catch (err) {
     // Log any unexpected errors
-    logger.error("Unexpected error in route handler:", err);
+    logWithOptionalBroadcast('error',"Unexpected error in route handler:", err);
     return res.status(400).send(RESPONSE(false, err.message, err));
   }
 });

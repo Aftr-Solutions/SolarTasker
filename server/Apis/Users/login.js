@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const tableNames = require("../../Utils/allTableNames");
 const pool = require("../../Utils/db");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 router.post("/", (req, res) => {
   let user_name = req.body.username;
@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) {
         //console.error("Database connection error:", err);
-        logger.error("Database connection error:", err);
+        logWithOptionalBroadcast('error',"Database connection error:", err);
         return res.status(500).send(RESPONSE(false, "Database connection error", {}));
       }
 
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
 
         if (err) {
           //console.error("Query execution error:", err);
-          logger.error("Query execution error:", err);
+          logWithOptionalBroadcast('error',"Query execution error:", err);
           return res.status(500).send(RESPONSE(false, "Error while selecting", err));
         }
 
@@ -69,7 +69,7 @@ router.post("/", (req, res) => {
             { expiresIn: "100h" }
           );
 
-          logger.info(`User ${user_name} logged in successfully`);
+          logWithOptionalBroadcast('info',`User ${user_name} logged in successfully`);
           res.status(200).json({
             message: "Login Successful",
             token,
@@ -80,7 +80,7 @@ router.post("/", (req, res) => {
     });
   } catch (err) {
     //console.error("Unexpected error:", err);
-    logger.error("Unexpected error:", err);
+    logWithOptionalBroadcast('error',"Unexpected error:", err);
     return res.status(500).send(RESPONSE(false, "Unexpected error", err));
   }
 });

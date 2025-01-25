@@ -3,7 +3,7 @@ const router = express.Router();
 const tableNames = require("../../Utils/allTableNames");
 const { GlobalDelete } = require("../../GlobalFunctions/GlobalDelete");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 
 
 router.post("/", (req, res) => {

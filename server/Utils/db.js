@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 const RESPONSE=require("../GlobalResponse/RESPONSE");
 const dotenv = require("dotenv");
 //const moment=require("moment-timezone");
@@ -15,10 +15,10 @@ const pool = mysql.createPool({
 pool.getConnection((err, connection) => {
   if (err) {
     // console.log("ENV",process.env.DB_HOST,process.env.DB_USER,process.env.DB_PASSWORD,process.env.DB_NAME);
-    logger.error(`Database connection error:, err`);
+    logWithOptionalBroadcast('error',`Database connection error:, err`);
     return; // Remove any attempt to use `res` here
   }
-  logger.info("Database connection successful");
+  logWithOptionalBroadcast('info',"Database connection successful");
   connection.release(); // Always release the connection back to the pool
 });
 module.exports = pool;

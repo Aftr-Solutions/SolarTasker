@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const tableName = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
-const logger = require("../../logger");
+const { logWithOptionalBroadcast } = require("../../logger");
 const { pool } = require("../../Utils/crondb");
 const moment = require("moment-timezone");
 
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
     // Establish a connection
     pool.getConnection((err, connection) => {
       if (err) {
-        logger.error("Error while creating database connection:", err);
+        logWithOptionalBroadcast('error',"Error while creating database connection:", err);
         return res
           .status(500)
           .send(RESPONSE(false, "Database connection error", {}));
@@ -60,7 +60,7 @@ router.post("/", (req, res) => {
       connection.query(insertQuery, payload, (insertErr, insertResult) => {
         if (insertErr) {
           connection.release();
-          logger.error(`Error while executing insert query:, insertErr`);
+          logWithOptionalBroadcast('error',`Error while executing insert query:, insertErr`);
           return res
             .status(500)
             .send(RESPONSE(false, "Error while inserting new task", insertErr));
@@ -76,7 +76,7 @@ router.post("/", (req, res) => {
         connection.query(updateQuery, [id], (updateErr, updateResult) => {
           connection.release(); // Release connection after the final query
           if (updateErr) {
-            logger.error(`Error while executing update query:, updateErr`);
+            logWithOptionalBroadcast('error',`Error while executing update query:, updateErr`);
             return res
               .status(500)
               .send(
@@ -89,7 +89,7 @@ router.post("/", (req, res) => {
           }
 
           // Log success and send response
-          logger.info("Successfully retasked missed task:", {
+          logWithOptionalBroadcast('info',"Successfully retasked missed task:", {
             insertResult,
             updateResult}
           );
@@ -104,7 +104,7 @@ router.post("/", (req, res) => {
       });
     });
   } catch (err) {
-    logger.error(`Enexpected error in retask route: err`);
+    logWithOptionalBroadcast('error',`Enexpected error in retask route: err`);
     return res
       .status(500)
       .send(RESPONSE(false, "Unexpected error occurred", err));

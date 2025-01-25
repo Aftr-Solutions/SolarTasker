@@ -26,7 +26,7 @@ function calculateNextScheduledDay(date, regionDay, servicePlanDuration = 0) {
 const processTasks = async () => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info("today==>",todayDate);
+    logWithOptionalBroadcast('info',"today==>",todayDate);
     const query = `
       SELECT t.id AS task_id, t.service_date, t.client_id, c.service_plan_duration, c.region_preference
       FROM ${tableName.tasks} AS t
@@ -36,19 +36,19 @@ const processTasks = async () => {
 
     pool.getConnection((err, connection) => {
       if (err) {
-        logger.error("Error getting database connection:", err);
+        logWithOptionalBroadcast('error',"Error getting database connection:", err);
         return;
       }
 
       connection.query(query, [todayDate],(fetchErr, results) => {
         if (fetchErr) {
-          logger.error("Error fetching data from tasks and clients tables:", fetchErr);
+          logWithOptionalBroadcast('error',"Error fetching data from tasks and clients tables:", fetchErr);
           connection.release();
           return;
         }
 
         if (results.length > 0) {
-          logger.info(`Processing ${results.length} tasks for rescheduling...`);
+          logWithOptionalBroadcast('info',`Processing ${results.length} tasks for rescheduling...`);
 
           results.forEach((task) => {
             const { task_id, service_date, service_plan_duration, region_preference, client_id } = task;
@@ -70,30 +70,30 @@ const processTasks = async () => {
             // Update the client's upcoming service date
             connection.query(updateClientQuery, (clientUpdateErr) => {
               if (clientUpdateErr) {
-                logger.error(`Error updating client ${client_id} with new service date:`, clientUpdateErr);
+                logWithOptionalBroadcast('error',`Error updating client ${client_id} with new service date:`, clientUpdateErr);
                 return;
               }
-              logger.info(`Client ${client_id} updated with new service date: ${nextServiceDate}`);
+              logWithOptionalBroadcast('info',`Client ${client_id} updated with new service date: ${nextServiceDate}`);
             });
 
             // Update the task to set isactive to 0
             connection.query(updateTaskQuery, (taskUpdateErr) => {
               if (taskUpdateErr) {
-                logger.error(`Error updating task ${task_id} to inactive:`, taskUpdateErr);
+                logWithOptionalBroadcast('error',`Error updating task ${task_id} to inactive:`, taskUpdateErr);
                 return;
               }
-              logger.info(`Task ${task_id} marked as inactive.`);
+              logWithOptionalBroadcast('info',`Task ${task_id} marked as inactive.`);
             });
           });
         } else {
-          logger.info("No tasks found for rescheduling.");
+          logWithOptionalBroadcast('info',"No tasks found for rescheduling.");
         }
 
         connection.release();
       });
     });
   } catch (error) {
-    logger.error("Error in processTasks function:", error.message);
+    logWithOptionalBroadcast('error',"Error in processTasks function:", error.message);
   }
 };
 
@@ -102,7 +102,7 @@ module.exports = { processTasks };*/
 const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
 const moment = require("moment-timezone");
-const logger = require("../logger");
+const { logWithOptionalBroadcast } = require("../logger");
 
 
 const REGION_DAY_MAPPING = {
@@ -129,7 +129,7 @@ function calculateNextScheduledDay(date, regionDay, servicePlanDuration = 0) {
 const processTasks = async (pool) => {
   try {
     const todayDate = moment().tz("Asia/Karachi").format("YYYY-MM-DD");
-    logger.info("today==>", todayDate);
+    logWithOptionalBroadcast('info',"today==>", todayDate);
 
     const selectQuery = `
       SELECT t.id AS task_id, t.service_date, t.client_id, c.service_plan_duration, c.region_preference
@@ -145,7 +145,7 @@ const processTasks = async (pool) => {
     });
 
     if (tasks.length > 0) {
-      logger.info(`Processing ${tasks.length} tasks for rescheduling...`);
+      logWithOptionalBroadcast('info',`Processing ${tasks.length} tasks for rescheduling...`);
 
       for (const task of tasks) {
         const { task_id, service_date, service_plan_duration, region_preference, client_id } = task;
@@ -166,7 +166,7 @@ const processTasks = async (pool) => {
           params: [nextServiceDate, service_date, client_id],
           pool,
         });
-        logger.info(`Client ${client_id} updated with new service date: ${nextServiceDate}`);
+        logWithOptionalBroadcast('info',`Client ${client_id} updated with new service date: ${nextServiceDate}`,true);
 
         const updateTaskQuery = `
           UPDATE ${tableName.tasks}
@@ -178,13 +178,13 @@ const processTasks = async (pool) => {
           params: [task_id],
           pool,
         });
-        logger.info(`Task ${task_id} marked as inactive.`);
+        logWithOptionalBroadcast('info',`Task ${task_id} marked as inactive.`);
       }
     } else {
-      logger.info("No tasks found for rescheduling.");
+      logWithOptionalBroadcast('info',"No tasks found for rescheduling.");
     }
   } catch (error) {
-    logger.error(`Error in processTasks function:, ${error.message}`);
+    logWithOptionalBroadcast('error',`Error in processTasks function:, ${error.message}`);
   }
 };
 
