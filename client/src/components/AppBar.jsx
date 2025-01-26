@@ -206,7 +206,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
               }}
               sx={{ mt: "40px" }}
               PaperProps={{
-                sx: { width: "350px" , height: "500px" }, // Ensures the paper width is set
+                sx: { width: "400px" , height: "500px" }, // Ensures the paper width is set
               }}
             >
               <div className="p-4 font-semibold">
