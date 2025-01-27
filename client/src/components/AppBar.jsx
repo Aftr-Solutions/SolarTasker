@@ -100,7 +100,6 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
 
 
   const [notifications, setNotifications] = useState([]);
-  console.log(notifications)
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket URL
@@ -112,6 +111,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
 
     return () => ws.close();
   }, []);
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };

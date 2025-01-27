@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import SearchAndFilterTable from "../../components/filterTable/SearchAndFilterTable";
 import { fetchMissedTasks } from "../../store/ActionApis/missedTasksApi";
-import { missedTaskColumn, taskColumn } from "../../components/columns/Columns";
+import { missedTaskColumn } from "../../components/columns/Columns";
 
 const MissedTasks = () => {
   const dispatch = useDispatch();
