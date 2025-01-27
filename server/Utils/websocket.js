@@ -13,6 +13,7 @@ wss.on("connection", (ws) => {
 
 // Function to broadcast logs to all connected clients
 const broadcastLog = (log) => {
+  console.log(log)
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(log));

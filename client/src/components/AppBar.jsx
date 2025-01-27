@@ -50,54 +50,68 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
     },
   ];
 
-  const notifications = [
-    {
-      id: 1,
-      title: "Cleaning Task Assigned to Team Alpha",
-      description:
-        "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
-        date: "2025-01-26 10:15 AM",
-    },
+  // const notifications = [
+  //   {
+  //     id: 1,
+  //     title: "Cleaning Task Assigned to Team Alpha",
+  //     description:
+  //       "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
+  //       date: "2025-01-26 10:15 AM",
+  //   },
 
-    {
-      id: 2,
-      title: "Maintenance Update",
-      description: "The system will undergo maintenance at 2 AM tomorrow.",
-      date: "2025-01-26 10:15 AM",
+  //   {
+  //     id: 2,
+  //     title: "Maintenance Update",
+  //     description: "The system will undergo maintenance at 2 AM tomorrow.",
+  //     date: "2025-01-26 10:15 AM",
 
-    },
-    {
-      id: 3,
-      title: "Cleaning Task Assigned to Team Alpha",
-      description:
-        "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
-        date: "2025-01-26 10:15 AM",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Cleaning Task Assigned to Team Alpha",
+  //     description:
+  //       "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
+  //       date: "2025-01-26 10:15 AM",
 
-    },
-    {
-      id: 4,
-      title: "Maintenance Update",
-      description: "The system will undergo maintenance at 2 AM tomorrow.",
-      date: "2025-01-26 10:15 AM",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Maintenance Update",
+  //     description: "The system will undergo maintenance at 2 AM tomorrow.",
+  //     date: "2025-01-26 10:15 AM",
 
-    },
-    {
-      id: 5,
-      title: "Cleaning Task Assigned to Team Alpha",
-      description:
-        "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
-        date: "2025-01-26 10:15 AM",
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Cleaning Task Assigned to Team Alpha",
+  //     description:
+  //       "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
+  //       date: "2025-01-26 10:15 AM",
 
-    },
-    {
-      id: 6,
-      title: "Maintenance Update",
-      description: "The system will undergo maintenance at 2 AM tomorrow.",
-      date: "2025-01-26 10:15 AM",
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Maintenance Update",
+  //     description: "The system will undergo maintenance at 2 AM tomorrow.",
+  //     date: "2025-01-26 10:15 AM",
 
-    },
-  ];
+  //   },
+  // ];
 
+
+  const [notifications, setNotifications] = useState([]);
+  console.log(notifications)
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket URL
+
+    ws.onmessage = (event) => {
+      const log = JSON.parse(event.data);
+      setNotifications((prevLogs) => [log, ...prevLogs]);
+    };
+
+    return () => ws.close();
+  }, []);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -221,7 +235,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                   {/* Notification Title and Icon */}
                   <div className="flex items-center space-x-3">
                     <Avatar
-                      className="bg-blue-500 text-white"
+                      className="bg-primary text-white"
                       sx={{ width: 32, height: 32 }}
                     >
                       <NotificationsIcon fontSize="small" />
