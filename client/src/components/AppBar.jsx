@@ -97,7 +97,6 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   //   },
   // ];
 
-
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
@@ -246,28 +245,26 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
             >
               <div className="p-4 font-semibold">
                 Notifications
-
-              {notifications.map((notification) => (
-                
-                <div
-                  key={notification.id}
-                  className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
-                >
-                  {/* Notification Title and Icon */}
-                  <div className="flex items-center space-x-3">
-                    <Avatar
-                      className="bg-primary text-white"
-                      sx={{ width: 32, height: 32 }}
-                    >
-                      <NotificationsIcon fontSize="small" />
-                    </Avatar>
-                    <Typography
-                      variant="subtitle2"
-                      className="font-semibold text-gray-800"
-                    >
-                      {notification.title}
-                    </Typography>
-                  </div>
+                {notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
+                  >
+                    {/* Notification Title and Icon */}
+                    <div className="flex items-center space-x-3">
+                      <Avatar
+                        className="bg-primary text-white"
+                        sx={{ width: 32, height: 32 }}
+                      >
+                        <NotificationsIcon fontSize="small" />
+                      </Avatar>
+                      <Typography
+                        variant="subtitle2"
+                        className="font-semibold text-gray-800"
+                      >
+                        {notification.title}
+                      </Typography>
+                    </div>
 
                     {/* Notification Description */}
                     <Typography
