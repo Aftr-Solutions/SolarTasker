@@ -32,16 +32,16 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   const [btnName, setBtnName] = React.useState(null);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const settings = [
-    {
-      id: 1,
-      icon: <PersonPinRoundedIcon fontSize="small" />,
-      name: "Profile",
-    },
-    {
-      id: 2,
-      icon: <AccountCircleRoundedIcon fontSize="small" />,
-      name: "Account",
-    },
+    // {
+    //   id: 1,
+    //   icon: <PersonPinRoundedIcon fontSize="small" />,
+    //   name: "Profile",
+    // },
+    // {
+    //   id: 2,
+    //   icon: <AccountCircleRoundedIcon fontSize="small" />,
+    //   name: "Account",
+    // },
     {
       id: 3,
       icon: <ExitToAppRoundedIcon fontSize="small" />,
@@ -49,48 +49,67 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
     },
   ];
 
-  const notifications = [
-    {
-      id: 1,
-      title: "Cleaning Task Assigned to Team Alpha",
-      description:
-        "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
-      date: "2025-01-26 10:15 AM",
-    },
+  // const notifications = [
+  //   {
+  //     id: 1,
+  //     title: "Cleaning Task Assigned to Team Alpha",
+  //     description:
+  //       "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
+  //       date: "2025-01-26 10:15 AM",
+  //   },
 
-    {
-      id: 2,
-      title: "Maintenance Update",
-      description: "The system will undergo maintenance at 2 AM tomorrow.",
-      date: "2025-01-26 10:15 AM",
-    },
-    {
-      id: 3,
-      title: "Cleaning Task Assigned to Team Alpha",
-      description:
-        "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
-      date: "2025-01-26 10:15 AM",
-    },
-    {
-      id: 4,
-      title: "Maintenance Update",
-      description: "The system will undergo maintenance at 2 AM tomorrow.",
-      date: "2025-01-26 10:15 AM",
-    },
-    {
-      id: 5,
-      title: "Cleaning Task Assigned to Team Alpha",
-      description:
-        "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
-      date: "2025-01-26 10:15 AM",
-    },
-    {
-      id: 6,
-      title: "Maintenance Update",
-      description: "The system will undergo maintenance at 2 AM tomorrow.",
-      date: "2025-01-26 10:15 AM",
-    },
-  ];
+  //   {
+  //     id: 2,
+  //     title: "Maintenance Update",
+  //     description: "The system will undergo maintenance at 2 AM tomorrow.",
+  //     date: "2025-01-26 10:15 AM",
+
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Cleaning Task Assigned to Team Alpha",
+  //     description:
+  //       "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
+  //       date: "2025-01-26 10:15 AM",
+
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Maintenance Update",
+  //     description: "The system will undergo maintenance at 2 AM tomorrow.",
+  //     date: "2025-01-26 10:15 AM",
+
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Cleaning Task Assigned to Team Alpha",
+  //     description:
+  //       "The Team should clean all the Solar plates and mark their task done through WhatsApp notification.",
+  //       date: "2025-01-26 10:15 AM",
+
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Maintenance Update",
+  //     description: "The system will undergo maintenance at 2 AM tomorrow.",
+  //     date: "2025-01-26 10:15 AM",
+
+  //   },
+  // ];
+
+
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket URL
+
+    ws.onmessage = (event) => {
+      const log = JSON.parse(event.data);
+      setNotifications((prevLogs) => [log, ...prevLogs]);
+    };
+
+    return () => ws.close();
+  }, []);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -227,26 +246,28 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
             >
               <div className="p-4 font-semibold">
                 Notifications
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
-                  >
-                    {/* Notification Title and Icon */}
-                    <div className="flex items-center space-x-3">
-                      <Avatar
-                        className="bg-blue-500 text-white"
-                        sx={{ width: 32, height: 32 }}
-                      >
-                        <NotificationsIcon fontSize="small" />
-                      </Avatar>
-                      <Typography
-                        variant="subtitle2"
-                        className="font-semibold text-gray-800"
-                      >
-                        {notification.title}
-                      </Typography>
-                    </div>
+
+              {notifications.map((notification) => (
+                
+                <div
+                  key={notification.id}
+                  className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
+                >
+                  {/* Notification Title and Icon */}
+                  <div className="flex items-center space-x-3">
+                    <Avatar
+                      className="bg-primary text-white"
+                      sx={{ width: 32, height: 32 }}
+                    >
+                      <NotificationsIcon fontSize="small" />
+                    </Avatar>
+                    <Typography
+                      variant="subtitle2"
+                      className="font-semibold text-gray-800"
+                    >
+                      {notification.title}
+                    </Typography>
+                  </div>
 
                     {/* Notification Description */}
                     <Typography

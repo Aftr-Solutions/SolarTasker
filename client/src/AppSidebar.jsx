@@ -12,6 +12,9 @@ import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import { Link, useLocation } from "react-router";
 import UserProfile from "./components/UserProfile";
+import  logo from '../src/assets/Logo.png'
+import  smallLogo from '../src/assets/Small-logo.png'
+
 
 const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
   const location = useLocation();
@@ -26,7 +29,8 @@ const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
         <div className="w-full sticky top-0 bg-white z-10 logo">
           {!isCollapse ? (
             <div className="p-5">
-              <svg
+              <img src={logo}/>
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="174"
                 height="26"
@@ -47,11 +51,11 @@ const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
                   fill="#3DD9EB"
                   d="M13.701 26c-2.761 0-5.047-2.258-4.536-4.971.32-1.702.805-3.37 1.45-4.979a26.1 26.1 0 0 1 5.449-8.435 25.1 25.1 0 0 1 8.155-5.636A24.5 24.5 0 0 1 28.873.512C31.577-.05 33.838 2.24 33.838 5v16a5 5 0 0 1-5 5z"
                 ></path>
-              </svg>
+              </svg> */}
             </div>
           ) : (
             <div className="p-5">
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="174"
                 height="26"
@@ -68,7 +72,8 @@ const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
                     mixBlendMode: "multiply",
                   }}
                 ></path>
-              </svg>
+              </svg> */}
+               <img src={smallLogo}/>
             </div>
           )}
         </div>
