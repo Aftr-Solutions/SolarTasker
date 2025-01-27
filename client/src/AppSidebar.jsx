@@ -168,7 +168,7 @@ const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
                 />
               }
               link={location.pathname === "/tasks" ? "/" : ""}
-              badge="true"
+              // badge="true"
             >
               TASKS
             </MenuItem>

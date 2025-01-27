@@ -12,14 +12,15 @@ const SearchAndFilterTable = ({
 }) => {
   // Table States
   const [tableData, setTableData] = useState([]);
-  // console.log(tableData)
+  console.log(tableData)
   // console.log("Table Type =>", tableType);
   // console.log("Data as props =>", data);
 
   // Client States
   const [searchTerm, setSearchTerm] = useState("");
   const [searchTermName, setSearchTermName] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState();
+  console.log(selectedPlan)
 
   // Region States
   const [searchTermByArea, setSearchTermByArea] = useState("");
@@ -63,15 +64,25 @@ const SearchAndFilterTable = ({
 
     if (tableType === "clients") {
       filteredData = filteredData.filter((item) => {
+        console.log(item);
+    
         const matchesSearch = item.email
           ?.toLowerCase()
           .includes(searchTerm.toLowerCase());
         const matchesSearchName = item.name
           ?.toLowerCase()
           .includes(searchTermName.toLowerCase());
-        const matchesPlan = selectedPlan ? item.plan === selectedPlan : true;
+    
+        // Handle selectedPlan explicitly, including 0
+        const matchesPlan =
+          selectedPlan !== null && selectedPlan !== undefined
+            ? item.plan === selectedPlan
+            : true;
+    
+        console.log(matchesPlan);
         return matchesPlan && matchesSearch && matchesSearchName;
       });
+    
     } else if (tableType === "regions") {
       filteredData = filteredData.filter((item) => {
         const matchesSearchArea = item.area
@@ -244,7 +255,7 @@ const SearchAndFilterTable = ({
               allowClear
             />
 
-            <Select
+            {/* <Select
               placeholder="Select Status"
               onChange={(value) => setSelectedStatus(value)}
               style={{ width: "150px" }}
@@ -252,7 +263,7 @@ const SearchAndFilterTable = ({
             >
               <Option value={1}>Active</Option>
               <Option value={0}>Offline</Option>
-            </Select>
+            </Select> */}
           </>
         ) : tableType === "Users" ? (
           <>
