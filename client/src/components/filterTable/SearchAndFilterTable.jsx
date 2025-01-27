@@ -255,7 +255,7 @@ const SearchAndFilterTable = ({
               allowClear
             />
 
-            <Select
+            {/* <Select
               placeholder="Select Status"
               onChange={(value) => setSelectedStatus(value)}
               style={{ width: "150px" }}
@@ -263,7 +263,7 @@ const SearchAndFilterTable = ({
             >
               <Option value={1}>Active</Option>
               <Option value={0}>Offline</Option>
-            </Select>
+            </Select> */}
           </>
         ) : tableType === "Users" ? (
           <>
