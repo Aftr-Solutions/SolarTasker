@@ -39,3 +39,62 @@
 2025-01-26 00:28:21 [INFO]: Database connection successful
 2025-01-26 00:29:11 [INFO]: Server is running on: localhost:, 5002
 2025-01-26 00:29:12 [INFO]: Database connection successful
+2025-01-27 14:42:53 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 14:42:54 [INFO]: Database connection successful
+2025-01-27 14:43:08 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 14:43:09 [INFO]: Database connection successful
+2025-01-27 14:43:45 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 14:43:46 [INFO]: Database connection successful
+2025-01-27 14:44:42 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 14:44:43 [INFO]: Database connection successful
+2025-01-27 14:44:59 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 14:45:00 [INFO]: Database connection successful
+2025-01-27 14:45:11 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 14:45:12 [INFO]: Database connection successful
+2025-01-27 14:48:14 [INFO]: Successfully Fetched Tasks:
+2025-01-27 14:48:15 [INFO]: Successfully Fetched Tasks:
+2025-01-27 14:52:17 [INFO]: Successfully Fetched Tasks:
+2025-01-27 14:54:50 [INFO]: Successfully Fetched Tasks:
+2025-01-27 14:54:50 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:00:13 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 15:00:14 [INFO]: Database connection successful
+2025-01-27 15:01:40 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 15:01:43 [INFO]: Database connection successful
+2025-01-27 15:02:03 [INFO]: Successfully Fetched Team:
+2025-01-27 15:02:03 [INFO]: Successfully Fetched Team:
+2025-01-27 15:02:09 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 15:02:10 [INFO]: Database connection successful
+2025-01-27 15:02:54 [INFO]: Server is running on: localhost:, 5002
+2025-01-27 15:02:55 [INFO]: Database connection successful
+2025-01-27 15:39:48 [INFO]: Successfully Fetched Team:
+2025-01-27 15:39:49 [INFO]: Successfully Fetched Team:
+2025-01-27 15:41:33 [INFO]: Successfully Fetched Team:
+2025-01-27 15:41:34 [INFO]: Successfully Fetched Team:
+2025-01-27 15:43:04 [INFO]: Successfully Fetched Team:
+2025-01-27 15:43:05 [INFO]: Successfully Fetched Team:
+2025-01-27 15:43:11 [INFO]: Successfully Fetched Team:
+2025-01-27 15:43:12 [INFO]: Successfully Fetched Team:
+2025-01-27 15:43:55 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:43:57 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:44:00 [INFO]: Successfully Fetched Team:
+2025-01-27 15:44:00 [INFO]: Successfully Fetched Team:
+2025-01-27 15:47:19 [INFO]: Successfully Fetched Team:
+2025-01-27 15:47:19 [INFO]: Successfully Fetched Team:
+2025-01-27 15:52:34 [INFO]: Successfully Fetched Team:
+2025-01-27 15:52:34 [INFO]: Successfully Fetched Team:
+2025-01-27 15:53:09 [INFO]: Successfully Fetched Team:
+2025-01-27 15:53:10 [INFO]: Successfully Fetched Team:
+2025-01-27 15:53:13 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:53:14 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:54:12 [INFO]: Webhook received data:
+2025-01-27 15:54:12 [INFO]: Button response from 923118366981: 3 - Excellent
+2025-01-27 15:54:15 [INFO]: Found client Ahsan with ID: 25
+2025-01-27 15:54:16 [INFO]: Feedback recorded for Task ID: 72 with rating: 3
+2025-01-27 15:55:20 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:55:21 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:55:26 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:55:27 [INFO]: Successfully Fetched Tasks:
+2025-01-27 15:55:31 [INFO]: Successfully Fetched Team:
+2025-01-27 15:55:31 [INFO]: Successfully Fetched Team:
+2025-01-27 16:01:38 [INFO]: Successfully fetched records from tracking.
+2025-01-27 16:01:38 [INFO]: Successfully fetched records from tracking.

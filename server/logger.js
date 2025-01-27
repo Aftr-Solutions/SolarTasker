@@ -32,7 +32,7 @@ const logger = createLogger({
 // Function to log and optionally broadcast messages
 function logWithOptionalBroadcast(level, message, send = false) {
   logger.log({ level, message });
-  if (send) {
+  if (send === true) {
     broadcastLog(message);
   }
 }

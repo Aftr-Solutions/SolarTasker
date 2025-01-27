@@ -39,7 +39,7 @@ router.get("/",(req,res)=>{
     }
     
     // Log the result and send a success response
-        logWithOptionalBroadcast('info',"Successfully fetched tasks:", result);
+        logWithOptionalBroadcast('info',"Successfully Fetched Team:", result);
         return res.status(200).send(RESPONSE(true, "Successfully selected record from Teams", result));
         });
     });
