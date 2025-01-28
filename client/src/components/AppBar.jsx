@@ -98,17 +98,45 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   // ];
 
   const [notifications, setNotifications] = useState([]);
-
+  console.log(notifications);
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket URL
+    const ws = new WebSocket("ws://localhost:8080");
 
-    ws.onmessage = (event) => {
-      const log = JSON.parse(event.data);
-      setNotifications((prevLogs) => [log, ...prevLogs]);
+    ws.onopen = () => {
+      console.log("WebSocket connected.");
     };
 
-    return () => ws.close();
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "history") {
+        // Set past notifications when first loaded
+        setNotifications(data.notifications);
+      }
+
+      if (data.type === "new") {
+        // Add new notification to the list
+        setNotifications((prevNotifications) => [data.notification, ...prevNotifications]);
+
+        // Display notification using Ant Design
+        notification.open({
+          message: "New Notification",
+          description: data.notification.message,
+          placement: "topRight",
+        });
+      }
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error.message);
+    };
+
+    return () => {
+      ws.close();
+    };
   }, []);
+
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);

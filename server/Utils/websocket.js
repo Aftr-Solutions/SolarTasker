@@ -1,20 +1,17 @@
 const WebSocket = require("ws");
-const { performQuery } = require("../Utils/performQuery");
 const tableName = require("../Utils/allTableNames");
 const moment = require("moment-timezone");
 const cronpool = require("../Utils/crondb");
+
 const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on("connection", async (ws) => {
   console.log("New WebSocket connection established.");
 
   try {
+    // Fetch stored notifications
     const fetchNotificationsQuery = `SELECT message, created_at FROM ${tableName.notification} ORDER BY created_at DESC;`;
-    const notifications = await performQuery({
-      sql: fetchNotificationsQuery,
-      params: [],
-      pool: cronpool,
-    });
+    const [notifications] = await cronpool.query(fetchNotificationsQuery);
 
     ws.send(
       JSON.stringify({
@@ -23,7 +20,7 @@ wss.on("connection", async (ws) => {
       })
     );
   } catch (error) {
-    logger.error(`Error fetching notifications: ${error.message}`);
+    console.error(`Error fetching notifications: ${error.message}`);
     ws.send(
       JSON.stringify({
         type: "error",
@@ -35,39 +32,30 @@ wss.on("connection", async (ws) => {
   ws.on("close", () => {
     console.log("WebSocket connection closed.");
   });
-
-  ws.on("error", (err) => {
-    logger.error(`WebSocket error: ${err.message}`);
-  });
 });
 
 const broadcastNotification = async (message) => {
   try {
     const timestamp = moment.tz("Asia/Karachi").format("YYYY-MM-DD HH:mm:ss");
-    const insertQuery = `INSERT INTO ${tableName.notification} (message, created_at) VALUES (?,?);`;
-    await performQuery({
-      sql: insertQuery,
-      params: [message, timestamp],
-      pool: cronpool,
-    });
 
+    // Insert into database
+    const insertQuery = `INSERT INTO ${tableName.notification} (message, created_at) VALUES (?,?);`;
+    await cronpool.query(insertQuery, [message, timestamp]);
+
+    // Broadcast new notification
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        try {
-          client.send(
-            JSON.stringify({
-              type: "new",
-              notification: { message, created_at: timestamp },
-            })
-          );
-        } catch (err) {
-          logger.error(`Error sending notification: ${err.message}`);
-        }
+        client.send(
+          JSON.stringify({
+            type: "new",
+            notification: { message, created_at: timestamp },
+          })
+        );
       }
     });
   } catch (error) {
-    logger.error(`Error broadcasting notification: ${error.message}`);
+    console.error(`Error broadcasting notification: ${error.message}`);
   }
 };
 
-module.exports = { broadcastNotification };
+module.exports = { broadcastNotification, wss };
