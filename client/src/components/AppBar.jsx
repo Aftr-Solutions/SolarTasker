@@ -225,7 +225,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
               </>
             )}
 
-            {!isMobile && (
+            {/* {!isMobile && (
               <>
                 <IconButton>
                   <LanguageIcon className="text-gray-700" />
@@ -237,7 +237,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                   </Badge>
                 </IconButton>
               </>
-            )}
+            )} */}
 
             <IconButton onClick={handleOpenNotifcationMenu} sx={{ p: 0 }}>
               <Badge
