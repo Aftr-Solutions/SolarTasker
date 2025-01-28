@@ -9,7 +9,6 @@ import {
   Typography,
   Tooltip,
   useMediaQuery,
-
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -19,7 +18,7 @@ import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import PersonPinRoundedIcon from "@mui/icons-material/PersonPinRounded";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { Modal, List} from "antd"; // Import Ant Design components
+import { Modal, List, notification } from "antd"; // Import Ant Design components
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Buttons from "./button/Button";
 import CreateDialog from "./createDialog/CreateDialog";
@@ -33,16 +32,16 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   const [btnName, setBtnName] = React.useState(null);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const settings = [
-    {
-      id: 1,
-      icon: <PersonPinRoundedIcon fontSize="small" />,
-      name: "Profile",
-    },
-    {
-      id: 2,
-      icon: <AccountCircleRoundedIcon fontSize="small" />,
-      name: "Account",
-    },
+    // {
+    //   id: 1,
+    //   icon: <PersonPinRoundedIcon fontSize="small" />,
+    //   name: "Profile",
+    // },
+    // {
+    //   id: 2,
+    //   icon: <AccountCircleRoundedIcon fontSize="small" />,
+    //   name: "Account",
+    // },
     {
       id: 3,
       icon: <ExitToAppRoundedIcon fontSize="small" />,
@@ -98,9 +97,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   //   },
   // ];
 
-
   const [notifications, setNotifications] = useState([]);
-  console.log(notifications)
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket URL
@@ -112,6 +109,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
 
     return () => ws.close();
   }, []);
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -132,11 +130,23 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   }, [location]);
 
   const handleOpenNotifcationMenu = (event) => {
-   setAnchorElNotification(event.currentTarget)
+    setAnchorElNotification(event.currentTarget);
   };
 
   const handleCloseNotificationMenu = () => {
-   setAnchorElNotification(null);
+    setAnchorElNotification(null);
+  };
+
+  const handleLogout = async () => {
+    await localStorage.removeItem("token");
+    notification.success({
+      message: "Logout successfully!",
+      description: `You have been Logout Successfully`,
+      placement: "topRight",
+    });
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 500);
   };
 
   return (
@@ -152,7 +162,9 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
               <IconButton onClick={handleSidebar}>
                 <MenuOutlinedIcon
                   className={`text-gray-700 z-10 ${
-                    isCollapse ? "rotate-180" : "transition-transform duration-300"
+                    isCollapse
+                      ? "rotate-180"
+                      : "transition-transform duration-300"
                   } `}
                 />
               </IconButton>
@@ -200,12 +212,20 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
             )}
 
             <IconButton onClick={handleOpenNotifcationMenu} sx={{ p: 0 }}>
-              <Badge  variant={notifications.length>0 ? "dot": ""} color="primary">
-                <NotificationsIcon className={anchorElNotification===null? "text-gray-700": "text-primary"} />
+              <Badge
+                variant={notifications.length > 0 ? "dot" : ""}
+                color="primary"
+              >
+                <NotificationsIcon
+                  className={
+                    anchorElNotification === null
+                      ? "text-gray-700"
+                      : "text-primary"
+                  }
+                />
               </Badge>
             </IconButton>
             <Menu
-           
               id="notification-menu"
               anchorEl={anchorElNotification}
               open={Boolean(anchorElNotification)}
@@ -220,56 +240,52 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
               }}
               sx={{ mt: "40px" }}
               PaperProps={{
-                sx: { width: "400px" , height: "500px" }, // Ensures the paper width is set
+                sx: { width: "400px", height: "500px" }, // Ensures the paper width is set
               }}
             >
               <div className="p-4 font-semibold">
                 Notifications
+                {notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
+                  >
+                    {/* Notification Title and Icon */}
+                    <div className="flex items-center space-x-3">
+                      <Avatar
+                        className="bg-primary text-white"
+                        sx={{ width: 32, height: 32 }}
+                      >
+                        <NotificationsIcon fontSize="small" />
+                      </Avatar>
+                      <Typography
+                        variant="subtitle2"
+                        className="font-semibold text-gray-800"
+                      >
+                        {notification.title}
+                      </Typography>
+                    </div>
 
-              {notifications.map((notification) => (
-                
-                <div
-                  key={notification.id}
-                  className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
-                >
-                  {/* Notification Title and Icon */}
-                  <div className="flex items-center space-x-3">
-                    <Avatar
-                      className="bg-primary text-white"
-                      sx={{ width: 32, height: 32 }}
-                    >
-                      <NotificationsIcon fontSize="small" />
-                    </Avatar>
+                    {/* Notification Description */}
                     <Typography
-                      variant="subtitle2"
-                      className="font-semibold text-gray-800"
+                      variant="body2"
+                      className="text-sm text-gray-600 mt-2"
                     >
-                      {notification.title}
+                      {notification.description}
                     </Typography>
+
+                    {/* Notification Date and Time */}
+                    <div className="w-full text-end">
+                      <Typography
+                        variant="caption"
+                        className="text-xs text-primary mt-1 "
+                      >
+                        {notification.date}
+                      </Typography>
+                    </div>
                   </div>
-
-                  {/* Notification Description */}
-                  <Typography
-                    variant="body2"
-                    className="text-sm text-gray-600 mt-2"
-                  >
-                    {notification.description}
-                  </Typography>
-
-                  {/* Notification Date and Time */}
-                  <div className="w-full text-end">
-
-                  <Typography
-                    variant="caption"
-                    className="text-xs text-primary mt-1 "
-                  >
-                    {notification.date}
-                  </Typography>
-                  </div>
-                </div>
-              ))}
+                ))}
               </div>
-
             </Menu>
 
             {!isMobile && (
@@ -304,7 +320,12 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                       key={setting.id}
                       onClick={handleCloseUserMenu}
                     >
-                      <Typography sx={{ textAlign: "center" }}>
+                      <Typography
+                        sx={{ textAlign: "center" }}
+                        onClick={
+                          setting.name === "Logout" ? handleLogout : null
+                        }
+                      >
                         {setting.name}
                       </Typography>
                     </MenuItem>
@@ -315,7 +336,6 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
           </div>
         </Toolbar>
       </AppBar>
-
     </>
   );
 };
