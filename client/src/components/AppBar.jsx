@@ -290,17 +290,17 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                         variant="subtitle2"
                         className="font-semibold text-gray-800"
                       >
-                        {notification.title}
+                        {notification.message}
                       </Typography>
                     </div>
 
                     {/* Notification Description */}
-                    <Typography
+                    {/* <Typography
                       variant="body2"
                       className="text-sm text-gray-600 mt-2"
                     >
-                      {notification.description}
-                    </Typography>
+                      {notification.message}
+                    </Typography> */}
 
                     {/* Notification Date and Time */}
                     <div className="w-full text-end">
@@ -308,7 +308,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                         variant="caption"
                         className="text-xs text-primary mt-1 "
                       >
-                        {notification.date}
+                        {notification.created_at?.slice(0,10)}
                       </Typography>
                     </div>
                   </div>
