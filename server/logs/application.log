@@ -98,3 +98,79 @@
 2025-01-27 15:55:31 [INFO]: Successfully Fetched Team:
 2025-01-27 16:01:38 [INFO]: Successfully fetched records from tracking.
 2025-01-27 16:01:38 [INFO]: Successfully fetched records from tracking.
+2025-01-28 15:45:51 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 15:45:52 [INFO]: Database connection successful
+2025-01-28 15:47:25 [INFO]: Webhook received data:
+2025-01-28 15:47:25 [INFO]: Button response from 923118366981: 3 - Excellent
+2025-01-28 15:47:26 [INFO]: Found client Ahsan with ID: 25
+2025-01-28 15:47:26 [INFO]: Feedback recorded for Task ID: 72 with rating: 3
+2025-01-28 15:48:22 [INFO]: Webhook received data:
+2025-01-28 15:48:22 [INFO]: Button response from 923118366981: 3 - Excellent
+2025-01-28 15:48:23 [INFO]: Found client Ahsan with ID: 25
+2025-01-28 15:48:23 [INFO]: Feedback recorded for Task ID: 72 with rating: 3
+2025-01-28 15:51:01 [INFO]: Successfully Fetched Tasks:
+2025-01-28 15:51:02 [INFO]: Successfully Fetched Tasks:
+2025-01-28 16:00:38 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:00:39 [INFO]: Database connection successful
+2025-01-28 16:07:15 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:07:16 [INFO]: Database connection successful
+2025-01-28 16:10:39 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:10:40 [INFO]: Database connection successful
+2025-01-28 16:11:13 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:11:14 [INFO]: Database connection successful
+2025-01-28 16:12:19 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:12:20 [INFO]: Database connection successful
+2025-01-28 16:13:50 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:13:51 [INFO]: Database connection successful
+2025-01-28 16:14:20 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 16:14:21 [INFO]: Database connection successful
+2025-01-28 22:41:36 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 22:41:37 [INFO]: Database connection successful
+2025-01-28 22:42:04 [INFO]: Successfully Fetched Team:
+2025-01-28 22:42:04 [INFO]: Successfully Fetched Team:
+2025-01-28 22:42:05 [INFO]: Successfully Fetched Tasks:
+2025-01-28 22:42:06 [INFO]: Successfully Fetched Team:
+2025-01-28 22:42:06 [INFO]: Successfully Fetched Tasks:
+2025-01-28 22:42:07 [INFO]: Successfully Fetched Team:
+2025-01-28 22:42:07 [INFO]: Successfully fetched tasks:
+2025-01-28 22:42:07 [INFO]: Successfully fetched records from tracking.
+2025-01-28 22:42:08 [INFO]: Successfully fetched tasks:
+2025-01-28 22:42:08 [INFO]: Successfully fetched records from tracking.
+2025-01-28 22:42:08 [INFO]: Successfully Fetched Missed Tasks:
+2025-01-28 22:42:08 [INFO]: Successfully Fetched Team:
+2025-01-28 22:42:09 [INFO]: Successfully Fetched Missed Tasks:
+2025-01-28 22:42:09 [INFO]: Successfully Fetched Team:
+2025-01-28 22:42:09 [INFO]: Successfully fetched records from tracking.
+2025-01-28 22:42:10 [INFO]: Successfully fetched records from tracking.
+2025-01-28 22:46:02 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 22:46:04 [ERROR]: Database connection error:, err
+2025-01-28 22:46:14 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 22:46:47 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 22:47:04 [INFO]: Server is running on: localhost:, 5002
+2025-01-28 22:47:05 [INFO]: Database connection successful
+2025-02-07 15:21:51 [INFO]: Server is running on: localhost:, 5002
+2025-02-07 15:21:54 [INFO]: Database connection successful
+2025-02-07 15:23:00 [INFO]: User AdminOfSolar logged in successfully
+2025-02-07 15:23:48 [INFO]: Payload for insertion:
+2025-02-07 15:24:51 [INFO]: Payload for update:
+2025-02-07 15:25:06 [INFO]: Payload for deletion:
+2025-02-07 15:25:16 [INFO]: Successfully fetched records from tracking.
+2025-02-07 15:25:17 [INFO]: Successfully fetched records from tracking.
+2025-02-07 15:25:18 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:19 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:19 [INFO]: Successfully Fetched Missed Tasks:
+2025-02-07 15:25:20 [INFO]: Successfully Fetched Missed Tasks:
+2025-02-07 15:25:21 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:21 [INFO]: Successfully fetched tasks:
+2025-02-07 15:25:22 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:22 [INFO]: Successfully fetched tasks:
+2025-02-07 15:25:23 [INFO]: Successfully Fetched Tasks:
+2025-02-07 15:25:24 [INFO]: Successfully Fetched Tasks:
+2025-02-07 15:25:42 [INFO]: Successfully fetched tasks:
+2025-02-07 15:25:42 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:43 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:43 [INFO]: Successfully fetched tasks:
+2025-02-07 15:25:46 [INFO]: Successfully Fetched Missed Tasks:
+2025-02-07 15:25:46 [INFO]: Successfully Fetched Team:
+2025-02-07 15:25:47 [INFO]: Successfully Fetched Missed Tasks:
+2025-02-07 15:25:47 [INFO]: Successfully Fetched Team:

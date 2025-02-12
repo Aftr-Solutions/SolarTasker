@@ -47,6 +47,7 @@ module.exports = function sendUserCredentials(email, username, password,call, re
                     <p>If you encounter any issues or have any concerns, please contact your administrator.</p> 
                     <p>Best regards,<br>Admin Team</p>`
         }
+        let mailOptions;
         if(call === "create"){
             mailOptions=create_mailOptions;
         }

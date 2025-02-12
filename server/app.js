@@ -97,15 +97,14 @@ cron.schedule("0 8 * * *", async () => {
   }
 });
 
-//sendMessageOfFeedback("923118366981","Abdul Rafay",1);
-//sendMessageOfComing("+923118366981","Narcos");
-//await sendMessage(cronpool)
-//sendMessagetoteams(cronpool);
-//commeted
-//mytask(cronpool);
-//assignteam();
-//rescheduling(pool);
-//processTasks();
+cron.schedule("0 */2 * * *", async (cronpool) => {
+  logWithOptionalBroadcast("info", "Running notification cleanup...,");
+  try{
+    await deleteOldNotifications(pool);
+  }catch (error) {
+    logWithOptionalBroadcast('error',`Error in notification cron job:, ${error.message}`);
+  }  
+});
 
 const server = http.createServer(app);
 const PORT = process.env.PORT;
