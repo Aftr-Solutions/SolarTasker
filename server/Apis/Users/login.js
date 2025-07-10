@@ -66,7 +66,7 @@ router.post("/", (req, res) => {
               email: data[0].email,
             },
             process.env.SECRET_KEY,
-            { expiresIn: "100h" }
+            { expiresIn: "3h" }
           );
 
           logWithOptionalBroadcast('info',`User ${user_name} logged in successfully`);

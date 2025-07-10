@@ -97,19 +97,46 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   //   },
   // ];
 
-
   const [notifications, setNotifications] = useState([]);
-
+  console.log(notifications);
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080"); // Replace with your WebSocket URL
+    const ws = new WebSocket("ws://localhost:8080");
 
-    ws.onmessage = (event) => {
-      const log = JSON.parse(event.data);
-      setNotifications((prevLogs) => [log, ...prevLogs]);
+    ws.onopen = () => {
+      console.log("WebSocket connected.");
     };
 
-    return () => ws.close();
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "history") {
+        // Set past notifications when first loaded
+        setNotifications(data.notifications);
+      }
+
+      if (data.type === "new") {
+        // Add new notification to the list
+        setNotifications((prevNotifications) => [data.notification, ...prevNotifications]);
+
+        // Display notification using Ant Design
+        notification.open({
+          message: "New Notification",
+          description: data.notification.message,
+          placement: "topRight",
+        });
+      }
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error.message);
+    };
+
+    return () => {
+      ws.close();
+    };
   }, []);
+
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -198,7 +225,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
               </>
             )}
 
-            {!isMobile && (
+            {/* {!isMobile && (
               <>
                 <IconButton>
                   <LanguageIcon className="text-gray-700" />
@@ -210,7 +237,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                   </Badge>
                 </IconButton>
               </>
-            )}
+            )} */}
 
             <IconButton onClick={handleOpenNotifcationMenu} sx={{ p: 0 }}>
               <Badge
@@ -246,36 +273,34 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
             >
               <div className="p-4 font-semibold">
                 Notifications
-
-              {notifications.map((notification) => (
-                
-                <div
-                  key={notification.id}
-                  className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
-                >
-                  {/* Notification Title and Icon */}
-                  <div className="flex items-center space-x-3">
-                    <Avatar
-                      className="bg-primary text-white"
-                      sx={{ width: 32, height: 32 }}
-                    >
-                      <NotificationsIcon fontSize="small" />
-                    </Avatar>
-                    <Typography
-                      variant="subtitle2"
-                      className="font-semibold text-gray-800"
-                    >
-                      {notification.title}
-                    </Typography>
-                  </div>
+                {notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className="flex flex-col font-semibold items-start p-4 hover:bg-gray-100 rounded-lg cursor-pointer "
+                  >
+                    {/* Notification Title and Icon */}
+                    <div className="flex items-center space-x-3">
+                      <Avatar
+                        className="bg-primary text-white"
+                        sx={{ width: 32, height: 32 }}
+                      >
+                        <NotificationsIcon fontSize="small" />
+                      </Avatar>
+                      <Typography
+                        variant="subtitle2"
+                        className="font-semibold text-gray-800"
+                      >
+                        {notification.message}
+                      </Typography>
+                    </div>
 
                     {/* Notification Description */}
-                    <Typography
+                    {/* <Typography
                       variant="body2"
                       className="text-sm text-gray-600 mt-2"
                     >
-                      {notification.description}
-                    </Typography>
+                      {notification.message}
+                    </Typography> */}
 
                     {/* Notification Date and Time */}
                     <div className="w-full text-end">
@@ -283,7 +308,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
                         variant="caption"
                         className="text-xs text-primary mt-1 "
                       >
-                        {notification.date}
+                        {notification.created_at?.slice(0,10)}
                       </Typography>
                     </div>
                   </div>

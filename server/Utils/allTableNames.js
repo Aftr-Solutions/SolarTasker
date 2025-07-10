@@ -7,6 +7,7 @@ const tableNames = {
     tasks:"tasks",
     feedback:"feedback",
     tracking:"tracking",
+    notification:"notification"
   };
   
   module.exports = tableNames;

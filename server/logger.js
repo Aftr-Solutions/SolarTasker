@@ -1,7 +1,6 @@
 const { createLogger, format, transports } = require("winston");
 const path = require("path");
 const fs = require("fs");
-const { broadcastLog } = require("../server/Utils/websocket");
 
 // Create logs directory if it doesn't exist
 const logDir = path.join(__dirname, "logs");
@@ -29,12 +28,21 @@ const logger = createLogger({
   ],
 });
 
+// Dynamic import to resolve circular dependency
+let broadcastNotification;
+try {
+  const websocketModule = require("../server/Utils/websocket");
+  broadcastNotification = websocketModule.broadcastNotification;
+} catch (error) {
+  console.error("Error importing websocketServer:", error.message);
+}
+
 // Function to log and optionally broadcast messages
 function logWithOptionalBroadcast(level, message, send = false) {
   logger.log({ level, message });
-  if (send === true) {
-    broadcastLog(message);
+  if (send === true && typeof broadcastNotification === "function") {
+    broadcastNotification(message);
   }
 }
 
-module.exports = { logger, logWithOptionalBroadcast };
+module.exports = { logWithOptionalBroadcast };

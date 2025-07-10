@@ -12,13 +12,16 @@ import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import { Link, useLocation } from "react-router";
 import UserProfile from "./components/UserProfile";
-import  logo from '../src/assets/Logo.png'
-import  smallLogo from '../src/assets/Small-logo.png'
-
+import  logo from '../src/assets/Logo.png';
+import  smallLogo from '../src/assets/Small-logo.png';
+import { jwtDecode } from "jwt-decode";
 
 const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
   const location = useLocation();
-
+  const token = localStorage.getItem("token");
+  const userData = jwtDecode(token);
+  console.log(userData);
+  
   return (
     <>
       <Sidebar
@@ -260,9 +263,9 @@ const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
         </Menu>
 
         <UserProfile
-          userName="Hamza"
+          userName={userData?.username}
           userimg="https://modernize-react.adminmart.com/assets/user-1-CznVQ9Sv.jpg"
-          designation="Developer"
+          designation="Admin"
           isCollapse={isCollapse}
         />
       </Sidebar>

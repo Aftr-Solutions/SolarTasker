@@ -103,6 +103,7 @@ const Login = ({ setIsAuthenticated }) => {
               fontFamily: "Roboto, sans-serif",
               fontWeight: "bold",
               color: "#1976d2",
+              fontSize: "36px"
             }}
           >
             Welcome Back!
@@ -110,7 +111,7 @@ const Login = ({ setIsAuthenticated }) => {
           <p
             style={{
               color: "#1976d2",
-              fontSize: "16px",
+              fontSize: "14px",
               fontFamily: "Roboto, sans-serif",
             }}
           >

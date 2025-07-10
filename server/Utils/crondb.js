@@ -1,5 +1,5 @@
 const mysql = require("mysql2/promise");
-const { logWithOptionalBroadcast } = require("../logger");
+// const { logWithOptionalBroadcast } = require("../logger");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -16,10 +16,10 @@ const cronpool = mysql.createPool({
 });
 cronpool.getConnection((err, connection) => {
   if (err) {
-    logWithOptionalBroadcast('error',`Database connection error in cron pool:, err`);
+    console.log('error',`Database connection error in cron pool:, err`);
     return; // Remove any attempt to use `res` here
   }
-  logWithOptionalBroadcast('info',"Database connection successful of cronpool");
+  console.log('info',"Database connection successful of cronpool");
   connection.release(); // Always release the connection back to the pool
 });
 module.exports = cronpool;
