@@ -98,3 +98,7 @@
 2025-01-27 15:55:31 [INFO]: Successfully Fetched Team:
 2025-01-27 16:01:38 [INFO]: Successfully fetched records from tracking.
 2025-01-27 16:01:38 [INFO]: Successfully fetched records from tracking.
+2025-06-03 09:54:15 [INFO]: Server is running on: localhost:, 5002
+2025-06-03 09:54:16 [ERROR]: Database connection error:, err
+2025-06-03 09:58:04 [INFO]: Server is running on: localhost:, 5002
+2025-06-03 09:58:05 [ERROR]: Database connection error:, err

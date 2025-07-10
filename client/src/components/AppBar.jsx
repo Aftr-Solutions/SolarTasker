@@ -32,16 +32,16 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   const [btnName, setBtnName] = React.useState(null);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const settings = [
-    // {
-    //   id: 1,
-    //   icon: <PersonPinRoundedIcon fontSize="small" />,
-    //   name: "Profile",
-    // },
-    // {
-    //   id: 2,
-    //   icon: <AccountCircleRoundedIcon fontSize="small" />,
-    //   name: "Account",
-    // },
+    {
+      id: 1,
+      icon: <PersonPinRoundedIcon fontSize="small" />,
+      name: "Profile",
+    },
+    {
+      id: 2,
+      icon: <AccountCircleRoundedIcon fontSize="small" />,
+      name: "Account",
+    },
     {
       id: 3,
       icon: <ExitToAppRoundedIcon fontSize="small" />,

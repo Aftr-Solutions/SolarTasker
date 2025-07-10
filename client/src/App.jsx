@@ -18,7 +18,7 @@ function App() {
 
   return (
     <>
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? ( */}
         <div className="flex">
           <div className="large-screens">
             <AppSidebar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
@@ -37,9 +37,9 @@ function App() {
             <Routing />
           </div>
         </div>
-      ) : (
-        <Login setIsAuthenticated={setIsAuthenticated} />
-      )}
+      {/* ) : ( */}
+        {/* <Login setIsAuthenticated={setIsAuthenticated} /> */}
+      {/* )} */}
     </>
   );
 }
