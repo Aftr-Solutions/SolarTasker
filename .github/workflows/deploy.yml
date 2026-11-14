@@ -1,0 +1,140 @@
+name: Build & Deploy to EC2
+
+# Keyless deploy: GitHub OIDC -> IAM role github-actions-solartasker-deploy (no AWS keys here).
+#   build : api + web docker images -> Amazon ECR
+#   deploy: (optional) sync GitHub secrets -> SSM Parameter Store, then
+#           SSM Run Command on the EC2 -> write .env from SSM, docker compose up
+# App URL: http://13.233.73.99:8095
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-solartasker
+  cancel-in-progress: false
+
+permissions:
+  id-token: write   # OIDC token for AWS
+  contents: read
+
+env:
+  AWS_REGION: ap-south-1
+  AWS_ROLE_ARN: arn:aws:iam::545908811041:role/github-actions-solartasker-deploy
+  INSTANCE_ID: i-0fe1dd19adfb072d6
+  PARAM_PATH: /solartasker
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: api
+            context: server
+            repo: solartasker-api
+          - name: web
+            context: client
+            repo: solartasker-web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          role-session-name: solartasker-build-${{ github.run_id }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          push: true
+          tags: |
+            ${{ steps.ecr.outputs.registry }}/${{ matrix.repo }}:latest
+            ${{ steps.ecr.outputs.registry }}/${{ matrix.repo }}:${{ github.sha }}
+          cache-from: type=gha,scope=${{ matrix.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.name }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          role-session-name: solartasker-deploy-${{ github.run_id }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # SSM Parameter Store is where the server reads secrets from. To change one,
+      # either edit it in SSM directly or set a GitHub secret with the same name:
+      # every non-empty secret below is copied to SSM on deploy; unset ones are left alone.
+      - name: Sync GitHub secrets to Parameter Store
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_RESPONSE_TOKEN: ${{ secrets.WHATSAPP_RESPONSE_TOKEN }}
+          WHATSAPP_API_URL: ${{ secrets.WHATSAPP_API_URL }}
+          MAIL_HOST: ${{ secrets.MAIL_HOST }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+        run: |
+          for name in DB_HOST DB_USER DB_PASSWORD DB_NAME DB_PORT JWT_SECRET SECRET_KEY \
+                      WHATSAPP_TOKEN WHATSAPP_RESPONSE_TOKEN WHATSAPP_API_URL \
+                      MAIL_HOST MAIL_USERNAME MAIL_PASSWORD; do
+            value="${!name}"
+            [ -n "$value" ] || continue
+            aws ssm put-parameter --name "$PARAM_PATH/$name" --type SecureString \
+              --value "$value" --overwrite >/dev/null
+            echo "synced $name"
+          done
+
+      - name: Deploy via SSM Run Command
+        run: |
+          set -euo pipefail
+          REGISTRY="$(aws sts get-caller-identity --query Account --output text).dkr.ecr.${AWS_REGION}.amazonaws.com"
+          API_IMAGE="$REGISTRY/solartasker-api:$GITHUB_SHA"
+          WEB_IMAGE="$REGISTRY/solartasker-web:$GITHUB_SHA"
+          SCRIPT_B64=$(base64 -w0 deploy/server-deploy.sh)
+          COMPOSE_B64=$(base64 -w0 docker-compose.prod.yml)
+          jq -n --arg s "$SCRIPT_B64" --arg c "$COMPOSE_B64" --arg a "$API_IMAGE" --arg w "$WEB_IMAGE" '{
+            commands: [
+              "echo \($s) | base64 -d > /tmp/solartasker-deploy.sh",
+              "COMPOSE_B64=\($c) bash /tmp/solartasker-deploy.sh \($a) \($w) 2>&1"
+            ],
+            executionTimeout: ["900"]
+          }' > params.json
+          CID=$(aws ssm send-command \
+            --instance-ids "$INSTANCE_ID" \
+            --document-name AWS-RunShellScript \
+            --comment "solartasker ${GITHUB_SHA::7}" \
+            --timeout-seconds 600 \
+            --parameters file://params.json \
+            --query Command.CommandId --output text)
+          echo "SSM command: $CID"
+          STATUS=Pending
+          for i in $(seq 1 90); do
+            sleep 10
+            STATUS=$(aws ssm get-command-invocation --command-id "$CID" --instance-id "$INSTANCE_ID" \
+                       --query Status --output text 2>/dev/null || echo Pending)
+            case "$STATUS" in Pending|InProgress|Delayed) continue ;; *) break ;; esac
+          done
+          echo "::group::Server output"
+          aws ssm get-command-invocation --command-id "$CID" --instance-id "$INSTANCE_ID" \
+            --query StandardOutputContent --output text
+          echo "::endgroup::"
+          echo "Status: $STATUS"
+          [ "$STATUS" = "Success" ]
+          echo "Deployed: http://13.233.73.99:8095"

@@ -31,7 +31,7 @@ const logger = createLogger({
 // Dynamic import to resolve circular dependency
 let broadcastNotification;
 try {
-  const websocketModule = require("../server/Utils/websocket");
+  const websocketModule = require("./Utils/websocket");
   broadcastNotification = websocketModule.broadcastNotification;
 } catch (error) {
   console.error("Error importing websocketServer:", error.message);

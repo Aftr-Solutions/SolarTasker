@@ -100,7 +100,7 @@ const Navbar = ({ isCollapse, setIsCollapse }) => {
   const [notifications, setNotifications] = useState([]);
   console.log(notifications);
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket(import.meta.env.VITE_WS_URL || `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`);
 
     ws.onopen = () => {
       console.log("WebSocket connected.");

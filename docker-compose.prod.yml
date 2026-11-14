@@ -1,0 +1,30 @@
+# Runs on the shared EC2 (i-0fe1dd19adfb072d6) in /opt/solartasker.
+# Images come from ECR; .env is written by the deploy from SSM Parameter Store.
+name: solartasker
+
+services:
+  api:
+    image: ${SOLARTASKER_API_IMAGE:?set by deploy}
+    container_name: solartasker-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PORT: "5002"
+      TZ: Asia/Karachi          # cron jobs (12:02 AM, 9 AM WhatsApp, ...) are Pakistan time
+    volumes:
+      - ./logs:/app/logs
+    mem_limit: 256m
+    networks: [solartasker-net]
+
+  web:
+    image: ${SOLARTASKER_WEB_IMAGE:?set by deploy}
+    container_name: solartasker-web
+    restart: unless-stopped
+    depends_on: [api]
+    ports:
+      - "8095:80"
+    mem_limit: 64m
+    networks: [solartasker-net]
+
+networks:
+  solartasker-net:

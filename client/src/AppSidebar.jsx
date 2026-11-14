@@ -13,7 +13,7 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import { Link, useLocation } from "react-router";
 import UserProfile from "./components/UserProfile";
 import  logo from '../src/assets/Logo.png';
-import  smallLogo from '../src/assets/Small-logo.png';
+import  smallLogo from '../src/assets/Small-Logo.png';
 import { jwtDecode } from "jwt-decode";
 
 const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {

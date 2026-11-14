@@ -18,8 +18,11 @@ const { sendMessage }=require("./middleware/whatsappclient.js");
 const { sendMessagetoteams } = require("./middleware/whatsappteam.js");
 const { logWithOptionalBroadcast } = require("./logger");
 const cronpool=require("./Utils/crondb.js");
+const { deleteOldNotifications } = require("./middleware/deletenotification.js");
 
 const app = express();
+// Behind nginx (solartasker-web): use the real client IP for rate limiting
+app.set("trust proxy", 1);
 dotenv.config();
 
 app.use(cors());

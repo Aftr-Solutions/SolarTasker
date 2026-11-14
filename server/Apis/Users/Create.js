@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const tableNames = require("../../Utils/allTableNames");
 const RESPONSE = require("../../GlobalResponse/RESPONSE");
 const pool = require("../../Utils/db");
-const sendUserCredentials = require("../../middleware/sendmail");
+const sendUserCredentials = require("../../middleware/sendMail");
 const { logWithOptionalBroadcast } = require("../../logger");
 
 

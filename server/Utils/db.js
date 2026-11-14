@@ -7,10 +7,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const pool = mysql.createPool({
-  host:process.env.DB_HOST, //"s13.hosterpk.com", // Shared IP from cPanel"148.163.69.162" || 
-  user:process.env.DB_USER, //"digita87_muddassir", // Your database username "solarcle_shahroz" || 
-  password:process.env.DB_PASSWORD, //"Developers000$$$", // Your database password "Shahroz$$$000" || 
-  database:process.env.DB_NAME, //"digita87_SolarTasker", "solarcle_SolarTasker" || 
+  host:process.env.DB_HOST,
+  user:process.env.DB_USER,
+  password:process.env.DB_PASSWORD,
+  database:process.env.DB_NAME,
 });
 pool.getConnection((err, connection) => {
   if (err) {
