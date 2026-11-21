@@ -3,6 +3,7 @@
 # Args: <api-image> <web-image>
 # Env:  COMPOSE_B64    (docker-compose.prod.yml, base64)
 #       DB_COMPOSE_B64 (deploy/db-compose.yml, base64)
+#       SCHEMA_B64     (deploy/schema.sql, base64; idempotent, applied every deploy)
 set -euo pipefail
 API_IMAGE="$1"; WEB_IMAGE="$2"
 APP_DIR=/opt/solartasker
@@ -64,6 +65,10 @@ for i in $(seq 1 30); do
 done
 echo "db: $s"
 [ "$s" = healthy ] || { docker logs --tail 30 solartasker-db 2>&1; exit 1; }
+# Create any missing tables (CREATE TABLE IF NOT EXISTS; existing data untouched)
+echo "$SCHEMA_B64" | base64 -d | docker exec -i solartasker-db \
+  sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"'
+echo "schema: $(docker exec solartasker-db sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=\"$MARIADB_DATABASE\""') tables"
 
 aws ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "$REGISTRY"
 export SOLARTASKER_API_IMAGE="$API_IMAGE" SOLARTASKER_WEB_IMAGE="$WEB_IMAGE"

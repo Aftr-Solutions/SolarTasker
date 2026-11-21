@@ -27,3 +27,6 @@ MySQL now runs on the same EC2 as a MariaDB 11.4 container, managed separately f
 - SSM `/solartasker/DB_HOST` = `solartasker-db`, `DB_PORT` = `3306` (port not published on the host)
 - The DB is never recreated by app deploys and its data stays in the volume. Import a dump with:
   `docker exec -i solartasker-db sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"' < dump.sql`
+- Tables are defined in `deploy/schema.sql` and created on every deploy with `CREATE TABLE IF NOT EXISTS`
+  (existing tables and data are never altered). To add a column later, add an explicit `ALTER TABLE` step.
+- First admin login is the `admin` user in `owners`; change its password from the Users page after logging in.
