@@ -19,8 +19,12 @@ import { jwtDecode } from "jwt-decode";
 const AppSidebar = ({ open, isCollapse, setIsCollapse }) => {
   const location = useLocation();
   const token = localStorage.getItem("token");
-  const userData = jwtDecode(token);
-  console.log(userData);
+  let userData = {};
+  try {
+    userData = token ? jwtDecode(token) : {};
+  } catch {
+    userData = {};
+  }
   
   return (
     <>
