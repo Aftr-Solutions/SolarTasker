@@ -261,7 +261,7 @@ router.post("/", async (req, res) => {
                   // Update task response
                   const updateQuery = `
                     UPDATE ${tableName.tasks}
-                    SET response = ?, whats_client_res = 1w
+                    SET response = ?, whats_client_res = 1
                     WHERE isactive = 0 AND client_id = ? AND whats_client_res = 0;
                   `;
                   const updateRes = await performQuery({

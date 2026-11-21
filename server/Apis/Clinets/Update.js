@@ -23,11 +23,13 @@ router.post("/",(req,res)=>{
             amount:req.body.amount,
             service_plan_duration:req.body.service_plan_duration,
             plan:req.body.plan,
-            last_service_date:req.body.service_plan_duration,
-            upcoming_service_date:req.body.upcoming_service_date,
             region_preference:req.body.region_preference,
         }
     }
+    // Service dates are managed by the scheduler crons; only change them when
+    // explicitly sent (the edit form does not send them).
+    if (req.body.upcoming_service_date) payload.databaseFields.upcoming_service_date = req.body.upcoming_service_date;
+    if (req.body.last_service_date) payload.databaseFields.last_service_date = req.body.last_service_date;
     logWithOptionalBroadcast('info',"Payload for update:", payload);
     
         GlobalUpdate(payload,res);
