@@ -37,7 +37,11 @@ async function performQuery({ sql, params, pool, retries = 3 }) {
   while (attempt < retries) {
     let connection;
     try {
-      connection = await pool.getConnection();
+      // Callers pass either the callback pool (Utils/db.js) or the promise pool
+      // (Utils/crondb.js). Use the promise API in both cases; calling
+      // getConnection() without a callback on the callback pool crashes the process.
+      const promisePool = typeof pool.promise === "function" ? pool.promise() : pool;
+      connection = await promisePool.getConnection();
       const [results] = await connection.query(sql, params);
       return results;
     } catch (error) {

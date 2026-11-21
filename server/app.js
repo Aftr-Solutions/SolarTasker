@@ -100,7 +100,7 @@ cron.schedule("0 8 * * *", async () => {
   }
 });
 
-cron.schedule("0 */2 * * *", async (cronpool) => {
+cron.schedule("0 */2 * * *", async () => {
   logWithOptionalBroadcast("info", "Running notification cleanup...,");
   try{
     await deleteOldNotifications(pool);
