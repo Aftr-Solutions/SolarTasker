@@ -3,7 +3,8 @@ name: Build & Deploy to EC2
 # Keyless deploy: GitHub OIDC -> IAM role github-actions-solartasker-deploy (no AWS keys here).
 #   build : api + web docker images -> Amazon ECR
 #   deploy: (optional) sync GitHub secrets -> SSM Parameter Store, then
-#           SSM Run Command on the EC2 -> write .env from SSM, docker compose up
+#           SSM Run Command on the EC2 -> ensure MariaDB container (solartasker-db),
+#           write .env from SSM, docker compose up
 # App URL: http://13.233.73.99:8095
 on:
   push:
@@ -109,10 +110,11 @@ jobs:
           WEB_IMAGE="$REGISTRY/solartasker-web:$GITHUB_SHA"
           SCRIPT_B64=$(base64 -w0 deploy/server-deploy.sh)
           COMPOSE_B64=$(base64 -w0 docker-compose.prod.yml)
-          jq -n --arg s "$SCRIPT_B64" --arg c "$COMPOSE_B64" --arg a "$API_IMAGE" --arg w "$WEB_IMAGE" '{
+          DB_COMPOSE_B64=$(base64 -w0 deploy/db-compose.yml)
+          jq -n --arg s "$SCRIPT_B64" --arg c "$COMPOSE_B64" --arg d "$DB_COMPOSE_B64" --arg a "$API_IMAGE" --arg w "$WEB_IMAGE" '{
             commands: [
               "echo \($s) | base64 -d > /tmp/solartasker-deploy.sh",
-              "COMPOSE_B64=\($c) bash /tmp/solartasker-deploy.sh \($a) \($w) 2>&1"
+              "COMPOSE_B64=\($c) DB_COMPOSE_B64=\($d) bash /tmp/solartasker-deploy.sh \($a) \($w) 2>&1"
             ],
             executionTimeout: ["900"]
           }' > params.json

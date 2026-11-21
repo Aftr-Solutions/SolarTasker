@@ -18,4 +18,12 @@ Add them in GitHub → Settings → Secrets and variables → Actions (names as 
 or edit them directly in SSM Parameter Store under `/solartasker/`. Then re-run the workflow.
 
 ## Database
-MySQL is external (cPanel host). Its "Remote MySQL" must allow `13.233.73.99`.
+MySQL previously lived on an external cPanel host (port 3306 was firewalled from EC2); see "Database (local container)" below.
+
+## Database (local container)
+MySQL now runs on the same EC2 as a MariaDB 11.4 container, managed separately from the app:
+- Defined in `deploy/db-compose.yml`; every deploy (GitHub Actions, OIDC) copies it to `/opt/solartasker-db` and runs `docker compose up -d`. `.env` there (root/user passwords, mode 600) is created on the first deploy only
+- Container `solartasker-db`, volume `solartasker-db_solartasker-mysql`, network `solartasker_solartasker-net`
+- SSM `/solartasker/DB_HOST` = `solartasker-db`, `DB_PORT` = `3306` (port not published on the host)
+- The DB is never recreated by app deploys and its data stays in the volume. Import a dump with:
+  `docker exec -i solartasker-db sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"' < dump.sql`

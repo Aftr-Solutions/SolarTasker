@@ -1,0 +1,39 @@
+# SolarTasker MariaDB on the shared EC2. Deployed by deploy/server-deploy.sh into
+# /opt/solartasker-db as its own compose project, so app deploys
+# (--remove-orphans) never recreate or remove it. Data lives in the named volume.
+name: solartasker-db
+
+services:
+  db:
+    image: mariadb:11.4
+    container_name: solartasker-db
+    restart: unless-stopped
+    env_file: .env            # MARIADB_ROOT_PASSWORD/DATABASE/USER/PASSWORD, written once from SSM
+    environment:
+      TZ: Asia/Karachi
+    command:
+      - --innodb-buffer-pool-size=128M
+      - --performance-schema=OFF
+      - --max-connections=60
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-name-resolve
+    volumes:
+      - solartasker-mysql:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d:ro   # *.sql here runs only on first init (empty volume)
+    mem_limit: 384m
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks: [solartasker-net]
+
+volumes:
+  solartasker-mysql:
+
+networks:
+  solartasker-net:
+    external: true
+    name: solartasker_solartasker-net   # created by the app project (docker-compose.prod.yml)
